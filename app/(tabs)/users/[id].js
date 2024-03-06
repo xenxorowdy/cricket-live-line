@@ -7,11 +7,12 @@ import {
   FlatList,
   SafeAreaView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import TopTab from "../../component/TopTab";
 import CusText from "../../component/CusText";
 import { Boxes } from "../../component/Carousel";
+import { RecentMatches } from "../../api";
 const getCurrentDate = () => {
   const date = new Date();
   const options = {
@@ -29,9 +30,13 @@ const UserPage = () => {
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
-  const [data, setData] = useState(edata);
-  const option = ["All", "T20", "IPL", "ODI", "Test", "Hundred", "T10"];
-  const handleChange = (data, index) => setIndex(index);
+  const [data, setData] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const option = ["All", "T20", "ODI", "Test", "Hundred", "T10"];
+  const handleChange = (data, index) => {
+    setIndex(index);
+    filteredData(option[index]);
+  };
   const loadMoreData = async () => {
     setLoading(true);
     // Simulate fetching more data (replace with your API call)
@@ -39,6 +44,27 @@ const UserPage = () => {
     setData([...data, ...newData]);
     setPage(page + 1);
     setLoading(false);
+  };
+  const renderItem = async () => {
+    const res = await RecentMatches();
+    setData(res);
+    setFiltered(res);
+  };
+
+  useEffect(() => {
+    renderItem();
+  }, []);
+
+  const filteredData = (value) => {
+    if (value === "All") {
+      renderItem();
+    } else {
+      const tempValue = [...data];
+      const filteredData = tempValue.filter(
+        (item) => item.match_type === value
+      );
+      setFiltered(filteredData);
+    }
   };
 
   // const renderItem = ({ item }) => (
@@ -56,19 +82,20 @@ const UserPage = () => {
   return (
     // <ScrollView >
     <View style={styles.scrollView}>
-      <TopTab
-        option={option}
-        handleChangeTab={handleChange}
-        currentIndex={index}
-      />
-      {/* {[0, 1, 2, 3, 4, 5, 6].map((ele, index) => (
+      <SafeAreaView>
+        <TopTab
+          option={option}
+          handleChangeTab={handleChange}
+          currentIndex={index}
+        />
+        {/* {[0, 1, 2, 3, 4, 5, 6].map((ele, index) => (
         <List key={index} />
       ))} */}
-      <SafeAreaView>
         <FlatList
-          data={data}
+          style={{ marginBottom: 140 }}
+          data={filtered}
           // renderItem={renderItem}
-          renderItem={List}
+          renderItem={({ item, index }) => <List key={index} item={item} />}
           keyExtractor={(item, index) => `${item}_${index}`}
           // onEndReached={onEndReached}
           // onEndReachedThreshold={0.5} // Load data when 50% near the bottom
@@ -80,14 +107,14 @@ const UserPage = () => {
   );
 };
 
-const List = (props) => {
+const List = ({ item }) => {
   return (
     <View>
       <View style={{ marginVertical: 7 }}>
-        <CusText style={{ fontWeight: 500 }}>{getCurrentDate()}</CusText>
+        <CusText style={{ fontWeight: 500 }}>{item?.date_wise}</CusText>
       </View>
       <View style={styles.blockLiveContainer}>
-        <Boxes e={24} />
+        <Boxes match={item} />
       </View>
     </View>
   );

@@ -5,8 +5,12 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
 });
-const CusText = ({ children, style }) => {
-  return <Text style={[styles.globalText, style]}>{children}</Text>;
+const CusText = ({ children, style, ...props }) => {
+  return (
+    <Text style={[styles.globalText, style]} {...props}>
+      {children}
+    </Text>
+  );
 };
 
 export default CusText;

@@ -1,18 +1,58 @@
 import {
   Dimensions,
   FlatList,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import React from "react";
+import { Ionicons } from "@expo/vector-icons";
+import React, { useState } from "react";
+import SvgComponent from "./cricket";
+import ShowAnimation from "./ShowAnimation";
 const tobat = ["rohit sharma", "jos butler", "sam ", "sanju samson"];
-const Live = () => {
+const Live = ({ matchDetail = [] }) => {
+  const [mute, SetMute] = useState(false);
+  let last24ball = [];
+  matchDetail?.last4overs?.map(
+    (e) => (last24ball = [...last24ball, ...e.balls])
+  );
+  const handleMute = () => {
+    SetMute(!mute);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.tvStyle}>
-        <Text style={{ color: "#292A2D" }}> 0 </Text>
+        {mute ? (
+          <Ionicons
+            onPress={handleMute}
+            name="volume-mute-outline"
+            size={24}
+            color="black"
+            style={{ position: "absolute", top: 5, left: 5 }}
+          />
+        ) : (
+          <Ionicons
+            onPress={handleMute}
+            name="volume-high-outline"
+            size={24}
+            color="black"
+            style={{ position: "absolute", top: 5, left: 5 }}
+          />
+        )}
+        <ShowAnimation style={styles.tvStyle} />
+        <Text
+          style={{
+            position: "absolute",
+            top: 5,
+            right: 5,
+            fontWeight: 500,
+            color: "#FF3C33",
+          }}
+        >
+          Live
+        </Text>
       </View>
       <View style={styles.box}>
         <Text style={styles.TextColor}>Run Rate: 8.49</Text>
@@ -22,15 +62,17 @@ const Live = () => {
         <View style={styles.box}>
           <Text style={styles.TextColor}>Winning Probability</Text>
           <View style={{ flexDirection: "row", gap: 5 }}>
-            <Text style={styles.TextColor}> Fav:</Text>
-            <Text style={styles.TextColor}>71 </Text>
-            <Text style={styles.TextColor}>72</Text>
+            <Text style={styles.TextColor}> {matchDetail?.fav_team}</Text>
+            <Text style={styles.TextColor}>{matchDetail?.min_rate} </Text>
+            <Text style={styles.TextColor}>{matchDetail?.max_rate}</Text>
           </View>
         </View>
         <View style={styles.divider} />
         <View style={styles.box}>
           <View style={{ flexDirection: "row", gap: 3 }}>
-            <Text style={styles.TextColor}>20 Over Runs:</Text>
+            <Text style={styles.TextColor}>
+              {matchDetail?.match_over} Over Runs:
+            </Text>
             <Text style={styles.TextColor}>172 </Text>
             <Text style={styles.TextColor}>173</Text>
           </View>
@@ -59,18 +101,18 @@ const Live = () => {
           <View
             style={{
               flexDirection: "row",
-              gap: 15,
+              gap: 11,
             }}
           >
             <Text style={styles.TextColor}>R</Text>
             <Text style={styles.TextColor}>B</Text>
             <Text style={styles.TextColor}>4s</Text>
             <Text style={styles.TextColor}>6s</Text>
-            <Text style={styles.TextColor}>SR</Text>
+            <Text style={[styles.TextColor, { width: 35 }]}>SR</Text>
           </View>
         </View>
         <FlatList
-          data={[1, 2, 3, 4, 5]}
+          data={matchDetail?.batsman}
           keyExtractor={(item, index) => `${item}_${index}`}
           renderItem={({ item }) => (
             <View style={[styles.rowBox]}>
@@ -82,19 +124,19 @@ const Live = () => {
                   },
                 ]}
               >
-                virat kolhi
+                {item?.name}
               </Text>
               <View
                 style={{
                   flexDirection: "row",
-                  gap: 15,
+                  gap: 10,
                 }}
               >
-                <Text style={styles.TextColor}>0</Text>
-                <Text style={styles.TextColor}>0</Text>
-                <Text style={styles.TextColor}>0</Text>
-                <Text style={styles.TextColor}>0</Text>
-                <Text style={styles.TextColor}>0</Text>
+                <Text style={styles.TextColor}>{item.run}</Text>
+                <Text style={styles.TextColor}>{item.ball}</Text>
+                <Text style={styles.TextColor}>{item.fours}</Text>
+                <Text style={styles.TextColor}>{item.sixes}</Text>
+                <Text style={[styles.TextColor]}>{item.strike_rate}</Text>
               </View>
             </View>
           )}
@@ -108,7 +150,7 @@ const Live = () => {
             { borderColor: "#fff" },
           ]}
         >
-          <Text style={styles.TextColor}>Bowler</Text>
+          <Text style={styles.TextColor}>bowler</Text>
           <View
             style={{
               flexDirection: "row",
@@ -118,34 +160,27 @@ const Live = () => {
             <Text style={styles.TextColor}>O</Text>
             <Text style={styles.TextColor}>R</Text>
             <Text style={styles.TextColor}>Wkt</Text>
-            <Text style={styles.TextColor}>Eco</Text>
+            <Text style={[styles.TextColor, { width: 32 }]}>Eco</Text>
           </View>
         </View>
         <FlatList
-          data={[1, 2, 3, 4, 5]}
+          data={[matchDetail?.bolwer]}
           keyExtractor={(item, index) => `${item}_${index}`}
           renderItem={({ item }) => (
             <View style={[styles.rowBox]}>
-              <Text
-                style={[
-                  styles.TextColor,
-                  {
-                    textAlign: "center",
-                  },
-                ]}
-              >
-                virat kolhi
-              </Text>
+              <View style={{ flexDirection: "row", gap: 2 }}>
+                <Text style={[styles.TextColor]}>{item?.name}</Text>
+              </View>
               <View
                 style={{
                   flexDirection: "row",
-                  gap: 15,
+                  gap: 14,
                 }}
               >
-                <Text style={styles.TextColor}>0</Text>
-                <Text style={styles.TextColor}>0</Text>
-                <Text style={styles.TextColor}>0</Text>
-                <Text style={styles.TextColor}>0</Text>
+                <Text style={styles.TextColor}>{item?.over}</Text>
+                <Text style={styles.TextColor}>{item?.run}</Text>
+                <Text style={styles.TextColor}>{item?.wicket}</Text>
+                <Text style={styles.TextColor}>{item?.economy}</Text>
               </View>
             </View>
           )}
@@ -168,10 +203,7 @@ const Live = () => {
           contentContainerStyle={styles.CategoryScrollViewStyle}
         >
           <View style={{ flexDirection: "row", gap: 10 }}>
-            {[
-              1, 3, 45, 1, 3, 45, 1, 3, 45, 1, 3, 45, 1, 3, 45, 1, 3, 45, 1, 3,
-              45, 1, 3, 45,
-            ].map((item, index) => (
+            {last24ball?.map((item, index) => (
               <View
                 style={{
                   height: 25,
@@ -180,10 +212,9 @@ const Live = () => {
                   borderRadius: 25,
                   alignItems: "center",
                   justifyContent: "center",
-
                 }}
               >
-                <Text key={index} style={{color:'#fff',fontWeight:'500'}}>
+                <Text key={index} style={{ color: "#fff", fontWeight: "500" }}>
                   {item}
                 </Text>
               </View>
@@ -203,7 +234,7 @@ const Live = () => {
         </View>
 
         <Text style={[styles.TextColor, styles.rowBox]}>
-          {tobat.join(", ")}
+          {matchDetail?.yet_to_bet?.join(", ")}
         </Text>
       </View>
     </View>
@@ -236,7 +267,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#292A2D",
     paddingHorizontal: 5,
     paddingVertical: 4,
-    width: Dimensions.get("window").width,
+    width: Dimensions.get("window").width - 2,
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -245,6 +276,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "95%",
     height: 100,
+    flexDirection: "row",
     borderWidth: 3, // Border width
     borderColor: "black", // Border color
     borderRadius: 4, // Border radius (optional, for rounded corners)
@@ -253,7 +285,7 @@ const styles = StyleSheet.create({
   },
   TextColor: {
     color: "#ccc",
-    minWidth: 20,
+    minWidth: 25,
   },
   divider: {
     borderWidth: 0.4,

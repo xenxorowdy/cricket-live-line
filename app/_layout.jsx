@@ -23,6 +23,20 @@ const RootLayout = () => {
           headerTitle: "Score Board",
         }}
       />
+      <Stack.Screen
+        name="news/[id]"
+        options={{
+          headerTitle: "News",
+          presentation: "modal",
+        }}
+      />
+      <Stack.Screen
+        name="series/index"
+        options={{
+          headerTitle: "Team Information",
+          presentation: "modal",
+        }}
+      />
     </Stack>
   );
 };

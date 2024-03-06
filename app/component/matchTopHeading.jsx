@@ -2,7 +2,8 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 
-const MatchTopHeading = () => {
+const MatchTopHeading = ({ team_a_img, team_b_img, team_a, team_b }) => {
+  console.log(team_a_img, team_b_img, team_a, team_b);
   return (
     <View
       style={{
@@ -15,21 +16,33 @@ const MatchTopHeading = () => {
       <View style={styles.infoTeam}>
         <Image
           source={{
-            uri: "https://img.freepik.com/free-vector/desktop-smartphone-app-development_23-2148683810.jpg?w=1380&t=st=1707284282~exp=1707284882~hmac=5cd78d1b9181a16124b293c7a38352d0e36441402e51c4e9196b6c4481488289",
+            uri: team_a_img || "",
           }}
-          style={{ width: 30, height: 30, borderRadius: 18 }}
+          style={{
+            width: 30,
+            height: 30,
+            borderRadius: 18,
+            backgroundColor: "white",
+            objectFit: "cover",
+          }}
         />
-        <Text style={styles.TextColor}>Dubai</Text>
+        <Text style={styles.TextColor}>{team_a}</Text>
       </View>
 
       <AntDesign color="white" name="swap" size={20} />
       <View style={styles.infoTeam}>
-        <Text style={styles.TextColor}>ADKR</Text>
+        <Text style={styles.TextColor}>{team_b}</Text>
         <Image
           source={{
-            uri: "https://img.freepik.com/free-vector/desktop-smartphone-app-development_23-2148683810.jpg?w=1380&t=st=1707284282~exp=1707284882~hmac=5cd78d1b9181a16124b293c7a38352d0e36441402e51c4e9196b6c4481488289",
+            uri: team_b_img,
           }}
-          style={{ width: 30, height: 30, borderRadius: 18 }}
+          style={{
+            width: 30,
+            height: 30,
+            borderRadius: 18,
+            backgroundColor: "white",
+            objectFit: "cover",
+          }}
         />
       </View>
     </View>

@@ -18,9 +18,9 @@ export default function CollapseCustom({ children }) {
             <Text> 185-5 </Text>
             <Text>(20.0)</Text>
             {isCollapsed ? (
-              <AntDesign name="down" size={22} color="white" />
+              <AntDesign name="down" size={18} color="white" />
             ) : (
-              <AntDesign name="up" size={22} color="white" />
+              <AntDesign name="up" size={18} color="white" />
             )}
           </View>
         </View>

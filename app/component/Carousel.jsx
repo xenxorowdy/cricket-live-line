@@ -8,11 +8,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 import Swiper from "react-native-swiper";
 
 import CusText from "./CusText";
 import { Link } from "expo-router";
+import { formatDateAndTime } from "../utils";
 
 const MyComponent = () => {
   // const navigation = useNavigation();
@@ -23,10 +25,223 @@ const MyComponent = () => {
 
   return <Button onPress={handleRedirect} title="Go to Details" />;
 };
+const width = Dimensions.get("screen").width - 10;
 
+export default function Carousel({ liveMatch = [] }) {
+  /**
+   * A function that handles the change of index.
+   *
+   * @param {type} ele - the element representing the changed index
+   * @return {type} undefined
+   */
+  const handleIndexChanged = (ele) => {
+    console.log("handleIndexChange", ele);
+  };
+  const dividerStyles = [styles.divider && styles.dividerInset];
+  if (liveMatch?.length === 0) {
+    return <CusText>No live match</CusText>;
+  }
+
+  return (
+    <Swiper style={styles.wrapper} showsButtons={true}>
+      {liveMatch?.map((match, index) => (
+        <Boxes match={match} key={index} />
+      ))}
+    </Swiper>
+  );
+}
+// {
+//   "id": "857294c2-fbd9-4e1d-b287-8cf790501759",
+//   "name": "New Zealand vs Australia, 3rd T20I",
+//   "matchType": "t20",
+//   "status": "Australia won by 27 runs (2nd innings reduced to 10 overs due to rain, DLS target 126)",
+//   "venue": "Eden Park, Auckland",
+//   "date": "2024-02-25",
+//   "dateTimeGMT": "2024-02-25T00:00:00",
+//   "teams": [
+//     "New Zealand",
+//     "Australia"
+//   ],
+//   "teamInfo": [
+//     {
+//       "name": "Australia",
+//       "shortname": "AUS",
+//       "img": "https://g.cricapi.com/iapi/6-637877070670541994.webp?w=48"
+//     },
+//     {
+//       "name": "New Zealand",
+//       "shortname": "NZ",
+//       "img": "https://g.cricapi.com/iapi/57-637877076980737903.webp?w=48"
+//     }
+//   ],
+//   "score": [
+//     {
+//       "r": 118,
+//       "w": 4,
+//       "o": 10.4,
+//       "inning": "Australia Inning 1"
+//     },
+//     {
+//       "r": 98,
+//       "w": 3,
+//       "o": 10,
+//       "inning": "New Zealand Inning 1"
+//     }
+//   ],
+//   "series_id": "958e75fa-66fd-40d1-93ef-867c55f088db",
+//   "fantasyEnabled": false,
+//   "bbbEnabled": true,
+//   "hasSquad": true,
+//   "matchStarted": true,
+//   "matchEnded": true
+// }
+export const Boxes = ({ e, match }) => {
+  const [handlePress, setHandlePress] = useState();
+  const handleBoxPress = () => {
+    console.log("hello");
+  };
+  const matchStatusDisplay = () => {
+    return (
+      match?.need_run_ball ||
+      match?.trail_lead ||
+      match?.toss ||
+      match?.venue ||
+      ""
+    );
+  };
+  return (
+    <Link href={"/match/" + match?.match_id + "/"} style={{ borderRadius: 12 }}>
+      <View onPress={handleBoxPress} style={styles.slide1}>
+        <View style={styles.displayFlex}>
+          <View style={{ width: "75%" }}>
+            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>
+              {match?.series}
+            </Text>
+            <View style={{ flexDirection: "row", gap: 5 }}>
+              <Text style={{ ...styles.text, ...styles.textSmallText }}>
+                {/* {formatDateAndTime(match?.dateTimeGMT + "Z")} */}
+                {match?.match_date + " " + match?.match_time + " "}
+
+                {/* Today 09:10 AM */}
+              </Text>
+              <CusText style={styles.textSmallText}>
+                {match?.match_type}
+              </CusText>
+            </View>
+          </View>
+          {match?.match_status && (
+            <View style={[styles.liveIcon]}>
+              <Text style={[styles.text, { fontWeight: 600 }]}>
+                •{match?.match_status}
+              </Text>
+            </View>
+          )}
+        </View>
+        <View style={styles.divider} />
+        {/* <Text style={styles.text}>Hello Swiper</Text> */}
+        <View
+          style={{
+            ...styles.displayFlex,
+            height: 100,
+            padding: 20,
+          }}
+        >
+          <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+            <View style={{ gap: 5, alignItems: "center" }}>
+              <Image
+                source={{
+                  uri: match?.team_a_img || "",
+                }}
+                style={{ width: 30, height: 30, borderRadius: 18 }}
+              />
+              <CusText>{match?.team_a_short}</CusText>
+            </View>
+            {match?.team_a_scores ? (
+              <View>
+                <CusText>{match?.team_a_scores}</CusText>
+                <CusText>{match?.team_a_over} over</CusText>
+              </View>
+            ) : (
+              <View>
+                <CusText>Yet to Bat</CusText>
+              </View>
+            )}
+          </View>
+          <AntDesign color="white" name="swap" size={20} />
+          <View
+            style={{
+              flexDirection: "row-reverse",
+              gap: 10,
+              alignItems: "center",
+            }}
+          >
+            <View style={{ gap: 5, alignItems: "center" }}>
+              <Image
+                source={{
+                  uri: match?.team_b_img || "",
+                }}
+                style={{ width: 30, height: 30, borderRadius: 18 }}
+              />
+              <CusText>{match?.team_b_short}</CusText>
+            </View>
+            {match?.team_b_scores ? (
+              <View>
+                <CusText>{match?.team_b_scores}</CusText>
+                <CusText>{match?.team_b_over} over</CusText>
+              </View>
+            ) : (
+              <View>
+                <CusText>Yet to Bat</CusText>
+              </View>
+            )}
+          </View>
+        </View>
+        <View style={styles.divider} />
+        <View style={styles.displayFlexBottom}>
+          <View>
+            <CusText
+              numberOfLines={2}
+              ellipsizeMode="tail"
+              style={[styles.text, { width: width - 150 }]}
+            >
+              {matchStatusDisplay() || ""}
+            </CusText>
+          </View>
+          <View style={{ flexDirection: "row", gap: 5 }}>
+            <Text style={styles.text}> {match?.fav_team || ""} </Text>
+            <View
+              style={{
+                backgroundColor: "green",
+                minWidth: 30,
+                height: 18,
+                borderRadius: 4,
+                alignItems: "center",
+              }}
+            >
+              <Text>{match?.min_rate}</Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: "yellow",
+                minWidth: 30,
+                height: 18,
+                borderRadius: 4,
+                alignItems: "center",
+              }}
+            >
+              <Text>{match?.max_rate}</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </Link>
+  );
+};
 const styles = StyleSheet.create({
   wrapper: {
-    height: 200,
+    height: 222,
+    alignItems: "center",
+    justifyContent: "center",
   },
   slide1: {
     paddingHorizontal: 5,
@@ -34,7 +249,11 @@ const styles = StyleSheet.create({
     color: "#fffff",
     minHeight: 180,
     justifyContent: "center",
-    width: Dimensions.get("screen").width,
+    borderRadius: 8,
+    borderWidth: 1,
+    alignContent: "center",
+    justifyContent: "center",
+    width: Dimensions.get("screen").width - 10,
   },
   slide2: {
     flex: 1,
@@ -54,35 +273,35 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   textSmallText: {
-    fontSize: 8,
+    fontSize: 9,
   },
   displayFlexBottom: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "95%",
     minHeight: 30,
-    gap: 8,
+    gap: 4,
     alignContent: "center",
     alignItems: "center",
-    paddingBottom: 1,
+    paddingHorizontal: 1,
   },
   displayFlex: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "88%",
+    width: "100%",
     minHeight: 40,
     gap: 8,
     alignContent: "center",
     alignItems: "center",
   },
   liveIcon: {
-    flex: 1,
-    width: 40,
     height: 19,
+    minWidth: 30,
+    paddingHorizontal: 2,
+    marginHorizontal: 2,
     backgroundColor: "red",
-    flex: "right",
     justifyContent: "flex-end",
-    borderRadius: 2,
+    borderRadius: 3,
     alignItems: "center",
     alignContent: "center",
   },
@@ -95,105 +314,4 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
 });
-
-export default function Carousel() {
-  const handleIndexChanged = (ele) => {
-    console.log("handleIndexChange", ele);
-  };
-  const dividerStyles = [styles.divider && styles.dividerInset];
-  return (
-    <Swiper style={styles.wrapper} showsButtons={true}>
-      {[1, 34, 56, 67].map((e, index) => (
-        <Boxes e={e} key={index} />
-      ))}
-    </Swiper>
-  );
-}
-export const Boxes = ({ e }) => {
-  const [handlePress, setHandlePress] = useState();
-  const handleBoxPress = () => {
-    console.log("hello");
-  };
-  return (
-    <Link href={"/match/323"}>
-      <View onPress={handleBoxPress} style={styles.slide1}>
-        <View style={styles.displayFlex}>
-          <View>
-            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>
-              south Africa Women south Africa Women south Africa Women
-            </Text>
-            <Text style={{ ...styles.text, ...styles.textSmallText }}>
-              Today 09:10 AM
-            </Text>
-          </View>
-          <View style={styles.liveIcon}>
-            <Text style={styles.text}>•Live</Text>
-          </View>
-        </View>
-        <View style={styles.divider} />
-        {/* <Text style={styles.text}>Hello Swiper</Text> */}
-        <View
-          style={{
-            ...styles.displayFlex,
-            height: 100,
-            padding: 20,
-          }}
-        >
-          <View style={{ flexDirection: "row", gap: 7 }}>
-            <View style={{ gap: 5 }}>
-              <Image
-                source={{
-                  uri: "https://img.freepik.com/free-vector/desktop-smartphone-app-development_23-2148683810.jpg?w=1380&t=st=1707284282~exp=1707284882~hmac=5cd78d1b9181a16124b293c7a38352d0e36441402e51c4e9196b6c4481488289",
-                }}
-                style={{ width: 30, height: 30, borderRadius: 18 }}
-              />
-              <CusText>{e}</CusText>
-            </View>
-            <View>
-              <CusText>136-4</CusText>
-              <CusText>28.4 over</CusText>
-            </View>
-          </View>
-          <Image
-            source={{
-              uri: "https://img.freepik.com/free-vector/desktop-smartphone-app-development_23-2148683810.jpg?w=1380&t=st=1707284282~exp=1707284882~hmac=5cd78d1b9181a16124b293c7a38352d0e36441402e51c4e9196b6c4481488289",
-            }}
-            style={{ width: 30, height: 30, borderRadius: 18 }}
-          />
-        </View>
-        <View style={styles.divider} />
-        <View style={styles.displayFlexBottom}>
-          <View>
-            <CusText>rain stop delay</CusText>
-          </View>
-          <View style={{ flexDirection: "row", gap: 5 }}>
-            <Text style={styles.text}> fav </Text>
-            <Text
-              style={{
-                backgroundColor: "green",
-                width: 25,
-                height: 18,
-                alignItems: "center",
-              }}
-            >
-              {" "}
-              06
-            </Text>
-            <Text
-              style={{
-                backgroundColor: "yellow",
-                width: 25,
-                height: 18,
-                alignItems: "center",
-              }}
-            >
-              {" "}
-              45
-            </Text>
-          </View>
-        </View>
-      </View>
-    </Link>
-  );
-};
 AppRegistry.registerComponent("myproject", () => SwiperComponent);

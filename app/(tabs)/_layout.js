@@ -29,8 +29,8 @@ export default function HomeLayout() {
         <Tabs.Screen
           name="users/[id]"
           options={{
-            headerTitle: "users",
-            title: "users",
+            headerTitle: "Upcoming Matches",
+            title: "Upcoming Matches",
           }}
         />
       </Tabs>

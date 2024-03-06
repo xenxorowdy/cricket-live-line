@@ -18,9 +18,9 @@ const TopTab = ({
       showHorizontalScrollIndicator={false}
       contentContainerStyle={styles.CategoryScrollViewStyle}
     >
-      {option.map((data, index) => (
+      {option?.map((data, index) => (
         <View
-          styles={styles.CategoryScrollViewContainer}
+          styles={styles?.CategoryScrollViewContainer}
           key={index.toString()}
         >
           <TouchableOpacity

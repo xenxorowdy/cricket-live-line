@@ -9,7 +9,7 @@ const Match = () => {
   return (
     <ScrollView style={styles.scrollView}>
       {/* <Text style={styles.textScroll}>Match {id} </Text> */}
-      <MatchDetail />
+      <MatchDetail matchId={id} />
     </ScrollView>
   );
 };
