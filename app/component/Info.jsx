@@ -21,8 +21,9 @@ const red = "#d32f2f";
 const green = "#21DA8C";
 const Info = ({ matchInfo, matchId }) => {
   console.log(matchId, "calling matchId");
+  console.log(matchInfo);
   const {
-    match_date,
+    match_date = "",
     match_time,
     place,
     venue,
@@ -59,7 +60,7 @@ const Info = ({ matchInfo, matchId }) => {
           {" "}
           {match_date} {match_time}
         </Text>
-        <Text style={styles.TextColor}> ADKR opt to bowl</Text>
+        <Text style={styles.TextColor}> {toss}</Text>
         <Text style={styles.TextColor}> {venue}</Text>
       </View>
       <Text style={styles.TextHeading}> Umpire </Text>
@@ -92,7 +93,7 @@ const Info = ({ matchInfo, matchId }) => {
             justifyContent: "space-between",
             padding: 5,
           }}
-          // onPress={() => navig÷ation.navigate("/setting")}
+        // onPress={() => navig÷ation.navigate("/setting")}
         >
           <Text style={styles.TextColor}> {team_a} </Text>
           <Entypo color="white" name="chevron-right" />
@@ -124,7 +125,7 @@ const Info = ({ matchInfo, matchId }) => {
         >
           <CusText> {team_a} </CusText>
           <View style={{ flexDirection: "row", gap: 5 }}>
-            {forms.team_a.map((text) => (
+            {forms?.team_a?.map((text) => (
               <View
                 style={{
                   borderWidth: 1,
@@ -159,7 +160,7 @@ const Info = ({ matchInfo, matchId }) => {
         >
           <CusText> {team_b} </CusText>
           <View style={{ flexDirection: "row", gap: 5 }}>
-            {forms.team_b.map((text) => (
+            {forms?.team_b?.map((text) => (
               <View
                 style={{
                   borderWidth: 1,

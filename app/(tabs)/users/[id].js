@@ -47,6 +47,7 @@ const UserPage = () => {
   };
   const renderItem = async () => {
     const res = await RecentMatches();
+    console.log("response", res);
     setData(res);
     setFiltered(res);
   };
@@ -82,7 +83,8 @@ const UserPage = () => {
   return (
     // <ScrollView >
     <View style={styles.scrollView}>
-      <SafeAreaView>
+      <SafeAreaView style={{ backgroundColor: "#7785AC",height:25 }}/>
+       
         <TopTab
           option={option}
           handleChangeTab={handleChange}
@@ -92,7 +94,7 @@ const UserPage = () => {
         <List key={index} />
       ))} */}
         <FlatList
-          style={{ marginBottom: 140 }}
+          style={styles.scrollView}
           data={filtered}
           // renderItem={renderItem}
           renderItem={({ item, index }) => <List key={index} item={item} />}
@@ -101,7 +103,7 @@ const UserPage = () => {
           // onEndReachedThreshold={0.5} // Load data when 50% near the bottom
           // ListFooterComponent={() => loading && <CusText>Loading...</CusText>}
         />
-      </SafeAreaView>
+    
     </View>
     // </ScrollView>
   );

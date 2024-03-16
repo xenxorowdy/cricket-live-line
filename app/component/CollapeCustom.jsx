@@ -1,9 +1,10 @@
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Collapsible from "react-native-collapsible";
+import CusText from "./CusText";
 
-export default function CollapseCustom({ children }) {
+export default function CollapseCustom({ team, children }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
@@ -13,14 +14,17 @@ export default function CollapseCustom({ children }) {
         onPress={() => setIsCollapsed(!isCollapsed)}
       >
         <View style={styles.collapseContainer}>
-          <Text>Toggle Contnt</Text>
+          <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+            <Image style={{ width: 20, height: 20, borderRadius: 50 }} source={{ uri: team?.flag }} />
+            <CusText style={{ fontWeight: 600 }}>{team?.name}</CusText>
+          </View>
           <View style={{ flexDirection: "row", gap: 4, alignItems: "center" }}>
-            <Text> 185-5 </Text>
-            <Text>(20.0)</Text>
+            <CusText style={{ fontWeight: 600 }}> {team?.score}-{team?.wicket} </CusText>
+            <CusText style={{ fontWeight: 600 }}>({team?.over})</CusText>
             {isCollapsed ? (
-              <AntDesign name="down" size={18} color="white" />
+              <AntDesign name="down" size={16} color="white" />
             ) : (
-              <AntDesign name="up" size={18} color="white" />
+              <AntDesign name="up" size={16} color="white" />
             )}
           </View>
         </View>
@@ -40,10 +44,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
 
     marginHorizontal: 10,
-    backgroundColor: "#2596be",
+    backgroundColor: "#7785AC",
     justifyContent: "space-between",
     paddingHorizontal: 15,
-    borderRadius: 8,
+    borderRadius: 5,
     borderWidth: 1,
     flexDirection: "row",
   },

@@ -9,9 +9,16 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import SvgComponent from "./cricket";
 import ShowAnimation from "./ShowAnimation";
+import SvgComponent from "./cricket";
+import { checkColor } from "./styleSheet";
+import CusText from "./CusText";
 const tobat = ["rohit sharma", "jos butler", "sam ", "sanju samson"];
+const option =
+{
+  "ball": "Ball Start",
+  "wicket": "Wicket",
+};
 const Live = ({ matchDetail = [] }) => {
   const [mute, SetMute] = useState(false);
   let last24ball = [];
@@ -21,50 +28,73 @@ const Live = ({ matchDetail = [] }) => {
   const handleMute = () => {
     SetMute(!mute);
   };
+
+
   return (
     <View style={styles.container}>
-      <View style={styles.tvStyle}>
-        {mute ? (
-          <Ionicons
-            onPress={handleMute}
-            name="volume-mute-outline"
-            size={24}
-            color="black"
-            style={{ position: "absolute", top: 5, left: 5 }}
-          />
-        ) : (
-          <Ionicons
-            onPress={handleMute}
-            name="volume-high-outline"
-            size={24}
-            color="black"
-            style={{ position: "absolute", top: 5, left: 5 }}
-          />
-        )}
-        <ShowAnimation style={styles.tvStyle} />
-        <Text
-          style={{
-            position: "absolute",
-            top: 5,
-            right: 5,
-            fontWeight: 500,
-            color: "#FF3C33",
-          }}
-        >
-          Live
-        </Text>
+      <View style={[{ alignContent: "center", alignItems: "center", width: "100%" }]} >
+        <View style={styles.tvStyle}>
+          {mute ? (
+            <Ionicons
+              onPress={handleMute}
+              name="volume-mute-outline"
+              size={24}
+              color="black"
+              style={{ position: "absolute", top: 5, left: 5 }}
+            />
+          ) : (
+            <Ionicons
+              onPress={handleMute}
+              name="volume-high-outline"
+              size={24}
+              color="black"
+              style={{ position: "absolute", top: 5, left: 5 }}
+            />
+          )}
+
+          <ShowAnimation style={styles.tvStyle} value={matchDetail?.first_circle} />
+          <Text
+            style={{
+              position: "absolute",
+              top: 5,
+              right: 5,
+              fontWeight: 600,
+              fontSize: 15,
+              color: checkColor(matchDetail?.match_status),
+            }}
+          >
+            {matchDetail?.match_status}
+          </Text>
+        </View>
+        <View style={[styles.boxtv]} >
+          <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+            <CusText>
+
+            </CusText>
+          </View>
+        </View>
       </View>
-      <View style={styles.box}>
-        <Text style={styles.TextColor}>Run Rate: 8.49</Text>
-        <Text style={styles.TextColor}>Ball Rem: 14</Text>
+      <View style={[styles.box, { flexDirection: "column", gap: 20, borderRadius: 2, width: "98%" }]}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text style={styles.TextColor}>Run Rate: {matchDetail?.curr_rate}</Text>
+          {matchDetail?.rr_rate &&
+            <Text style={styles.TextColor}>RRR: {matchDetail?.rr_rate}</Text>}
+          <Text style={styles.TextColor}>Ball Rem: {matchDetail?.ball_rem}</Text>
+        </View>
+        {matchDetail?.target &&
+          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <Text style={styles.TextColor}>Run Needed: {matchDetail?.run_need}</Text>
+            <Text style={styles.TextColor}>Target: {matchDetail?.target}</Text>
+          </View>
+        }
       </View>
       <View>
         <View style={styles.box}>
           <Text style={styles.TextColor}>Winning Probability</Text>
           <View style={{ flexDirection: "row", gap: 5 }}>
             <Text style={styles.TextColor}> {matchDetail?.fav_team}</Text>
-            <Text style={styles.TextColor}>{matchDetail?.min_rate} </Text>
-            <Text style={styles.TextColor}>{matchDetail?.max_rate}</Text>
+            <Text style={[styles.TextColor, { backgroundColor: "red", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff" }]}>{matchDetail?.min_rate} </Text>
+            <Text style={[styles.TextColor, { backgroundColor: "green", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff" }]}>{matchDetail?.max_rate}</Text>
           </View>
         </View>
         <View style={styles.divider} />
@@ -136,7 +166,7 @@ const Live = ({ matchDetail = [] }) => {
                 <Text style={styles.TextColor}>{item.ball}</Text>
                 <Text style={styles.TextColor}>{item.fours}</Text>
                 <Text style={styles.TextColor}>{item.sixes}</Text>
-                <Text style={[styles.TextColor]}>{item.strike_rate}</Text>
+                <Text style={[[styles.TextColor, { width: 35 }]]}>{Math.round(item.strike_rate)}</Text>
               </View>
             </View>
           )}
@@ -258,6 +288,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     marginVertical: 3,
     width: Dimensions.get("window").width,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  boxtv: {
+    backgroundColor: "#292A2D",
+    paddingVertical: 8,
+    marginVertical: 3,
+    width: "95%",
     flexDirection: "row",
     justifyContent: "space-between",
   },

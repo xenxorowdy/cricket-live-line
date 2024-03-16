@@ -8,6 +8,12 @@ const RootLayout = () => {
         options={{
           headerShown: false,
           headerTitle: "",
+          headerStyle: { backgroundColor: '#7785AC' },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+
         }}
       />
       <Stack.Screen
@@ -15,12 +21,25 @@ const RootLayout = () => {
         options={{
           headerTitle: "Team Information",
           presentation: "modal",
+          headerStyle: { backgroundColor: '#7785AC' },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+
         }}
       />
       <Stack.Screen
         name="match/[id]"
         options={{
-          headerTitle: "Score Board",
+          headerTitle: "Match Summary",
+          headerStyle: { backgroundColor: '#7785AC' },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: '700',
+            backgroundColor:'#7785AC',
+          },
+
         }}
       />
       <Stack.Screen
@@ -28,16 +47,31 @@ const RootLayout = () => {
         options={{
           headerTitle: "News",
           presentation: "modal",
+                    headerStyle: { backgroundColor: '#7785AC' },
+
         }}
+        
       />
       <Stack.Screen
         name="series/index"
         options={{
-          headerTitle: "Team Information",
+          headerTitle: "Series Information",
           presentation: "modal",
+                    headerStyle: { backgroundColor: '#7785AC' },
+
+        }}
+      />
+      <Stack.Screen
+        name="series/[id]"
+        options={{
+          headerTitle: "series Information",
+                    headerStyle: { backgroundColor: '#7785AC' },
+
         }}
       />
     </Stack>
   );
 };
+
+
 export default RootLayout;

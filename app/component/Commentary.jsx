@@ -1,9 +1,19 @@
 import React from "react";
-import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import MatchTopHeading from "./matchTopHeading";
 import CusText from "./CusText";
 const width = Dimensions.get("window").width;
 const Commentary = (props) => {
+  console.log(props, "description");
+  const { matchCommentry } = props;
+  const overyByInning = Object.keys(matchCommentry ?? []) ?? [];
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
@@ -82,28 +92,45 @@ const Commentary = (props) => {
           </View>
         </View>
         {/* //Commentary */}
-        <View style={{ gap: 20 }}>
-          {[23, 354, 532, 23, 354, 532].map((e) => (
-            <View style={{ marginHorizontal: 10, gap: 5 }}>
-              <CusText>50.6 Rehan</CusText>
-              <View
-                style={{
-                  backgroundColor: "#757575",
-                  width: 22,
-
-                  height: 22,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 20,
-                }}
-              >
-                <CusText>0</CusText>
-              </View>
-            </View>
-          ))}
+        <View style={{ gap: 15 }}>
+          <FlatList
+            data={overyByInning}
+            renderItem={({ item }) => (
+              <ListCommentry key={item} data={matchCommentry[item]} />
+            )}
+            keyExtractor={(item) => item}
+          />
         </View>
       </View>
     </ScrollView>
+  );
+};
+
+const ListCommentry = ({ data }) => {
+  return Object.values(data).map((values) =>
+    values.map((value) => (
+      <View style={{ margin: 10, gap: 5 }}>
+        <CusText>
+          {value?.data?.overs} {value?.data?.title}{" "}
+        </CusText>
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          <View
+            style={{
+              backgroundColor: "#757575",
+              width: 22,
+
+              height: 22,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 20,
+            }}
+          >
+            <CusText>{value?.data?.runs}</CusText>
+          </View>
+          <CusText>{value?.data?.description}</CusText>
+        </View>
+      </View>
+    ))
   );
 };
 

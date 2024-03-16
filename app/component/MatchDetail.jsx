@@ -25,6 +25,13 @@ const matchDetail = [
   "History",
   "Points Table",
 ];
+function debounce(func, wait) {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
 
 const MatchDetail = ({ matchId }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -38,11 +45,12 @@ const MatchDetail = ({ matchId }) => {
   const [matchHistory, setMatchHistory] = useState([]);
   const [matchScoreBoard, setMatchScoreBoard] = useState([]);
   const [matchPointsTable, setMatchPointsTable] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const fetchResult = async () => {
-    setLoading(true);
-    const data = await liveMatchById(matchId);
 
+    console.log("match id", matchId);
+    const data = await liveMatchById(matchId);
+    console.log(data, "match result")
     setMatchResult(data);
     setLoading(false);
     fetchPointsTable(data.series_id);
@@ -50,31 +58,37 @@ const MatchDetail = ({ matchId }) => {
   const fetchCommentary = async () => {
     const data = await commentaryMatchById(matchId);
 
-    setMatchCommentry(data);
+    setMatchCommentry(data ?? {});
   };
   const fetchInfo = async () => {
     const data = await fetchmatchInfo(matchId);
-
-    setMatchInfo(data);
+    console.log(data, "info");
+    setMatchInfo(data ?? {});
   };
   const fetchScoreBoard = async () => {
     const data = await scorecardByMatchId(matchId);
 
-    setMatchScoreBoard(data);
+    setMatchScoreBoard(data ?? {});
   };
 
   const fetchHistory = async () => {
     const data = await liveMatchById(matchId);
 
-    setMatchHistory(data);
+    setMatchHistory(data ?? {});
   };
   const fetchPointsTable = async (id) => {
     const data = await pointsTableBySeriesId(id);
-    console.log("pointsTable", data);
-    setMatchPointsTable(data);
+    console.log("pointsTable", data ?? {});
+    setMatchPointsTable(data ?? {});
   };
-
+  const debouncedFetchData = debounce(fetchResult, 400);
   useEffect(() => {
+    const timerId = setInterval(debouncedFetchData, 400); // Call debounced function
+
+    return () => clearInterval(timerId); // Clean up on unmount
+  }, []);
+  useEffect(() => {
+    setLoading(true)
     fetchResult();
     fetchCommentary();
     fetchInfo();
@@ -104,4 +118,3 @@ const MatchDetail = ({ matchId }) => {
 export default MatchDetail;
 
 const styles = StyleSheet.create({});
- 

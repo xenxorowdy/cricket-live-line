@@ -13,16 +13,20 @@ import { newsList } from "../api";
 import CusText from "./CusText";
 import { Link } from "expo-router";
 
-const HomeNew = () => {
-  const [newList, setNewList] = useState();
+const HomeNew = ({ id }) => {
+  console.log("news", id);
+  const [newList, setNewList] = useState(id);
   const getSeriesList = async () => {
     const res = await newsList();
     setNewList(res);
   };
   useEffect(() => {
+    if (id !== undefined) return;
     getSeriesList();
   }, []);
-
+  useEffect(() => {
+    setNewList(id);
+  }, [id]);
   return (
     <View style={{ justifyContent: "center", marginTop: 30, gap: 8 }}>
       <View style={styles.subTopHeading}>
@@ -96,18 +100,18 @@ const styles = StyleSheet.create({
   subTopHeading: {
     flexDirection: "column",
     justifyContent: "space-between",
-    alignItems: "right",
+    alignItems: "flex-start",
     paddingHorizontal: 8,
     paddingVertical: 2,
   },
   titles: {
     paddingHorizontal: 5,
     backgroundColor: "#3c3c3c",
-    color: "#fffff",
+    color: "#FFFFFF",
     minHeight: 30,
     justifyContent: "center",
     borderRadius: 6,
-    borderWidth: 1,
+
     alignContent: "center",
     marginHorizontal: 8,
 

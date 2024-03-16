@@ -5,33 +5,33 @@
     "scheme": "cricket-live-line",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/assets/Designer.png",
+    "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Designer.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.xenxo.cricketliveline"
     },
     "android": {
+      "config": {
+        "usesCleartextTraffic": true
+      },
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/Designer.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.xenxo.cricketliveline"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/Designer.png"
     },
-    "plugins": [
-      "expo-router"
-    ],
+   "plugins":[ [ "expo-build-properties", { "android": { "usesCleartextTraffic": true } } ] ],
+
     "extra": {
       "router": {
         "origin": false
@@ -40,5 +40,9 @@
         "projectId": "9852664e-c11f-47cd-a067-6dab10a6970a"
       }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-1715488426615455~2553620885",
+    "ios_app_id": "ca-app-pub-1715488426615455~2553620885"
   }
 }

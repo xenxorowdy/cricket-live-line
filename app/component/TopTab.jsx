@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
   },
   CategoryText: {
     fontSize: 16,
+    height: 20,
     color: "lightgrey",
     marginBottom: 4,
   },

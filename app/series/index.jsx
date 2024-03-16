@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   titles: {
     paddingHorizontal: 5,
     backgroundColor: "#3c3c3c",
-    color: "#fffff",
+    color: "#FFFFFF",
     minHeight: 45,
     justifyContent: "center",
     borderRadius: 6,

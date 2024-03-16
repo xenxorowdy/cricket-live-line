@@ -15,6 +15,7 @@ import Swiper from "react-native-swiper";
 import CusText from "./CusText";
 import { Link } from "expo-router";
 import { formatDateAndTime } from "../utils";
+import { commonStyle } from "./styleSheet";
 
 const MyComponent = () => {
   // const navigation = useNavigation();
@@ -50,51 +51,7 @@ export default function Carousel({ liveMatch = [] }) {
     </Swiper>
   );
 }
-// {
-//   "id": "857294c2-fbd9-4e1d-b287-8cf790501759",
-//   "name": "New Zealand vs Australia, 3rd T20I",
-//   "matchType": "t20",
-//   "status": "Australia won by 27 runs (2nd innings reduced to 10 overs due to rain, DLS target 126)",
-//   "venue": "Eden Park, Auckland",
-//   "date": "2024-02-25",
-//   "dateTimeGMT": "2024-02-25T00:00:00",
-//   "teams": [
-//     "New Zealand",
-//     "Australia"
-//   ],
-//   "teamInfo": [
-//     {
-//       "name": "Australia",
-//       "shortname": "AUS",
-//       "img": "https://g.cricapi.com/iapi/6-637877070670541994.webp?w=48"
-//     },
-//     {
-//       "name": "New Zealand",
-//       "shortname": "NZ",
-//       "img": "https://g.cricapi.com/iapi/57-637877076980737903.webp?w=48"
-//     }
-//   ],
-//   "score": [
-//     {
-//       "r": 118,
-//       "w": 4,
-//       "o": 10.4,
-//       "inning": "Australia Inning 1"
-//     },
-//     {
-//       "r": 98,
-//       "w": 3,
-//       "o": 10,
-//       "inning": "New Zealand Inning 1"
-//     }
-//   ],
-//   "series_id": "958e75fa-66fd-40d1-93ef-867c55f088db",
-//   "fantasyEnabled": false,
-//   "bbbEnabled": true,
-//   "hasSquad": true,
-//   "matchStarted": true,
-//   "matchEnded": true
-// }
+
 export const Boxes = ({ e, match }) => {
   const [handlePress, setHandlePress] = useState();
   const handleBoxPress = () => {
@@ -130,7 +87,9 @@ export const Boxes = ({ e, match }) => {
             </View>
           </View>
           {match?.match_status && (
-            <View style={[styles.liveIcon]}>
+            <View
+              style={[commonStyle({ status: match?.match_status }).liveIcon]}
+            >
               <Text style={[styles.text, { fontWeight: 600 }]}>
                 •{match?.match_status}
               </Text>
@@ -237,6 +196,7 @@ export const Boxes = ({ e, match }) => {
     </Link>
   );
 };
+
 const styles = StyleSheet.create({
   wrapper: {
     height: 222,
@@ -246,7 +206,7 @@ const styles = StyleSheet.create({
   slide1: {
     paddingHorizontal: 5,
     backgroundColor: "#3c3c3c",
-    color: "#fffff",
+    color: "#FFFFFF",
     minHeight: 180,
     justifyContent: "center",
     borderRadius: 8,
@@ -293,17 +253,6 @@ const styles = StyleSheet.create({
     gap: 8,
     alignContent: "center",
     alignItems: "center",
-  },
-  liveIcon: {
-    height: 19,
-    minWidth: 30,
-    paddingHorizontal: 2,
-    marginHorizontal: 2,
-    backgroundColor: "red",
-    justifyContent: "flex-end",
-    borderRadius: 3,
-    alignItems: "center",
-    alignContent: "center",
   },
   divider: {
     backgroundColor: "#eeeee4",

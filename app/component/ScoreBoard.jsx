@@ -52,8 +52,7 @@ const ScoreBoard = ({ matchScoreBoard }) => {
         </View>
       </View>
       <Text style={styles.TextColor}> {result}</Text>
-
-      <CollapseCustom>
+      <CollapseCustom team={team1} >
         <ScoreBoradTable
           team={team1}
           batsman={team1Score?.batsman}
@@ -62,7 +61,7 @@ const ScoreBoard = ({ matchScoreBoard }) => {
         />
       </CollapseCustom>
 
-      <CollapseCustom>
+      <CollapseCustom team={team2}>
         <ScoreBoradTable
           team={team2}
           batsman={team2Score?.batsman}
@@ -100,7 +99,7 @@ export const ScoreBoradTable = ({
           <Text style={[styles.TextColor, styles.textHeader]}>B</Text>
           <Text style={[styles.TextColor, styles.textHeader]}>4s</Text>
           <Text style={[styles.TextColor, styles.textHeader]}>6s</Text>
-          <Text style={[styles.TextColor, styles.textHeader, { width: 45 }]}>
+          <Text style={[styles.TextColor, styles.textHeader, { width: 40 }]}>
             SR
           </Text>
         </View>
@@ -151,14 +150,14 @@ export const ScoreBoradTable = ({
                 style={[
                   styles.TextColor,
                   {
-                    width: 49,
+                    width: 40,
                     alignItems: "center",
                     justifyContent: "center",
                     textAlign: "center",
                   },
                 ]}
               >
-                {item.strike_rate}
+                {Math.round(item.strike_rate)}
               </Text>
             </View>
           </View>
@@ -240,7 +239,7 @@ export const ScoreBoradTable = ({
               <Text style={styles.TextColor}>{item.maiden}</Text>
               <Text style={styles.TextColor}>{item.run}</Text>
 
-              <Text style={styles.TextColor}>{item.wicket}</Text>
+              <Text style={[styles.TextColor, { width: 20, marginLeft: 6 }]}>{item.wicket}</Text>
               <Text
                 umberOfLines={1}
                 ellipsizeMode="tail"
@@ -248,25 +247,27 @@ export const ScoreBoradTable = ({
                 style={[
                   styles.TextColor,
                   {
-                    width: 49,
+                    width: 40,
                     alignItems: "center",
                     justifyContent: "center",
                     textAlign: "center",
                   },
                 ]}
               >
-                {item.economy}
+                {Math.round(item.economy)}
               </Text>
             </View>
           </View>
-        )}
+        )
+        }
       />
-      <View
-        style={[
-          styles.box,
-          { borderBottomWidth: 0.5, marginBottom: 0 },
-          { borderColor: "#fff" },
-        ]}
+      < View
+        style={
+          [
+            styles.box,
+            { borderBottomWidth: 0.5, marginBottom: 0 },
+            { borderColor: "#fff" },
+          ]}
       >
         <Text style={[styles.TextColor, styles.textHeader]}>
           Fall of Wickets
@@ -281,7 +282,7 @@ export const ScoreBoradTable = ({
           <Text style={[styles.TextColor, styles.textHeader]}>Score</Text>
           <Text style={[styles.TextColor, styles.textHeader]}>Over</Text>
         </View>
-      </View>
+      </View >
 
       <FlatList
         data={fallwicket}
@@ -313,7 +314,7 @@ export const ScoreBoradTable = ({
           </View>
         )}
       />
-    </ScrollView>
+    </ScrollView >
   );
 };
 
@@ -335,6 +336,7 @@ export const styles = StyleSheet.create({
   },
   textHeader: {
     fontWeight: 700,
+    paddingLeft: 2
   },
   rowBox: {
     alignContent: "center",

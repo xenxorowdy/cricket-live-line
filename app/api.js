@@ -1,10 +1,13 @@
+import axios from "axios";
+import FormData from "form-data";
+
 const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 const apiToken = process.env.EXPO_PUBLIC_key;
 export const LiveMatches = async () => {
   return await fetch(apiUrl + "liveMatchList/" + apiToken)
     .then((response) => response.json())
     .then((json) => json)
-    .catch((error) => console.error(error));
+    .catch((error) => console.error(apiUrl + "liveMatchList/" + apiToken," ",error));
 };
 
 /**
@@ -45,25 +48,46 @@ export const HomeMatch = async () => {
     .catch((error) => console.error(error));
 };
 
+// export const liveMatchById = async (id) => {
+//   const myHeaders = new Headers();
+
+//   myHeaders.append("Content-Type", "application/json");
+
+//   const formdata = new FormData();
+//   formdata.append("match_id", id);
+//   const requestOptions = {
+//     method: "POST",
+//     headers: myHeaders,
+//     body: formdata,
+//     redirect: "follow",
+//   };
+
+//   return await fetch(apiUrl + "liveMatch/" + apiToken, requestOptions)
+//     .then((response) => response.json())
+//     .then((result) => result.data)
+//     .catch((error) => console.error(error));
+// };
 export const liveMatchById = async (id) => {
-  const myHeaders = new Headers();
+  try {
+    const data = new FormData();
+    const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-
-  const formdata = new FormData();
-  formdata.append("match_id", id);
-  const requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: formdata,
-    redirect: "follow",
-  };
-
-  return await fetch(apiUrl + "liveMatch/" + apiToken, requestOptions)
-    .then((response) => response.json())
-    .then((result) => result.data)
-    .catch((error) => console.error(error));
+    data.append("match_id", id);
+let config = {
+  method: 'post',
+  maxBodyLength: Infinity,
+  url:  `${apiUrl}liveMatch/${apiToken}`,
+  headers: myHeaders,
+  data : data
 };
 
+    const response = await axios.request(config)
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+    throw error; // Optionally rethrow the error for handling further up the call stack
+  }
+};
 export const commentaryMatchById = async (id) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
