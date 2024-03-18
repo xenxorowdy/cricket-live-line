@@ -7,7 +7,7 @@ import { HomeMatch, LiveMatches } from "../api";
 import SeriesInfo from "./seriesInfo.jsx";
 import HomeNew from "./HomeNew.jsx";
 
-export default function Home() {
+export default function Home({refresh,setRefresh}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [homeMatch, setHomeMatch] = useState([]);
   const [liveMatch, setLiveMatch] = useState([]);
@@ -15,19 +15,36 @@ export default function Home() {
     setCurrentIndex(index);
   };
   const fetchMatch = async () => {
-    const data = await LiveMatches();
-    setLiveMatch(data.data);
+    try {
+      const data = await LiveMatches();
+      setLiveMatch(data?.data);
+
+    } catch (error) {
+      console.error("err", error)
+    }
+    setRefresh(false);
+  
   };
 
   const fetchHomeMatchList = async () => {
-    const data = await HomeMatch();
-    setHomeMatch(data.data);
+    try {
+      
+      const data = await HomeMatch();
+      setHomeMatch(data?.data);
+
+    } catch (error) {
+      console.error(error)
+      handleRefreshFalse()
+    }
+    setRefresh(false)
   };
 
   useState(() => {
-    fetchMatch();
-    fetchHomeMatchList();
-  }, []);
+
+      fetchMatch();
+      fetchHomeMatchList();    
+    
+  }, [refresh]);
   return (
     <View style={{ flex: 1, height: "100%" }}>
       <TopTab currentIndex={currentIndex} handleChangeTab={handleChangeTab} />

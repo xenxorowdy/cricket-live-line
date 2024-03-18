@@ -174,7 +174,7 @@ export const ScoreBoradTable = ({
           { borderColor: "#fff" },
         ]}
       >
-        <Text fontWeight="bold" style={[styles.TextColor, styles.textHeader]}>
+        <Text style={[styles.TextColor, styles.textHeader]}>
           Bowler
         </Text>
         <View
@@ -183,20 +183,20 @@ export const ScoreBoradTable = ({
             gap: 15,
           }}
         >
-          <Text fontWeight="bold" style={[styles.TextColor, styles.textHeader]}>
+          <Text style={[styles.TextColor, styles.textHeader]}>
             O
           </Text>
-          <Text fontWeight="bold" style={[styles.TextColor, styles.textHeader]}>
+          <Text style={[styles.TextColor, styles.textHeader]}>
             M
           </Text>
-          <Text fontWeight="bold" style={[styles.TextColor, styles.textHeader]}>
+          <Text style={[styles.TextColor, styles.textHeader]}>
             R
           </Text>
-          <Text fontWeight="bold" style={[styles.TextColor, styles.textHeader]}>
+          <Text style={[styles.TextColor, styles.textHeader]}>
             W
           </Text>
           <Text
-            fontWeight="bold"
+
             style={[
               styles.TextColor,
               styles.textHeader,

@@ -55,7 +55,7 @@ const Commentary = (props) => {
               <CusText style={{ fontSize: 20, fontWeight: "800" }}>
                 196-2
               </CusText>
-              <CusText style={{ fontSize: 14, fontWeight: "700" }}>IND</CusText>
+              <CusText style={{ fontSize: 14, fontWeight: 700 }}>IND</CusText>
             </View>
             <View style={{ gap: 10 }}>
               <View

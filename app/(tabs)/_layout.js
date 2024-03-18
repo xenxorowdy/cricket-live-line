@@ -15,7 +15,7 @@ function LogoTitle() {
       style={{ width: 35, height: 35, borderRadius: 20 }}
       source={ require('../../assets/Designer.png') }
       />
-      <CusText style={{fontSize:20,fontWeight:"600"}}>Home</CusText>
+      <CusText style={{fontSize:20,fontWeight:600}}>Home</CusText>
       </View>
   );
 }
@@ -30,12 +30,12 @@ export default function HomeLayout() {
             title: "index",
             tabBarActiveTintColor: '#11BA8C',
             tabBarIcon: ({ color }) => <FontAwesome size={22} name="home" color={color} />,
-            headerStyle: { backgroundColor: '#7785AC' },
-          headerTintColor: '#7785AC',
+            headerStyle: { backgroundColor: '#a393eb' },
+          headerTintColor: '#a393eb',
           headerTitleStyle: {
             fontWeight: 'bold',
-            color: '#7785AC',
-            backgroundColor:'#7785AC',
+            color: '#a393eb',
+            backgroundColor:'#a393eb',
           },
 headerTitle: props => <LogoTitle {...props} />,
           }}

@@ -15,6 +15,7 @@ import {
   pointsTableBySeriesId,
   scorecardByMatchId,
 } from "../api";
+import _ from "lodash";
 import Loading from "../Loading";
 
 const matchDetail = [
@@ -25,13 +26,7 @@ const matchDetail = [
   "History",
   "Points Table",
 ];
-function debounce(func, wait) {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, args), wait);
-  };
-}
+
 
 const MatchDetail = ({ matchId }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,14 +41,34 @@ const MatchDetail = ({ matchId }) => {
   const [matchScoreBoard, setMatchScoreBoard] = useState([]);
   const [matchPointsTable, setMatchPointsTable] = useState([]);
   const [loading, setLoading] = useState(false);
+  let incre = 0;
   const fetchResult = async () => {
 
-    console.log("match id", matchId);
+
     const data = await liveMatchById(matchId);
-    console.log(data, "match result")
+    if (!data) return;
+    const { batting_team, team_b_scores, team_a_scores, team_b_over, team_a_over, team_b_id, team_a_id, team_b_short, team_a_short } = data;
+
+    if (batting_team == team_b_id) {
+      data.battingTeam = team_b_short;
+      data.battingScore = team_b_scores && `${team_b_scores || '-'} (${team_b_over || '-'})`;
+    }
+    if (batting_team == team_a_id) {
+      data.battingTeam = team_a_short;
+      data.battingScore = team_a_scores && `${team_a_scores || '-'} (${team_a_over || '-'})`;
+    }
+    if (batting_team != team_b_id) {
+      data.secbattingTeam = team_b_short;
+      data.secbattingScore = team_b_scores && `${team_b_scores || '-'} (${team_b_over || '-'})`;
+    }
+    if (batting_team != team_a_id) {
+      data.secbattingTeam = team_a_short;
+      data.secbattingScore = team_a_scores && `${team_a_scores || '-'} (${team_a_over || '-'})`;
+    }
+
     setMatchResult(data);
     setLoading(false);
-    fetchPointsTable(data.series_id);
+
   };
   const fetchCommentary = async () => {
     const data = await commentaryMatchById(matchId);
@@ -62,7 +77,8 @@ const MatchDetail = ({ matchId }) => {
   };
   const fetchInfo = async () => {
     const data = await fetchmatchInfo(matchId);
-    console.log(data, "info");
+    setLoading(false);
+
     setMatchInfo(data ?? {});
   };
   const fetchScoreBoard = async () => {
@@ -78,14 +94,16 @@ const MatchDetail = ({ matchId }) => {
   };
   const fetchPointsTable = async (id) => {
     const data = await pointsTableBySeriesId(id);
-    console.log("pointsTable", data ?? {});
     setMatchPointsTable(data ?? {});
   };
-  const debouncedFetchData = debounce(fetchResult, 400);
-  useEffect(() => {
-    const timerId = setInterval(debouncedFetchData, 400); // Call debounced function
 
-    return () => clearInterval(timerId); // Clean up on unmount
+  const debouncedRender = _.debounce(async () => {
+    await fetchResult()
+  }, 200);
+  // Simulate an event triggering the render
+  useEffect(() => {
+    const timerId = setInterval(debouncedRender, 300);
+    return () => clearInterval(timerId);
   }, []);
   useEffect(() => {
     setLoading(true)
@@ -94,8 +112,9 @@ const MatchDetail = ({ matchId }) => {
     fetchInfo();
     fetchScoreBoard();
     fetchHistory();
+    setLoading(true)
   }, []);
-  if (loading) return <Loading />;
+  if (loading && matchResult.length) return <Loading />;
   return (
     <View style={{}}>
       <TopTab

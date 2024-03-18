@@ -7,12 +7,12 @@ import {
   Pressable,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { seriesList } from "../api";
-import { Image } from "react-native-svg";
 import { AntDesign } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import CusText from "../component/CusText";
 const SeriesInfo = () => {
   const [seriesData, setSeriesData] = useState();
@@ -40,12 +40,15 @@ const SeriesInfo = () => {
 };
 
 const SeriesComp = ({ item }) => (
-  <View
+  <TouchableOpacity
     style={[
       styles.subTopHeading,
       styles.titles,
       { justifyContent: "space-between", paddingHorizontal: 10 },
     ]}
+    onPress={() => {
+      router.push("/series/" + item.series_id);
+    }}
   >
     {/* <Image
       source={{ uri: item.image }}
@@ -55,22 +58,20 @@ const SeriesComp = ({ item }) => (
     <View>
       <Image
         source={{ uri: item?.image || "" }}
-        style={{ width: 50, height: 50, borderRadius: 1, objectFit: "contain" }}
+        style={{ width: 50, height: 50, borderRadius: 50, objectFit: "contain" }}
       />
     </View>
     <View style={{ gap: 5 }}>
-      <CusText>{item.series}</CusText>
+      <CusText style={{ fontSize: 15, fontWeight: 600 }}   >{item.series}</CusText>
       <View style={{ flexDirection: "row", gap: 5 }}>
-        <CusText>{String(item?.total_matches) ?? "-"} Matches </CusText>
+        <CusText >{String(item?.total_matches) ?? "-"} Matches </CusText>
         <CusText>{"*" + item.series_date + ""} </CusText>
       </View>
     </View>
-    <TouchableOpacity activeOpacity={0.7}>
-      <Link href={"/series/" + item.series_id}>
-        <AntDesign name="right" size={24} color="white" />
-      </Link>
-    </TouchableOpacity>
-  </View>
+
+    <AntDesign name="right" size={20} color="white" />
+
+  </TouchableOpacity>
 );
 
 export default SeriesInfo;
