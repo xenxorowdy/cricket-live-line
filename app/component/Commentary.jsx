@@ -52,7 +52,7 @@ const Commentary = (props) => {
                 justifyContent: "center",
               }}
             >
-              <CusText style={{ fontSize: 20, fontWeight: "800" }}>
+              <CusText style={{ fontSize: 20, fontWeight: 700 }}>
                 196-2
               </CusText>
               <CusText style={{ fontSize: 14, fontWeight: 700 }}>IND</CusText>
