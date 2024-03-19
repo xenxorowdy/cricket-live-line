@@ -37,7 +37,7 @@ const MatchComGuide = ({ data }) => (<View
       <CusText style={{ fontSize: 20, fontWeight: 700 }}>
         {data?.team_score}-{data?.team_wicket}
       </CusText>
-      <CusText style={{ fontSize: 14, fontWeight: 700 }}>IND</CusText>
+      <CusText style={{ fontSize: 14, fontWeight: 700 }}>{data?.team}</CusText>
     </View>
     <View style={{ gap: 10 }}>
       <View
@@ -78,23 +78,23 @@ const Commentary = (props) => {
   const { matchCommentry, matchInfo } = props;
   const overyByInning = Object.keys(matchCommentry ?? []) ?? [];
   return (
-    <ScrollView style={styles.scrollView}>
-      <View style={styles.container}>
-        <View
-          style={{ backgroundColor: "#764abc", paddingVertical: 14, width }}
-        >
-          <MatchTopHeading team_b_img={matchInfo.team_b_img}
-            team_a_img={matchInfo.team_a_img}
-            team_a={matchInfo.team_a_short}
-            team_b={matchInfo.team_b_short} />
-        </View>
-        {/* box of each over */}
-        {/* <View style={styles.box}>
+
+    <View style={styles.container}>
+      <View
+        style={{ backgroundColor: "#764abc", paddingVertical: 14, width }}
+      >
+        <MatchTopHeading team_b_img={matchInfo.team_b_img}
+          team_a_img={matchInfo.team_a_img}
+          team_a={matchInfo.team_a_short}
+          team_b={matchInfo.team_b_short} />
+      </View>
+      {/* box of each over */}
+      {/* <View style={styles.box}>
           <CusText style={{ paddingHorizontal: 8 }}>
             Day 3: Stump IND 445 & 122/3 lead by 332 runs
           </CusText>
         </View> */}
-        {/* <View
+      {/* <View
           style={[
             styles.rowBox,
             { paddingVertical: 10, paddingHorizontal: 10 },
@@ -109,18 +109,18 @@ const Commentary = (props) => {
           </CusText>
 
         </View> */}
-        {/* //Commentary */}
-        <View style={{ gap: 15 }}>
-          <FlatList
-            data={overyByInning}
-            renderItem={({ item }) => (
-              <ListCommentry key={item} data={matchCommentry[item]} />
-            )}
-            keyExtractor={(item) => item}
-          />
-        </View>
+      {/* //Commentary */}
+      <View style={{ gap: 15 }}>
+        <FlatList
+          data={overyByInning}
+          renderItem={({ item }) => (
+            <ListCommentry key={item} data={matchCommentry[item]} />
+          )}
+          keyExtractor={(item) => item}
+        />
       </View>
-    </ScrollView>
+    </View>
+
   );
 };
 
