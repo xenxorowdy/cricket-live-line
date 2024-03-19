@@ -6,13 +6,14 @@ import {
   FlatList,
   Pressable,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import CusText from "./CusText";
 import { seriesList } from "../api";
-import { Image } from "react-native-svg";
+
 import { AntDesign } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { router } from "expo-router";
 const SeriesInfo = () => {
   const [seriesData, setSeriesData] = useState();
   const getSeriesList = async () => {
@@ -28,10 +29,10 @@ const SeriesInfo = () => {
       <View style={styles.subTopHeading}>
         <CusText>Series</CusText>
 
-        <TouchableOpacity activeOpacity={0.75}>
-          <Link href={"series"}>
-            <CusText>View More </CusText>
-          </Link>
+        <TouchableOpacity activeOpacity={0.75} onPress={() => { router.push("/series") }} >
+
+          <CusText style={{ fontSize: 15 }} >View More </CusText>
+
         </TouchableOpacity>
       </View>
       <FlatList
@@ -44,23 +45,20 @@ const SeriesInfo = () => {
 };
 
 const SeriesComp = ({ item }) => (
-  <View
+
+  <TouchableOpacity
     style={[
       styles.subTopHeading,
       styles.titles,
       { justifyContent: "space-between", paddingHorizontal: 10 },
     ]}
+    onPress={() => { router.push("/series/" + item.series_id) }}
   >
-    {console.log(item)}
-    {/* <Image
-      source={{ uri: item.image }}
-      style={{ width: 30, height: 30, tintColor: "white" }}
-    /> */}
     <Image
       source={{
         uri: item?.image || "",
       }}
-      style={{ width: 50, height: 50, borderRadius: 18 }}
+      style={{ width: 50, height: 50, borderRadius: 18, backgroundColor: "#fff" }}
     />
     <View style={{ gap: 5 }}>
       <CusText>{item.series}</CusText>
@@ -70,11 +68,9 @@ const SeriesComp = ({ item }) => (
       </View>
     </View>
     <TouchableOpacity activeOpacity={0.7}>
-      <Link href={"/series/" + item.series_id}>
-        <AntDesign name="right" size={24} color="white" />
-      </Link>
+      <AntDesign name="right" size={24} color="white" />
     </TouchableOpacity>
-  </View>
+  </TouchableOpacity>
 );
 
 export default SeriesInfo;

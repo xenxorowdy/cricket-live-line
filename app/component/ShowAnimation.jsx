@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import * as Speech from "expo-speech";
 import { Audio } from 'expo-av';
 
-const ShowAnimation = ({ style, value, runs = 0 }) => {
+const ShowAnimation = ({ style, value, runs = 0, mute }) => {
   async function requestPermission() {
     if (Platform.OS === 'ios') {
       const { status } = await Audio.requestPermissionsAsync();
@@ -18,41 +18,43 @@ const ShowAnimation = ({ style, value, runs = 0 }) => {
 
   switch (value) {
     case "Wicket":
-      return <ShowAnimationValue display="Wicket" />;
+      return <ShowAnimationValue display="Wicket" mute={mute} />;
     case "Wides":
-      return <ShowAnimationValue display="Wide" />;
+      return <ShowAnimationValue mute={mute} display="Wide" />;
     case "Byes":
-      return <ShowAnimationValue display="Bye" />;
+      return <ShowAnimationValue mute={mute} display="Bye" />;
     case "No Ball":
-      return <ShowAnimationValue display="No Ball" />;
+      return <ShowAnimationValue mute={mute} display="No Ball" />;
     case "Over":
-      return <ShowAnimationValue display="Over Complete" />;
+      return <ShowAnimationValue mute={mute} display="Over Complete" />;
     case "Ball":
-      return <ShowAnimationValue display="Ball Start" />;
+      return <ShowAnimationValue mute={mute} display="Ball Start" />;
     case "Run":
-      return <ShowAnimationValue display={runs + " Run"} />;
+      return <ShowAnimationValue mute={mute} display={runs + " Run"} />;
     case "LBW":
-      return <ShowAnimationValue display="LBW" />;
+      return <ShowAnimationValue mute={mute} display="LBW" />;
     case "Out":
-      return <ShowAnimationValue display="Out" />;
+      return <ShowAnimationValue mute={mute} display="Out" />;
     default:
-      return <ShowAnimationValue display={value > 0 ? value + " Run" : value} />;
+      return <ShowAnimationValue mute={mute} display={value > 0 ? value + " Run" : value} />;
   }
 };
 
 
 
-const ShowAnimationValue = ({ display = "" }) => {
+const ShowAnimationValue = ({ display = "", mute = false }) => {
   const speak = (display) => {
     // const textToSay = "Ball Start";
+
     Speech.speak(display);
   };
   useEffect(() => {
+    if (mute) return;
     speak(display);
   }, [display]);
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
-      {display.toLowerCase().includes('out') &&
+      {display.toLowerCase().includes('out') && !display.toLowerCase().includes('time') &&
         <Image
           source={require("../../assets/out.png")}
           style={{ width: 60, height: 60 }}
@@ -81,7 +83,7 @@ const ShowAnimationValue = ({ display = "" }) => {
           source={require("../../assets/ball.gif")}
           style={{ width: 60, height: 60 }}
         />}
-      <Text style={{ color: "#292A2D", fontSize: 30, fontWeight: 500 }}>
+      <Text style={{ color: "#292A2D", fontSize: 24, fontWeight: 700 }}>
         {display}
       </Text>
     </View>

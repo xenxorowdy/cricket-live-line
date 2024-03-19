@@ -72,3 +72,40 @@ const formatDateTime = (inputDate, timeZone) => {
   return dateTimeString;
 };
 
+
+export const ratefetch = (number) => {
+try {
+  
+  const integerPart = Math.floor(number * 100);
+  const desiredValue = integerPart % 100;
+    return desiredValue?.toString()||0;
+} catch (error) {
+  return ""
+}
+}
+
+export const getScore = (data) => {
+
+  const { batting_team, team_b_scores, team_a_scores, team_b_over, team_a_over } = data;
+  console.log(batting_team, team_b_scores, team_a_scores, team_b_over, team_a_over,data);
+  if (batting_team === data.team_b_id) {
+    console.log(`${data?.team_b_scores} (${data?.team_b_over})`, "123data");
+    return `${data?.team_b_scores} (${data?.team_b_over})`;
+  }
+  if (batting_team === data.team_a_id) {
+    return `${data?.team_a_scores} (${data?.team_a_over})`;
+  }
+}
+
+export const inningsuffix = (inning) => {
+  switch (inning) {
+    case 1:
+      return 'st'
+    case 2:
+      return 'nd'
+    case 3:
+      return 'rd'
+    default:
+      return 'th'
+  }
+}

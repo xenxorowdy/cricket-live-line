@@ -5,7 +5,7 @@ import { Boxes } from "./Carousel";
 export default function BlockBox({ liveMatch }) {
   return (
     <View style={styles.blockLiveContainer}>
-      {liveMatch.map((e, index) => (
+      {liveMatch?.map((e, index) => (
         <Boxes match={e} key={index} />
       ))}
     </View>

@@ -14,7 +14,7 @@ import Swiper from "react-native-swiper";
 
 import CusText from "./CusText";
 import { Link } from "expo-router";
-import { formatDateAndTime } from "../utils";
+import { formatDateAndTime, ratefetch } from "../utils";
 import { commonStyle } from "./styleSheet";
 
 const MyComponent = () => {
@@ -177,7 +177,7 @@ export const Boxes = ({ e, match }) => {
                 alignItems: "center",
               }}
             >
-              <Text>{match?.min_rate}</Text>
+              <Text>{ratefetch(match?.min_rate)}</Text>
             </View>
             <View
               style={{
@@ -188,7 +188,7 @@ export const Boxes = ({ e, match }) => {
                 alignItems: "center",
               }}
             >
-              <Text>{match?.max_rate}</Text>
+              <Text>{ratefetch(match?.max_rate)}</Text>
             </View>
           </View>
         </View>

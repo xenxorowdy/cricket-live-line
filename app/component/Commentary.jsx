@@ -10,9 +10,72 @@ import {
 import MatchTopHeading from "./matchTopHeading";
 import CusText from "./CusText";
 const width = Dimensions.get("window").width;
+const MatchComGuide = ({ data }) => (<View
+  style={[
+    styles.rowBox,
+    { paddingVertical: 10, paddingHorizontal: 10 },
+  ]}
+>
+  <CusText style={{ paddingHorizontal: 8 }}>
+    {" "}
+    <CusText style={{ fontWeight: 600, padding: 4 }}>
+      {data?.title}:
+    </CusText>
+    {" "}{data?.runs} Runs{" "}
+  </CusText>
+  <View style={{ flexDirection: "row", gap: 8 }}>
+    <View
+      style={{
+        backgroundColor: "#5a18c7",
+        width: 120,
+        height: 90,
+        borderRadius: 8,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <CusText style={{ fontSize: 20, fontWeight: 700 }}>
+        {data?.team_score}-{data?.team_wicket}
+      </CusText>
+      <CusText style={{ fontSize: 14, fontWeight: 700 }}>IND</CusText>
+    </View>
+    <View style={{ gap: 10 }}>
+      <View
+        style={{
+          justifyContent: "space-between",
+          flexDirection: "row",
+          width: width - 150,
+        }}
+      >
+        <CusText>{data?.batsman_1_name}</CusText>
+        <CusText>{data?.batsman_1_runs} ({data?.batsman_1_balls}) </CusText>
+      </View>
+      <View
+        style={{
+          justifyContent: "space-between",
+          flexDirection: "row",
+          width: width - 150,
+        }}
+      >
+        <CusText>{data?.batsman_2_name}</CusText>
+        <CusText>{data?.batsman_2_runs} ({data?.batsman_2_balls}) </CusText>
+      </View>
+      <View
+        style={{
+          justifyContent: "space-between",
+          flexDirection: "row",
+          width: width - 150,
+        }}
+      >
+        <CusText>{data?.bolwer_name}</CusText>
+        <CusText>{data?.bolwer_overs}-{data?.bolwer_maidens}-{data?.bolwer_runs}-{data?.bolwer_wickets}</CusText>
+      </View>
+    </View>
+  </View>
+</View>);
 const Commentary = (props) => {
   console.log(props, "description");
-  const { matchCommentry } = props;
+  const { matchCommentry, matchInfo } = props;
   const overyByInning = Object.keys(matchCommentry ?? []) ?? [];
   return (
     <ScrollView style={styles.scrollView}>
@@ -20,15 +83,18 @@ const Commentary = (props) => {
         <View
           style={{ backgroundColor: "#764abc", paddingVertical: 14, width }}
         >
-          <MatchTopHeading />
+          <MatchTopHeading team_b_img={matchInfo.team_b_img}
+            team_a_img={matchInfo.team_a_img}
+            team_a={matchInfo.team_a_short}
+            team_b={matchInfo.team_b_short} />
         </View>
         {/* box of each over */}
-        <View style={styles.box}>
+        {/* <View style={styles.box}>
           <CusText style={{ paddingHorizontal: 8 }}>
             Day 3: Stump IND 445 & 122/3 lead by 332 runs
           </CusText>
-        </View>
-        <View
+        </View> */}
+        {/* <View
           style={[
             styles.rowBox,
             { paddingVertical: 10, paddingHorizontal: 10 },
@@ -38,59 +104,11 @@ const Commentary = (props) => {
             {" "}
             <CusText style={{ fontWeight: 600, padding: 4 }}>
               End of 51st over:
-            </CusText>
+            </CusText>c
             0 10 1 13 3 4 (x Runs){" "}
           </CusText>
-          <View style={{ flexDirection: "row", gap: 8 }}>
-            <View
-              style={{
-                backgroundColor: "#5a18c7",
-                width: 120,
-                height: 90,
-                borderRadius: 8,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <CusText style={{ fontSize: 20, fontWeight: "800" }}>
-                196-2
-              </CusText>
-              <CusText style={{ fontSize: 14, fontWeight: "700" }}>IND</CusText>
-            </View>
-            <View style={{ gap: 10 }}>
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  width: width - 150,
-                }}
-              >
-                <CusText>kuldeep</CusText>
-                <CusText>kuldeep</CusText>
-              </View>
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  width: width - 150,
-                }}
-              >
-                <CusText>kuldeep</CusText>
-                <CusText>kuldeep</CusText>
-              </View>
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  width: width - 150,
-                }}
-              >
-                <CusText>kuldeep</CusText>
-                <CusText>kuldeep</CusText>
-              </View>
-            </View>
-          </View>
-        </View>
+
+        </View> */}
         {/* //Commentary */}
         <View style={{ gap: 15 }}>
           <FlatList
@@ -108,29 +126,35 @@ const Commentary = (props) => {
 
 const ListCommentry = ({ data }) => {
   return Object.values(data).map((values) =>
-    values.map((value) => (
-      <View style={{ margin: 10, gap: 5 }}>
-        <CusText>
-          {value?.data?.overs} {value?.data?.title}{" "}
-        </CusText>
-        <View style={{ flexDirection: "row", gap: 10 }}>
-          <View
-            style={{
-              backgroundColor: "#757575",
-              width: 22,
+    values.map((value) =>
+      value?.data?.title?.includes("END OF OVER :") ?
+        <MatchComGuide data={value.data} />
+        :
 
-              height: 22,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 20,
-            }}
-          >
-            <CusText>{value?.data?.runs}</CusText>
+        <View style={{ margin: 10, gap: 5 }}>
+          <CusText>
+            {value?.data?.overs} {value?.data?.title}{" "}
+          </CusText>
+          <View style={{ flexDirection: "row", gap: 10 }}>
+            <View
+              style={{
+                backgroundColor: "#757575",
+                width: 22,
+
+                height: 22,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 20,
+              }}
+            >
+              <CusText>{value?.data?.runs}</CusText>
+            </View>
+            <CusText>{value?.data?.description}</CusText>
           </View>
-          <CusText>{value?.data?.description}</CusText>
-        </View>
-      </View>
-    ))
+        </View >
+
+
+    )
   );
 };
 

@@ -8,11 +8,12 @@ import {
   View,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ShowAnimation from "./ShowAnimation";
 import SvgComponent from "./cricket";
 import { checkColor } from "./styleSheet";
 import CusText from "./CusText";
+import { inningsuffix, ratefetch } from "../utils";
 const tobat = ["rohit sharma", "jos butler", "sam ", "sanju samson"];
 const option =
 {
@@ -28,8 +29,15 @@ const Live = ({ matchDetail = [] }) => {
   const handleMute = () => {
     SetMute(!mute);
   };
+  let str = '';
 
 
+
+  // useEffect(() => {
+  //   if (matchDetail.length) {
+  //     getScore();
+  //   }
+  // }, [matchDetail])
   return (
     <View style={styles.container}>
       <View style={[{ alignContent: "center", alignItems: "center", width: "100%" }]} >
@@ -52,24 +60,39 @@ const Live = ({ matchDetail = [] }) => {
             />
           )}
 
-          <ShowAnimation style={styles.tvStyle} value={matchDetail?.first_circle} />
+          <ShowAnimation mute={mute} style={styles.tvStyle} value={matchDetail?.first_circle} />
           <Text
             style={{
               position: "absolute",
               top: 5,
               right: 5,
-              fontWeight: 600,
+              fontWeight: "600",
               fontSize: 15,
-              color: checkColor(matchDetail?.match_status),
+              color: checkColor('Live'),
             }}
           >
-            {matchDetail?.match_status}
+            Live
           </Text>
         </View>
         <View style={[styles.boxtv]} >
-          <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
-            <CusText>
+          <View style={{ flexDirection: "row", gap: 4, alignItems: "center", padding: 5 }}>
+            <CusText>{matchDetail?.battingTeam}:</CusText>
+            <CusText style={{ fontWeight: "600" }} >{matchDetail?.battingScore}
+              {/* {matchDetail?.team_a} */}
+              {/* {team_a_score} */}
+            </CusText>
+            {matchDetail?.powerplay == 1 &&
+              <View style={styles.powerplay}>
 
+                <Text style={{ fontWeight: "600", color: "#FFC700", fontSize: 15 }} > P </Text>
+              </View>
+            }
+          </View>
+          <View style={{ flexDirection: "row", gap: 2, alignIrtems: "center", padding: 5 }}>
+            <CusText>{matchDetail?.secbattingTeam}:</CusText>
+            <CusText style={{ fontWeight: "600" }} >{matchDetail?.secbattingScore}
+              {/* {matchDetail?.team_a} */}
+              {/* {team_a_score} */}
             </CusText>
           </View>
         </View>
@@ -90,34 +113,58 @@ const Live = ({ matchDetail = [] }) => {
       </View>
       <View>
         <View style={styles.box}>
-          <Text style={styles.TextColor}>Winning Probability</Text>
-          <View style={{ flexDirection: "row", gap: 5 }}>
+          <Text style={[styles.TextColor, { fontWeight: "600", fontSize: 16 }]}>Winning Probability</Text>
+          <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
             <Text style={styles.TextColor}> {matchDetail?.fav_team}</Text>
-            <Text style={[styles.TextColor, { backgroundColor: "red", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff" }]}>{matchDetail?.min_rate} </Text>
-            <Text style={[styles.TextColor, { backgroundColor: "green", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff" }]}>{matchDetail?.max_rate}</Text>
+            <Text style={[styles.TextColor, { backgroundColor: "red", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700" }]}>{ratefetch(matchDetail?.min_rate)} </Text>
+            <Text style={[styles.TextColor, { backgroundColor: "green", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700" }]}>{ratefetch(matchDetail?.max_rate)}</Text>
           </View>
         </View>
         <View style={styles.divider} />
-        <View style={styles.box}>
-          <View style={{ flexDirection: "row", gap: 3 }}>
-            <Text style={styles.TextColor}>
-              {matchDetail?.match_over} Over Runs:
-            </Text>
-            <Text style={styles.TextColor}>172 </Text>
-            <Text style={styles.TextColor}>173</Text>
+        {matchDetail?.s_ovr &&
+          <View style={styles.box}>
+            <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center" }}>
+              <Text style={styles.TextColor}>
+                {matchDetail?.s_ovr} Over Runs:
+              </Text>
+              <Text style={[styles.TextColor, styles.minStyle]}>{matchDetail?.s_min} </Text>
+              <Text style={styles.maxStyle}>{matchDetail?.s_max}</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "60%",
+                justifyContent: "flex-end",
+                gap: 10,
+                alignItems: "center",
+              }}
+            >
+              <Text style={styles.TextColor}> R X B:</Text>
+              <Text style={styles.minStyle}> {matchDetail?.s_run} </Text>
+              <Text style={styles.maxStyle}> {matchDetail?.s_ball} </Text>
+            </View>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "60%",
-              justifyContent: "flex-end",
-            }}
-          >
-            <Text style={styles.TextColor}> R X B:</Text>
-            <Text style={styles.TextColor}> 23 </Text>
-            <Text style={styles.TextColor}> 14 </Text>
+        }
+        {null &&
+          <View style={styles.box}>
+            <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center" }}>
+              <Text style={styles.TextColor}>
+                {matchDetail?.current_inning}{inningsuffix(matchDetail?.current_inning)}  Inning's Total Runs:
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "60%",
+                justifyContent: "flex-end",
+                alignItems: "center",
+              }}
+            >
+              <Text style={styles.minStyle}> {matchDetail?.s_run} </Text>
+              <Text style={styles.maxStyle}> {matchDetail?.s_ball} </Text>
+            </View>
           </View>
-        </View>
+        }
       </View>
       <View style={{ flexDirection: "column", padding: 0, flex: 1 }}>
         <View
@@ -267,7 +314,7 @@ const Live = ({ matchDetail = [] }) => {
           {matchDetail?.yet_to_bet?.join(", ")}
         </Text>
       </View>
-    </View>
+    </View >
   );
 };
 
@@ -282,6 +329,9 @@ const styles = StyleSheet.create({
     color: "#EAEAEA",
     gap: 8,
   },
+  powerplay: { backgroundColor: "#000", textAlign: "center", paddingVertical: 1, paddingHorizontal: 2, color: "#FFC700", border: 1, borderColor: "#FFC700", fontSize: 16, fontWeight: "700", alignItems: "center" },
+  minStyle: { backgroundColor: "red", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700" },
+  maxStyle: { backgroundColor: "green", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700" },
   box: {
     backgroundColor: "#292A2D",
     paddingVertical: 8,

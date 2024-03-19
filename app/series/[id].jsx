@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import {
   getVenueResult,
   getseriesFixtures,
+  groupPointsTable,
+  pointsTableBySeriesId,
   seriesNewsDetail,
   seriesStatsBySeriesId,
   squadsBySeriesId,
@@ -15,6 +17,7 @@ import PointsTable from "../component/PointsTable";
 import NewsComponent from "../news/[id]";
 import HomeNew from "../component/HomeNew";
 import Venue from "../component/Venue";
+import PlayerTeam from "./playerInfo";
 const SeriesInfo = () => {
   const option = [
     "Overview",
@@ -42,12 +45,12 @@ const SeriesInfo = () => {
   };
   const getseriesFixture = async () => {
     const data = await getseriesFixtures(id);
-    console.log(data);
     setFixtures(data);
   };
-  const getponitres = () => {
-    const data = getseriesFixture(id);
-    setPoint(data);
+  const getponitres = async () => {
+    const data = await groupPointsTable(id);
+    console.log("points", [...Object.values(data)], id);
+    setPoint([...Object.values(data)]);
   };
   const getNewsDetails = async () => {
     const data = await seriesNewsDetail(id);
@@ -57,15 +60,18 @@ const SeriesInfo = () => {
     const res = await seriesStatsBySeriesId(id);
     setStats(res);
   };
-  const getVenues = () => {
-    const data = getVenueResult(id);
+  const getVenues = async () => {
+    const data = await getVenueResult(id);
     setVenues(data);
   };
   const getSquadSeriesId = async () => {
     const data = await squadsBySeriesId(id);
     setSquad(data);
   };
-  const teamSquad = () => {};
+  const teamSquad = async () => {
+    const data = await squadsBySeriesId(id);
+    setSquad(data);
+  };
   useEffect(() => {
     getseriesFixture();
     getponitres();
@@ -73,6 +79,7 @@ const SeriesInfo = () => {
     getStats();
     getSquadSeriesId();
     getVenues();
+    teamSquad();
   }, []);
 
   return (
@@ -86,10 +93,10 @@ const SeriesInfo = () => {
 
         {index == 0 && <Text>Overview</Text>}
         {index == 1 && <SeriesFixtures data={fixtures} />}
-        {index == 2 && <PointsTable data={news} />}
-        {index == 3 && <Text>Team Squad</Text>}
+        {index == 2 && <PointsTable matchPointsTable={point} />}
+        {index == 3 && <PlayerTeam teamStats={squad} />}
         {index == 4 && <Text>stats</Text>}
-        {index == 5 && <Venue item={venues?._j} />}
+        {index == 5 && <Venue item={venues} />}
         {index == 6 && <HomeNew id={news} />}
         {index == 7 && <Venue data={news} />}
       </View>

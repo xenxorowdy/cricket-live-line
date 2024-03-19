@@ -36,8 +36,8 @@ const RootLayout = () => {
           headerStyle: { backgroundColor: '#7785AC' },
           headerTintColor: '#fff',
           headerTitleStyle: {
-            fontWeight: '700',
-            backgroundColor:'#7785AC',
+            fontWeight: "700",
+            backgroundColor: '#7785AC',
           },
 
         }}
@@ -47,17 +47,17 @@ const RootLayout = () => {
         options={{
           headerTitle: "News",
           presentation: "modal",
-                    headerStyle: { backgroundColor: '#7785AC' },
+          headerStyle: { backgroundColor: '#7785AC' },
 
         }}
-        
+
       />
       <Stack.Screen
         name="series/index"
         options={{
           headerTitle: "Series Information",
           presentation: "modal",
-                    headerStyle: { backgroundColor: '#7785AC' },
+          headerStyle: { backgroundColor: '#7785AC' },
 
         }}
       />
@@ -65,7 +65,7 @@ const RootLayout = () => {
         name="series/[id]"
         options={{
           headerTitle: "series Information",
-                    headerStyle: { backgroundColor: '#7785AC' },
+          headerStyle: { backgroundColor: '#7785AC' },
 
         }}
       />

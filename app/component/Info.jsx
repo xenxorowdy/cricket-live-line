@@ -67,19 +67,19 @@ const Info = ({ matchInfo, matchId }) => {
       <View style={[styles.box]}>
         <View style={{ margin: 5, flexDirection: "row" }}>
           <Text style={[{ width: "35%", color: "#ccc" }]}>umpires</Text>
-          <Text style={[styles.TextColor, { width: "65%", fontWeight: "700" }]}>
+          <Text style={[styles.TextColor, { width: "65%", fontWeight: 700 }]}>
             {umpire ?? "-"}
           </Text>
         </View>
         <View style={{ margin: 5, flexDirection: "row" }}>
           <Text style={[{ width: "35%", color: "#ccc" }]}>Third Umpire</Text>
-          <Text style={[styles.TextColor, { width: "65%", fontWeight: "700" }]}>
+          <Text style={[styles.TextColor, { width: "65%", fontWeight: 700 }]}>
             {third_umpire ?? "-"}
           </Text>
         </View>
         <View style={{ margin: 5, flexDirection: "row" }}>
           <Text style={[{ width: "35%", color: "#ccc" }]}>Referee</Text>
-          <Text style={[styles.TextColor, { width: "65%", fontWeight: "700" }]}>
+          <Text style={[styles.TextColor, { width: "65%", fontWeight: 700 }]}>
             {referee ?? "-"}
           </Text>
         </View>
@@ -214,19 +214,19 @@ const Info = ({ matchInfo, matchId }) => {
       <View style={[styles.box]}>
         <View style={{ margin: 5, flexDirection: "row" }}>
           <Text style={[{ width: "35%", color: "#ccc" }]}>Stadium</Text>
-          <Text style={[styles.TextColor, { width: "65%", fontWeight: "700" }]}>
+          <Text style={[styles.TextColor, { width: "65%", fontWeight: 700 }]}>
             {venue}
           </Text>
         </View>
         <View style={{ margin: 5, flexDirection: "row" }}>
           <Text style={[{ width: "35%", color: "#ccc" }]}>City</Text>
-          <Text style={[styles.TextColor, { width: "65%", fontWeight: "700" }]}>
+          <Text style={[styles.TextColor, { width: "65%", fontWeight: 700 }]}>
             {place}
           </Text>
         </View>
         {/* <View style={{ margin: 5, flexDirection: "row" }}>
           <Text style={[{ width: "35%", color: "#ccc" }]}>Capacity</Text>
-          <Text style={[styles.TextColor, { width: "65%", fontWeight: "700" }]}>
+          <Text style={[styles.TextColor, { width: "65%", fontWeight: 700 }]}>
             SL
           </Text>
         </View> */}

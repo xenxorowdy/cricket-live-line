@@ -1,9 +1,10 @@
 import axios from "axios";
 import FormData from "form-data";
 
-const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-const apiToken = process.env.EXPO_PUBLIC_key;
+const apiUrl = "http://apicricketchampion.in/apiv3/";
+const apiToken = "36d9271738c6011f1ce9a56ec5453057";
 export const LiveMatches = async () => {
+
   return await fetch(apiUrl + "liveMatchList/" + apiToken)
     .then((response) => response.json())
     .then((json) => json)
@@ -24,7 +25,7 @@ export const RecentMatches = async () => {
 
 export const matchPlayerSquadsInfo = async (id) => {
   const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Content-Type", "multipart/form-data");
   const formdata = new FormData();
   formdata.append("match_id", id);
   const requestOptions = {
@@ -40,6 +41,26 @@ export const matchPlayerSquadsInfo = async (id) => {
 
   return await response.json();
 };
+export const squadsBySeriesId = async (id) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "multipart/form-data");
+  const formdata = new FormData();
+  formdata.append("series_id", id);
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: formdata,
+    redirect: "follow",
+  };
+  const response = await fetch(
+    apiUrl + "squadsBySeriesId/" + apiToken,
+    requestOptions
+  );
+  const resp = await response.json();
+
+  return resp.data;
+
+}
 
 export const HomeMatch = async () => {
   return await fetch(apiUrl + "homeList/" + apiToken)
@@ -51,7 +72,7 @@ export const HomeMatch = async () => {
 // export const liveMatchById = async (id) => {
 //   const myHeaders = new Headers();
 
-//   myHeaders.append("Content-Type", "application/json");
+//   myHeaders.append("Content-Type", "multipart/form-data");
 
 //   const formdata = new FormData();
 //   formdata.append("match_id", id);
@@ -71,18 +92,20 @@ export const liveMatchById = async (id) => {
   try {
     const data = new FormData();
     const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Content-Type", "multipart/form-data");
     data.append("match_id", id);
-let config = {
-  method: 'post',
-  maxBodyLength: Infinity,
-  url:  `${apiUrl}liveMatch/${apiToken}`,
-  headers: myHeaders,
-  data : data
-};
-
-    const response = await axios.request(config)
-    return response.data.data;
+ const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: data,
+    redirect: "follow",
+  };
+    let url = `${apiUrl}liveMatch/${apiToken}`;
+return await fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((result) => result.data)
+    .catch((error) => console.error(error));
+   
   } catch (error) {
     console.error(error);
     throw error; // Optionally rethrow the error for handling further up the call stack
@@ -90,7 +113,7 @@ let config = {
 };
 export const commentaryMatchById = async (id) => {
   const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Content-Type", "multipart/form-data");
 
   const formdata = new FormData();
   formdata.append("match_id", id);
@@ -109,7 +132,7 @@ export const commentaryMatchById = async (id) => {
 
 export const scorecardByMatchId = async (id) => {
   const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Content-Type", "multipart/form-data");
 
   const formdata = new FormData();
   formdata.append("match_id", id);
@@ -128,7 +151,7 @@ export const scorecardByMatchId = async (id) => {
 
 export const matchOddHistory = async (id) => {
   const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Content-Type", "multipart/form-data");
 
   const formdata = new FormData();
   formdata.append("match_id", id);
@@ -147,7 +170,7 @@ export const matchOddHistory = async (id) => {
 
 export const fetchmatchInfo = async (id) => {
   const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Content-Type", "multipart/form-data");
 
   const formdata = new FormData();
   formdata.append("match_id", id);
@@ -166,7 +189,25 @@ export const fetchmatchInfo = async (id) => {
 
 export const pointsTableBySeriesId = async (id) => {
   const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Content-Type", "multipart/form-data");
+
+  const formdata = new FormData();
+  formdata.append("series_id", id);
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: formdata,
+    redirect: "follow",
+  };
+
+  return await fetch(apiUrl + "pointsTable/" + apiToken, requestOptions)
+    .then((response) => response.json())
+    .then((result) => result.data)
+    .catch((error) => console.error(error));
+};
+export const groupPointsTable = async (id) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "multipart/form-data");
 
   const formdata = new FormData();
   formdata.append("series_id", id);
@@ -198,7 +239,7 @@ export const newsList = async () => {
 
 export const fetchNewsDetailsById = async (id) => {
   const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Content-Type", "multipart/form-data");
 
   const formdata = new FormData();
   formdata.append("news_id", id);
@@ -214,3 +255,42 @@ export const fetchNewsDetailsById = async (id) => {
     .then((result) => result.data)
     .catch((error) => console.error(error));
 };
+
+export const getVenueResult = async (id) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "multipart/form-data");
+
+  const formdata = new FormData();
+  formdata.append("series_id", id);
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: formdata,
+    redirect: "follow",
+  };
+
+  return await fetch(apiUrl + "venuesBySeriesId/" + apiToken, requestOptions)
+    .then((response) => response.json())
+    .then((result) => result.data)
+    .catch((error) => console.error(error));
+};
+ 
+export const getseriesFixtures = async (id) => {
+
+   const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "multipart/form-data");
+
+  const formdata = new FormData();
+  formdata.append("series_id", id);
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: formdata,
+    redirect: "follow",
+  };
+
+  return await fetch(apiUrl + "upcomingMatchesBySeriesId/" + apiToken, requestOptions)
+    .then((response) => response.json())
+    .then((result) => {  console.log("result", result); return result.data })
+    .catch((error) => console.error(error));
+}

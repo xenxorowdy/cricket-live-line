@@ -12,12 +12,15 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.xenxo.cricketliveline"
     },
     "android": {
+      "hermesEnabled": true,
       "config": {
         "usesCleartextTraffic": true
       },
@@ -30,8 +33,16 @@
     "web": {
       "favicon": "./assets/Designer.png"
     },
-   "plugins":[ [ "expo-build-properties", { "android": { "usesCleartextTraffic": true } } ] ],
-
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ],
     "extra": {
       "router": {
         "origin": false
