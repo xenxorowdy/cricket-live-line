@@ -8,7 +8,7 @@ export default function CollapseCustom({ team, children }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
-    <View styles={styles.collapseContainer}>
+    <View >
       <TouchableOpacity
         activeOpacity={0.96}
         onPress={() => setIsCollapsed(!isCollapsed)}
@@ -40,11 +40,9 @@ export default function CollapseCustom({ team, children }) {
 }
 const styles = StyleSheet.create({
   collapseContainer: {
-    padding: 5,
+    paddingVertical: 10,
     alignItems: "center",
-
-    marginHorizontal: 10,
-    backgroundColor: "#7785AC",
+    backgroundColor: "#800000",
     justifyContent: "space-between",
     paddingHorizontal: 15,
     borderRadius: 5,

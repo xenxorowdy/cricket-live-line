@@ -16,25 +16,29 @@ const ShowAnimation = ({ style, value, runs = 0, mute }) => {
     requestPermission();
   }, [])
 
-  switch (value) {
-    case "Wicket":
+  switch (value?.toLowerCase()) {
+    case "wicket":
       return <ShowAnimationValue display="Wicket" mute={mute} />;
-    case "Wides":
+    case "wides":
       return <ShowAnimationValue mute={mute} display="Wide" />;
-    case "Byes":
+    case "byes":
       return <ShowAnimationValue mute={mute} display="Bye" />;
-    case "No Ball":
+    case "no ball":
       return <ShowAnimationValue mute={mute} display="No Ball" />;
-    case "Over":
+    case "over":
       return <ShowAnimationValue mute={mute} display="Over Complete" />;
-    case "Ball":
+    case "ball":
       return <ShowAnimationValue mute={mute} display="Ball Start" />;
-    case "Run":
+    case "run":
       return <ShowAnimationValue mute={mute} display={runs + " Run"} />;
-    case "LBW":
+    case "lbw":
       return <ShowAnimationValue mute={mute} display="LBW" />;
-    case "Out":
+    case "out":
       return <ShowAnimationValue mute={mute} display="Out" />;
+    case "four":
+      return <ShowAnimationValue mute={mute} display="4" />;
+    case "six":
+      return <ShowAnimationValue mute={mute} display="6" />;
     default:
       return <ShowAnimationValue mute={mute} display={value > 0 ? value + " Run" : value} />;
   }
@@ -44,22 +48,21 @@ const ShowAnimation = ({ style, value, runs = 0, mute }) => {
 
 const ShowAnimationValue = ({ display = "", mute = false }) => {
   const speak = (display) => {
-    // const textToSay = "Ball Start";
-
     Speech.speak(display);
   };
   useEffect(() => {
-    if (mute) return;
+
+    if (mute == 'false') return;
     speak(display);
   }, [display]);
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
-      {display.toLowerCase().includes('out') && !display.toLowerCase().includes('time') &&
+      {display.toLowerCase().includes('out') && !display.toLowerCase().includes('time') && !display.toLowerCase().includes('not') &&
         <Image
           source={require("../../assets/out.png")}
           style={{ width: 60, height: 60 }}
         />}
-      {display === "Wide" &&
+      {display.toLowerCase().includes("wide") &&
         <Image
           source={require("../../assets/wide.webp")}
           style={{ width: 60, height: 60 }}
@@ -80,10 +83,10 @@ const ShowAnimationValue = ({ display = "", mute = false }) => {
       }
       {display === "Ball Start" &&
         <Image
-          source={require("../../assets/ball.gif")}
+          source={require("../../assets/spinning_ball.gif")}
           style={{ width: 60, height: 60 }}
         />}
-      <Text style={{ color: "#292A2D", fontSize: 24, fontWeight: 700 }}>
+      <Text style={{ color: "#fff", fontSize: 24, fontWeight: 700 }}>
         {display}
       </Text>
     </View>

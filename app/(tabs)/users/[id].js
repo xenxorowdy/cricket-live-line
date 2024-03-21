@@ -47,7 +47,6 @@ const UserPage = () => {
   };
   const renderItem = async () => {
     const res = await RecentMatches();
-    console.log("response", res);
     setData(res);
     setFiltered(res);
   };
@@ -83,7 +82,7 @@ const UserPage = () => {
   return (
     // <ScrollView >
     <View style={styles.scrollView}>
-      <SafeAreaView style={{ backgroundColor: "#7785AC",height:25 }}/>
+      <SafeAreaView style={{ backgroundColor: "#800000",height:25 }}/>
        
         <TopTab
           option={option}
@@ -112,8 +111,8 @@ const UserPage = () => {
 const List = ({ item }) => {
   return (
     <View>
-      <View style={{ marginVertical: 7 }}>
-        <CusText style={{ fontWeight: 500 }}>{item?.date_wise}</CusText>
+      <View style={{ marginVertical: 7,marginHorizontal:5 }}>
+        <Text style={{ fontWeight: "700",fontSize:16 }}>{item?.date_wise}</Text>
       </View>
       <View style={styles.blockLiveContainer}>
         <Boxes match={item} />
@@ -126,14 +125,14 @@ export default UserPage;
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: "#141414",
+    backgroundColor: "#ccc",
     height: Dimensions.get("window").height,
     gap: 5,
     // marginHorizontal: 20,
   },
   blockLiveContainer: {
     gap: 20,
-    width: "97%",
+    width: "100%",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",

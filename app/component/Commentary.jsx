@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import MatchTopHeading from "./matchTopHeading";
 import CusText from "./CusText";
+import { checkBGColor } from "../utils";
+import { checkColor } from "./styleSheet";
 const width = Dimensions.get("window").width;
 const MatchComGuide = ({ data }) => (<View
   style={[
@@ -26,7 +28,7 @@ const MatchComGuide = ({ data }) => (<View
   <View style={{ flexDirection: "row", gap: 8 }}>
     <View
       style={{
-        backgroundColor: "#5a18c7",
+        backgroundColor: "#FF3939",
         width: 120,
         height: 90,
         borderRadius: 8,
@@ -74,20 +76,16 @@ const MatchComGuide = ({ data }) => (<View
   </View>
 </View>);
 const Commentary = (props) => {
-  console.log(props, "description");
   const { matchCommentry, matchInfo } = props;
   const overyByInning = Object.keys(matchCommentry ?? []) ?? [];
   return (
 
     <View style={styles.container}>
-      <View
-        style={{ backgroundColor: "#764abc", paddingVertical: 14, width }}
-      >
-        <MatchTopHeading team_b_img={matchInfo.team_b_img}
-          team_a_img={matchInfo.team_a_img}
-          team_a={matchInfo.team_a_short}
-          team_b={matchInfo.team_b_short} />
-      </View>
+
+      <MatchTopHeading team_b_img={matchInfo.team_b_img}
+        team_a_img={matchInfo.team_a_img}
+        team_a={matchInfo.team_a_short}
+        team_b={matchInfo.team_b_short} />
       {/* box of each over */}
       {/* <View style={styles.box}>
           <CusText style={{ paddingHorizontal: 8 }}>
@@ -110,7 +108,13 @@ const Commentary = (props) => {
 
         </View> */}
       {/* //Commentary */}
+      {!overyByInning?.length &&
+        <View style={{ alignItems: "center", height: 600, justifyContent: "center" }}>
+          <Text style={{ fontSize: 30, fontWeight: 700, textAlign: "center" }} >Commentary Not Available</Text>
+        </View>
+      }
       <View style={{ gap: 15 }}>
+
         <FlatList
           data={overyByInning}
           renderItem={({ item }) => (
@@ -138,7 +142,7 @@ const ListCommentry = ({ data }) => {
           <View style={{ flexDirection: "row", gap: 10 }}>
             <View
               style={{
-                backgroundColor: "#757575",
+                backgroundColor: checkBGColor(value?.data?.runs),
                 width: 22,
 
                 height: 22,
@@ -147,7 +151,7 @@ const ListCommentry = ({ data }) => {
                 borderRadius: 20,
               }}
             >
-              <CusText>{value?.data?.runs}</CusText>
+              <CusText style={{ color: "#171717" }} >{value?.data?.runs}</CusText>
             </View>
             <CusText>{value?.data?.description}</CusText>
           </View>
@@ -161,13 +165,13 @@ const ListCommentry = ({ data }) => {
 export default Commentary;
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: "#141414",
+    backgroundColor: "#ccc",
     height: Dimensions.get("window").height,
 
     // marginHorizontal: 20,
   },
   box: {
-    backgroundColor: "#292A2D",
+    backgroundColor: "#F9F6EE",
     paddingVertical: 8,
     paddingHorizontal: 5,
     marginVertical: 3,
@@ -176,7 +180,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   rowBox: {
-    backgroundColor: "#292A2D",
+    backgroundColor: "#F9F6EE",
     paddingHorizontal: 5,
     paddingVertical: 4,
     width: width,
@@ -184,7 +188,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   container: {
-    backgroundColor: "#141414",
+    backgroundColor: "#F5F5F5",
     color: "#EAEAEA",
     width: width,
 

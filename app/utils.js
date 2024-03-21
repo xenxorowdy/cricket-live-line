@@ -109,3 +109,19 @@ export const inningsuffix = (inning) => {
       return 'th'
   }
 }
+
+export const checkBGColor = (text) => {
+  if (text == "w") {
+    return "red";
+  } else if (text >= 4) {
+    return "lightblue"
+  } else if (text >= 2) {
+    return "lightgreen"
+  }
+  else if (text > 0) {
+    return "green"
+  }
+  else {
+    return "lightgrey"
+  }
+}

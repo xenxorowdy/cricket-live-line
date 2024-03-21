@@ -17,7 +17,7 @@ export default Match;
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: "#141414",
+    backgroundColor: "#fff",
     height: Dimensions.get("window").height,
 
     // marginHorizontal: 20,

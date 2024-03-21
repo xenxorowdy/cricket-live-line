@@ -25,13 +25,13 @@ const SeriesInfo = () => {
   }, []);
 
   return (
-    <View style={{ justifyContent: "center" }}>
+    <View style={{ justifyContent: "center", gap: 10 }}>
       <View style={styles.subTopHeading}>
-        <CusText>Series</CusText>
+        <Text style={{ fontSize: 18, fontWeight: "700" }} >Series</Text>
 
         <TouchableOpacity activeOpacity={0.75} onPress={() => { router.push("/series") }} >
 
-          <CusText style={{ fontSize: 15 }} >View More </CusText>
+          <Text style={{ fontSize: 15, fontWeight: "700" }} >View More </Text>
 
         </TouchableOpacity>
       </View>
@@ -47,10 +47,11 @@ const SeriesInfo = () => {
 const SeriesComp = ({ item }) => (
 
   <TouchableOpacity
+    activeOpacity={0.7}
     style={[
       styles.subTopHeading,
       styles.titles,
-      { justifyContent: "space-between", paddingHorizontal: 10 },
+      { justifyContent: "space-between", paddingHorizontal: 10, marginVertical: 2 },
     ]}
     onPress={() => { router.push("/series/" + item.series_id) }}
   >
@@ -67,9 +68,9 @@ const SeriesComp = ({ item }) => (
         <CusText>{"*" + item.series_date + ""} </CusText>
       </View>
     </View>
-    <TouchableOpacity activeOpacity={0.7}>
-      <AntDesign name="right" size={24} color="white" />
-    </TouchableOpacity>
+
+    <AntDesign name="right" size={24} color="white" />
+
   </TouchableOpacity>
 );
 
@@ -85,12 +86,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    gap: 10,
     paddingHorizontal: 8,
     paddingVertical: 5,
   },
   titles: {
     paddingHorizontal: 5,
-    backgroundColor: "#3c3c3c",
+    backgroundColor: "#c3c3c3",
     color: "#FFFFFF",
     minHeight: 45,
     justifyContent: "center",

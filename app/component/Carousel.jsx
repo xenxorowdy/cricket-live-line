@@ -70,16 +70,13 @@ export const Boxes = ({ e, match }) => {
     <Link href={"/match/" + match?.match_id + "/"} style={{ borderRadius: 12 }}>
       <View onPress={handleBoxPress} style={styles.slide1}>
         <View style={styles.displayFlex}>
-          <View style={{ width: "75%" }}>
+          <View style={{ width: "75%", gap: 5 }}>
             <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>
               {match?.series}
             </Text>
             <View style={{ flexDirection: "row", gap: 5 }}>
               <Text style={{ ...styles.text, ...styles.textSmallText }}>
-                {/* {formatDateAndTime(match?.dateTimeGMT + "Z")} */}
                 {match?.match_date + " " + match?.match_time + " "}
-
-                {/* Today 09:10 AM */}
               </Text>
               <CusText style={styles.textSmallText}>
                 {match?.match_type}
@@ -202,11 +199,12 @@ const styles = StyleSheet.create({
     height: 222,
     alignItems: "center",
     justifyContent: "center",
+    margin: 5,
+
   },
   slide1: {
-    paddingHorizontal: 5,
-    backgroundColor: "#3c3c3c",
-    color: "#FFFFFF",
+    paddingHorizontal: 10,
+    backgroundColor: "#f3f3f3",
     minHeight: 180,
     justifyContent: "center",
     borderRadius: 8,
@@ -214,6 +212,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
     width: Dimensions.get("screen").width - 10,
+    paddingVertical: 5,
   },
   slide2: {
     flex: 1,
@@ -230,10 +229,10 @@ const styles = StyleSheet.create({
     width: 90,
   },
   text: {
-    color: "#fff",
+    color: "#171717",
   },
   textSmallText: {
-    fontSize: 9,
+    fontSize: 10,
   },
   displayFlexBottom: {
     flexDirection: "row",

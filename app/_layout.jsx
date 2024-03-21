@@ -8,7 +8,7 @@ const RootLayout = () => {
         options={{
           headerShown: false,
           headerTitle: "",
-          headerStyle: { backgroundColor: '#7785AC' },
+          headerStyle: { backgroundColor: '#800000' },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
@@ -21,7 +21,7 @@ const RootLayout = () => {
         options={{
           headerTitle: "Team Information",
           presentation: "modal",
-          headerStyle: { backgroundColor: '#7785AC' },
+          headerStyle: { backgroundColor: '#800000' },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
@@ -33,11 +33,11 @@ const RootLayout = () => {
         name="match/[id]"
         options={{
           headerTitle: "Match Summary",
-          headerStyle: { backgroundColor: '#7785AC' },
+          headerStyle: { backgroundColor: '#800000' },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: "700",
-            backgroundColor: '#7785AC',
+            backgroundColor: '#800000',
           },
 
         }}
@@ -47,7 +47,7 @@ const RootLayout = () => {
         options={{
           headerTitle: "News",
           presentation: "modal",
-          headerStyle: { backgroundColor: '#7785AC' },
+          headerStyle: { backgroundColor: '#800000' },
 
         }}
 
@@ -57,7 +57,7 @@ const RootLayout = () => {
         options={{
           headerTitle: "Series Information",
           presentation: "modal",
-          headerStyle: { backgroundColor: '#7785AC' },
+          headerStyle: { backgroundColor: '#800000' },
 
         }}
       />
@@ -65,7 +65,7 @@ const RootLayout = () => {
         name="series/[id]"
         options={{
           headerTitle: "series Information",
-          headerStyle: { backgroundColor: '#7785AC' },
+          headerStyle: { backgroundColor: '#800000' },
 
         }}
       />

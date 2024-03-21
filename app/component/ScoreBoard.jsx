@@ -7,27 +7,40 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CollapseCustom from "./CollapeCustom";
 import { AntDesign } from "@expo/vector-icons";
 import CusText from "./CusText";
+import MatchTopHeading from "./matchTopHeading";
 
-const ScoreBoard = ({ matchScoreBoard }) => {
-  console.log("checking score:", matchScoreBoard);
-  const { result, scorecard } = matchScoreBoard;
-  const team1 = scorecard?.[1]?.team;
-  const team2 = scorecard?.[2]?.team;
-  const team1Score = scorecard?.[1];
-  const team2Score = scorecard?.[2];
-  console.log("team_a_b", scorecard);
+const ScoreBoard = ({ matchScoreBoard, matchInfo }) => {
+  const [result, setResult] = useState();
+  const [team1, setTem1] = useState([]);
+  const [team2, setTem2] = useState([]);
+  const [team1Score, setTeam1Score] = useState([]);
+  const [team2Score, setTeam2Score] = useState([]);
+  useEffect(() => {
+    setTem1(matchScoreBoard?.scorecard?.[1]?.team);
+    setTem2(matchScoreBoard?.scorecard?.[2]?.team);
+    setTeam1Score(matchScoreBoard?.scorecard?.[1]);
+    setTeam2Score(matchScoreBoard?.scorecard?.[2]);
+    setResult(matchScoreBoard?.result)
+  }, [matchScoreBoard]);
   return (
     <View style={{ flexDirection: "column", gap: 15, padding: 8 }}>
-      <View
+      <MatchTopHeading
+        team_b_img={matchInfo.team_b_img}
+        team_a_img={matchInfo.team_a_img}
+        team_a={matchInfo.team_a_short}
+        team_b={matchInfo.team_b_short}
+      />
+      {/* <View
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
           paddingHorizontal: 10,
           alignItems: "center",
+          backgroundColor: "#800000", paddingVertical: 14,
         }}
       >
         <View style={styles.infoTeam}>
@@ -50,7 +63,7 @@ const ScoreBoard = ({ matchScoreBoard }) => {
             style={{ width: 30, height: 30, borderRadius: 18 }}
           />
         </View>
-      </View>
+      </View> */}
       <Text style={styles.TextColor}> {result}</Text>
       <CollapseCustom team={team1} >
         <ScoreBoradTable
@@ -66,7 +79,7 @@ const ScoreBoard = ({ matchScoreBoard }) => {
           team={team2}
           batsman={team2Score?.batsman}
           bowler={team2Score?.bolwer}
-          fallwicket={team1Score?.fallwicket}
+          fallwicket={team2Score?.fallwicket}
         />
       </CollapseCustom>
     </View>
@@ -327,25 +340,23 @@ export const styles = StyleSheet.create({
     gap: 5,
   },
   box: {
-    backgroundColor: "#292A2D",
+    backgroundColor: "#F5F5F5",
     paddingVertical: 8,
     paddingHorizontal: 0,
-    marginVertical: 3,
     flexDirection: "row",
     justifyContent: "space-between",
   },
   textHeader: {
-    fontWeight: 700,
+    fontWeight: "800",
     paddingLeft: 2
   },
   rowBox: {
     alignContent: "center",
     alignItems: "center",
-    backgroundColor: "#292A2D",
+    backgroundColor: "#F5F5F5",
     paddingHorizontal: 0,
-    paddingVertical: 6,
-    borderBottomWidth: 0.5,
-    borderColor: "#ccc",
+    paddingVertical: 5,
+    borderColor: "#171717",
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -361,7 +372,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#EAEAEA",
   },
   TextColor: {
-    color: "#ccc",
+    color: "#171717",
     minWidth: 20,
   },
   divider: {

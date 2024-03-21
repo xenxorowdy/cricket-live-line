@@ -23,7 +23,6 @@ const matchDetail = [
   "Info",
   "Commentary",
   "ScoreBoard",
-  "History",
   "Points Table",
 ];
 
@@ -105,6 +104,17 @@ const MatchDetail = ({ matchId }) => {
     const timerId = setInterval(debouncedRender, 300);
     return () => clearInterval(timerId);
   }, []);
+  const debounced = _.debounce(async () => {
+    await fetchCommentary();
+    await fetchScoreBoard();
+    await fetchHistory();
+    await fetchHistory();
+  }, 2000);
+  // Simulate an event triggering the render
+  useEffect(() => {
+    const timerId = setInterval(debounced, 3000);
+    return () => clearInterval(timerId);
+  }, []);
   useEffect(() => {
     setLoading(true)
     fetchResult();
@@ -112,9 +122,8 @@ const MatchDetail = ({ matchId }) => {
     fetchInfo();
     fetchScoreBoard();
     fetchHistory();
-    setLoading(true)
-  }, []);
-  if (loading && matchResult.length) return <Loading />;
+  }, [currentIndex]);
+  if (loading && matchResult?.length) return <Loading />;
   return (
     <View style={{}}>
       <TopTab
@@ -125,9 +134,9 @@ const MatchDetail = ({ matchId }) => {
       {currentIndex === 0 && <Live matchDetail={matchResult} />}
       {currentIndex === 1 && <Info matchId={matchId} matchInfo={matchInfo} />}
       {currentIndex === 2 && <Commentary matchCommentry={matchCommentry} matchInfo={matchInfo} />}
-      {currentIndex === 3 && <ScoreBoard matchScoreBoard={matchScoreBoard} />}
-      {currentIndex === 4 && <HistoryComponet matchHistory={matchHistory} />}
-      {currentIndex === 5 && (
+      {currentIndex === 3 && <ScoreBoard matchScoreBoard={matchScoreBoard} matchInfo={matchInfo} />}
+      {/* {currentIndex === 4 && <HistoryComponet matchHistory={matchHistory} />} */}
+      {currentIndex === 4 && (
         <PointsTable matchPointsTable={matchPointsTable} />
       )}
     </View>

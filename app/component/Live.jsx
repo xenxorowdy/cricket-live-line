@@ -8,31 +8,70 @@ import {
   View,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ShowAnimation from "./ShowAnimation";
 import SvgComponent from "./cricket";
 import { checkColor } from "./styleSheet";
 import CusText from "./CusText";
-import { inningsuffix, ratefetch } from "../utils";
+import { checkBGColor, inningsuffix, ratefetch } from "../utils";
+import { Divider } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const tobat = ["rohit sharma", "jos butler", "sam ", "sanju samson"];
 const option =
 {
   "ball": "Ball Start",
   "wicket": "Wicket",
 };
+
 const Live = ({ matchDetail = [] }) => {
-  const [mute, SetMute] = useState(false);
-  let last24ball = [];
-  matchDetail?.last4overs?.map(
-    (e) => (last24ball = [...last24ball, ...e.balls])
-  );
+  const getValue = async (keyToRetrieve) => {
+    try {
+      const value = await AsyncStorage.getItem(keyToRetrieve);
+      console.log("retrival value", value, value, mute);
+      return SetMute(value ?? 'false');
+    } catch (error) {
+      return SetMute('false');
+    }
+  };
+  const [mute, SetMute] = useState("false");
+
+
   const handleMute = () => {
-    SetMute(!mute);
+    const value = mute == "true" ? "false" : "true";
+    storeValue("mute", `${value}`);
+    SetMute(value);
   };
   let str = '';
+  const scrollViewRef = useRef(null);
 
+  useEffect(() => {
+    getValue("mute");
+  }, [])
 
+  // if (scrollViewRef.current) {
+  //   scrollViewRef.current.scrollToEnd({ animated: false });
+  // }
 
+  useEffect(() => {
+    if (scrollViewRef.current) {
+      const time = setTimeout(() => {
+
+        if (scrollViewRef.current) {
+          scrollViewRef.current.scrollToEnd({ animated: false });
+        }
+      }, 500);
+    }
+
+  }, []);
+  const storeValue = async (key, value) => {
+    await AsyncStorage.setItem(key, value)
+      .then(() => {
+        console.log("Value saved successfully!");
+      })
+      .catch((error) => {
+        console.error("Error saving value:", error);
+      });
+  };
   // useEffect(() => {
   //   if (matchDetail.length) {
   //     getScore();
@@ -41,68 +80,118 @@ const Live = ({ matchDetail = [] }) => {
   return (
     <View style={styles.container}>
       <View style={[{ alignContent: "center", alignItems: "center", width: "100%" }]} >
-        <View style={styles.tvStyle}>
-          {mute ? (
-            <Ionicons
-              onPress={handleMute}
-              name="volume-mute-outline"
-              size={24}
-              color="black"
-              style={{ position: "absolute", top: 5, left: 5 }}
-            />
-          ) : (
-            <Ionicons
-              onPress={handleMute}
-              name="volume-high-outline"
-              size={24}
-              color="black"
-              style={{ position: "absolute", top: 5, left: 5 }}
-            />
-          )}
+        <View style={{ flexDirection: "column", width: "100%", alignItems: "center" }} >
+          <View style={styles.tvStyle}>
+            {mute == 'false' ? (
+              <Ionicons
+                onPress={handleMute}
+                name="volume-mute-outline"
+                size={24}
+                color="white"
+                style={{ position: "absolute", top: 5, left: 5 }}
+              />
+            ) : (
+              <Ionicons
+                onPress={handleMute}
+                name="volume-high-outline"
+                size={24}
+                color="white"
+                style={{ position: "absolute", top: 5, left: 5 }}
+              />
+            )}
 
-          <ShowAnimation mute={mute} style={styles.tvStyle} value={matchDetail?.first_circle} />
-          <Text
-            style={{
-              position: "absolute",
-              top: 5,
-              right: 5,
-              fontWeight: "600",
-              fontSize: 15,
-              color: checkColor('Live'),
-            }}
-          >
-            Live
-          </Text>
-        </View>
-        <View style={[styles.boxtv]} >
-          <View style={{ flexDirection: "row", gap: 4, alignItems: "center", padding: 5 }}>
-            <CusText>{matchDetail?.battingTeam}:</CusText>
-            <CusText style={{ fontWeight: "600" }} >{matchDetail?.battingScore}
-              {/* {matchDetail?.team_a} */}
-              {/* {team_a_score} */}
-            </CusText>
-            {matchDetail?.powerplay == 1 &&
-              <View style={styles.powerplay}>
-
-                <Text style={{ fontWeight: "600", color: "#FFC700", fontSize: 15 }} > P </Text>
-              </View>
-            }
+            <ShowAnimation mute={mute} style={styles.tvStyle} value={matchDetail?.first_circle} />
+            <Text
+              style={{
+                position: "absolute",
+                top: 5,
+                right: 5,
+                fontWeight: "600",
+                fontSize: 15,
+                color: checkColor('Live'),
+              }}
+            >
+              LIVE
+            </Text>
           </View>
-          <View style={{ flexDirection: "row", gap: 2, alignIrtems: "center", padding: 5 }}>
-            <CusText>{matchDetail?.secbattingTeam}:</CusText>
-            <CusText style={{ fontWeight: "600" }} >{matchDetail?.secbattingScore}
-              {/* {matchDetail?.team_a} */}
-              {/* {team_a_score} */}
-            </CusText>
+          <View style={[styles.boxtv]} >
+            <View style={{ flexDirection: "row", gap: 4, alignItems: "center", padding: 5 }}>
+              <CusText>{matchDetail?.battingTeam}:</CusText>
+              <CusText style={{ fontWeight: "600" }} >{matchDetail?.battingScore}
+                {/* {matchDetail?.team_a} */}
+                {/* {team_a_score} */}
+              </CusText>
+              {matchDetail?.powerplay == 1 &&
+                <View style={styles.powerplay}>
+
+                  <Text style={{ fontWeight: "600", color: "#FFC700", fontSize: 15 }} > P </Text>
+                </View>
+              }
+            </View>
+            <View style={{ flexDirection: "row", gap: 2, alignIrtems: "center", padding: 5 }}>
+              <CusText>{matchDetail?.secbattingTeam}:</CusText>
+              <CusText style={{ fontWeight: "600" }} >{matchDetail?.secbattingScore}
+                {/* {matchDetail?.team_a} */}
+                {/* {team_a_score} */}
+              </CusText>
+            </View>
           </View>
         </View>
       </View>
-      <View style={[styles.box, { flexDirection: "column", gap: 20, borderRadius: 2, width: "98%" }]}>
+      <View
+        style={[
+          styles.box,
+          { borderBottomWidth: 0.5 },
+          { borderColor: "#fff" },
+        ]}
+      >
+        <Text style={styles.TextColor}>Last 4 Overs</Text>
+      </View>
+      <View style={{ flexDirection: "row", gap: 10, marginHorizontal: 10 }}>
+        <ScrollView
+          horizontal
+          ref={scrollViewRef}
+          contentContainerStyle={{ alignItems: 'flex-end' }}
+          showsHorizontalScrollIndicator={false}
+        >
+          <View style={{ flexDirection: "row", gap: 10, marginHorizontal: 10 }}>
+            {(matchDetail?.last4overs)?.map((item, index) => (
+              <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+                <CusText style={{ fontWeight: "700", fontSize: 16, color: "#2D2B2A" }} >Over {item.over}</CusText>
+                {
+                  item.balls.map((ele, idx) =>
+                    <View
+                      style={{
+                        height: 25,
+                        backgroundColor: checkBGColor(ele?.toLowerCase()),
+                        width: 25,
+                        borderRadius: 25,
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Text key={idx} style={{ color: (ele == 0 || ele > 3) ? "white" : "black", fontWeight: "bold", fontSize: 12, textAlign: "center", width: 28 }}  >
+                        {ele}
+                      </Text>
+                    </View>
+                  )
+                }
+                < CusText style={{ fontWeight: "600", fontSize: 16, color: "#2D2B2A" }} >= {" "} {item.runs}</CusText>
+                <Divider style={{ width: 1, height: '100%' }} />
+                <View style={styles} />
+              </View>
+            ))}
+          </View>
+        </ScrollView >
+      </View>
+      <View style={[styles.box, { flexDirection: "column", gap: 20, borderRadius: 2, width: "100%", paddingVertical: 10 }]}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.TextColor}>Run Rate: {matchDetail?.curr_rate}</Text>
           {matchDetail?.rr_rate &&
             <Text style={styles.TextColor}>RRR: {matchDetail?.rr_rate}</Text>}
-          <Text style={styles.TextColor}>Ball Rem: {matchDetail?.ball_rem}</Text>
+          {matchDetail?.ball_rem &&
+            <Text style={styles.TextColor}>Ball Remaning: {matchDetail?.ball_rem}</Text>
+          }
         </View>
         {matchDetail?.target &&
           <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -218,13 +307,19 @@ const Live = ({ matchDetail = [] }) => {
             </View>
           )}
         />
+        <View style={styles.rowBox} >
+
+          <CusText>Partnership: {matchDetail?.partnership?.run?.toString() ?? '-'} ({matchDetail?.partnership?.ball?.toString() ?? '-'})</CusText>
+
+          {matchDetail?.lastwicket?.player &&
+            <CusText>Last Wkt: {matchDetail?.lastwicket?.player?.toString() + " " + matchDetail?.lastwicket?.run?.toString() + "(" + matchDetail?.lastwicket?.ball?.toString() + ")"}   </CusText>
+          }
+        </View>
       </View>
       <View style={{ flexDirection: "column", padding: 0, flex: 1 }}>
         <View
           style={[
             styles.box,
-            { borderBottomWidth: 0.5 },
-            { borderColor: "#fff" },
           ]}
         >
           <Text style={styles.TextColor}>bowler</Text>
@@ -232,6 +327,7 @@ const Live = ({ matchDetail = [] }) => {
             style={{
               flexDirection: "row",
               gap: 15,
+
             }}
           >
             <Text style={styles.TextColor}>O</Text>
@@ -239,7 +335,9 @@ const Live = ({ matchDetail = [] }) => {
             <Text style={styles.TextColor}>Wkt</Text>
             <Text style={[styles.TextColor, { width: 32 }]}>Eco</Text>
           </View>
+
         </View>
+
         <FlatList
           data={[matchDetail?.bolwer]}
           keyExtractor={(item, index) => `${item}_${index}`}
@@ -264,40 +362,6 @@ const Live = ({ matchDetail = [] }) => {
         />
       </View>
       <View style={{ flexDirection: "column", padding: 0, flex: 1 }}>
-        <View
-          style={[
-            styles.box,
-            { borderBottomWidth: 0.5 },
-            { borderColor: "#fff" },
-          ]}
-        >
-          <Text style={styles.TextColor}>Last 24 Balls</Text>
-        </View>
-        <ScrollView
-          horizontal
-          style={{ flexDirection: "row" }}
-          showHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.CategoryScrollViewStyle}
-        >
-          <View style={{ flexDirection: "row", gap: 10 }}>
-            {last24ball?.map((item, index) => (
-              <View
-                style={{
-                  height: 25,
-                  backgroundColor: "orange",
-                  width: 25,
-                  borderRadius: 25,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text key={index} style={{ color: "#fff", fontWeight: "500" }}>
-                  {item}
-                </Text>
-              </View>
-            ))}
-          </View>
-        </ScrollView>
       </View>
       <View style={{ flexDirection: "column", padding: 0, flex: 1 }}>
         <View
@@ -325,7 +389,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#141414",
+    backgroundColor: "#fff",
     color: "#EAEAEA",
     gap: 8,
   },
@@ -333,46 +397,51 @@ const styles = StyleSheet.create({
   minStyle: { backgroundColor: "red", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700" },
   maxStyle: { backgroundColor: "green", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700" },
   box: {
-    backgroundColor: "#292A2D",
-    paddingVertical: 8,
-    paddingHorizontal: 5,
-    marginVertical: 3,
+    backgroundColor: "#F9F6EE",
+    padding: 10,
     width: Dimensions.get("window").width,
     flexDirection: "row",
+    borderRadiusTopLeft: 10,
+
     justifyContent: "space-between",
+    paddingVertical: 15,
   },
   boxtv: {
-    backgroundColor: "#292A2D",
+    backgroundColor: "#F9F6EE",
     paddingVertical: 8,
-    marginVertical: 3,
-    width: "95%",
+    width: "97%",
+    borderRadius: 10,
+    paddingVertical: 12,
     flexDirection: "row",
     justifyContent: "space-between",
+    padding: 10,
   },
   rowBox: {
     alignContent: "center",
     alignItems: "center",
-    backgroundColor: "#292A2D",
-    paddingHorizontal: 5,
+
+    backgroundColor: "#F9F6EE",
+    paddingHorizontal: 12,
     paddingVertical: 4,
-    width: Dimensions.get("window").width - 2,
+    width: Dimensions.get("window").width,
     flexDirection: "row",
     justifyContent: "space-between",
+    padding: 10,
+
   },
   tvStyle: {
     justifyContent: "center",
     alignItems: "center",
-    width: "95%",
-    height: 100,
+    width: "98%",
+    height: 120,
     flexDirection: "row",
     borderWidth: 3, // Border width
-    borderColor: "black", // Border color
-    borderRadius: 4, // Border radius (optional, for rounded corners)
-    padding: 10,
-    backgroundColor: "#EAEAEA",
+    borderColor: "white", // Border color
+    borderRadius: 6, // Border radius (optional, for rounded corners)
+    backgroundColor: "#000",
   },
   TextColor: {
-    color: "#ccc",
+    color: "#171717",
     minWidth: 25,
   },
   divider: {

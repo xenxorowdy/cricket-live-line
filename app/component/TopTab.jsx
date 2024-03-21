@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 const TopTab = ({
-  option = ["home", "live"],
+  option = ["Home", "Live"],
   currentIndex = 0,
   handleChangeTab,
 }) => {
@@ -30,7 +30,7 @@ const TopTab = ({
             <Text
               style={[
                 styles.CategoryText,
-                currentIndex == index ? { color: "orange" } : {},
+                currentIndex == index ? { color: "#21DA8C" } : {},
               ]}
             >
               {data}
@@ -60,15 +60,16 @@ const styles = StyleSheet.create({
   ActiveCategory: {
     height: 1,
 
-    backgroundColor: "orange",
+    backgroundColor: "#21DA8C",
   },
   CategoryScrollViewItem: {
     alignItems: "center",
   },
   CategoryText: {
-    fontSize: 16,
+    fontSize: 18,
     height: 20,
-    color: "lightgrey",
+    fontWeight: "bold",
+    color: "#000",
     marginBottom: 4,
   },
 });

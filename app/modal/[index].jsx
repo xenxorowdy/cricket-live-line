@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -8,13 +9,11 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import MatchTopHeading from "../component/matchTopHeading";
-import CusText from "../component/CusText";
 import { CusLargeText } from "../utils";
 import { Entypo } from "@expo/vector-icons";
 import { matchPlayerSquadsInfo } from "../api";
 import { useLocalSearchParams } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Image } from "react-native-svg";
 
 const Modal = () => {
   const [matchPlayerInfo, setmatchPlayerInfo] = useState([]);
@@ -22,13 +21,14 @@ const Modal = () => {
 
   const callMatchPlayerInfo = async () => {
     const res = await matchPlayerSquadsInfo(index);
-
     setmatchPlayerInfo(res.data);
   };
+  console.log(matchPlayerInfo);
   useEffect(() => {
     callMatchPlayerInfo();
   }, []);
   const { team_a, team_b } = matchPlayerInfo;
+
   return (
     <ScrollView style={styles.scrollView}>
       <SafeAreaProvider style={{ marginVertical: 10 }}>
@@ -49,7 +49,7 @@ const Modal = () => {
             backgroundColor: "#21DA8C",
           }}
         >
-          <CusText style={{ fontSize: 16, fontWeight: 600 }}>Players</CusText>
+          <Text style={{ fontSize: 16, fontWeight: 600 }}>Players</Text>
         </Pressable>
         <View
           style={{
@@ -57,15 +57,14 @@ const Modal = () => {
             justifyContent: "space-between",
             paddingVertical: 10,
             paddingLeft: 10,
-            width: "105%",
+            width: "100%",
           }}
         >
-          <View style={{ gap: 10 }}>
+          <View style={{ marginHorizontal: 10, gap: 10 }}>
             {team_a?.player.map((ele) => (
               <View
                 style={{ flexDirection: "row", gap: 20, alignItems: "center" }}
               >
-                {console.log(ele?.image)}
                 <Image
                   source={{
                     uri: ele?.image || "",
@@ -74,11 +73,11 @@ const Modal = () => {
                 />
                 {/* <Entypo name="user" size={24} color="grey" /> */}
                 <View>
-                  <CusText style={{ fontSize: 13, fontWeight: 600 }}>
+                  <Text style={{ fontSize: 13, fontWeight: 600 }}>
                     {" "}
                     {ele.name}
-                  </CusText>
-                  <CusText>{ele.play_role}</CusText>
+                  </Text>
+                  <Text>{ele.play_role}</Text>
                 </View>
               </View>
             ))}
@@ -101,17 +100,17 @@ const Modal = () => {
                   style={{ width: 30, height: 30, borderRadius: 18 }}
                 />
                 <View style={{ alignItems: "flex-end" }}>
-                  <CusText style={{ fontSize: 13, fontWeight: 600 }}>
+                  <Text style={{ fontSize: 13, fontWeight: 600 }}>
                     {" "}
                     {ele?.name}
-                  </CusText>
-                  <CusText>{ele?.play_role}</CusText>
+                  </Text>
+                  <Text>{ele?.play_role}</Text>
                 </View>
               </View>
             ))}
           </View>
           <View>
-            <CusText></CusText>
+            <Text></Text>
           </View>
         </View>
       </SafeAreaProvider>
@@ -123,7 +122,7 @@ export default Modal;
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: "#141414",
+    backgroundColor: "#ccc",
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
 

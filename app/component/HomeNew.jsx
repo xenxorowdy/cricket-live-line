@@ -30,7 +30,7 @@ const HomeNew = ({ id }) => {
   return (
     <View style={{ justifyContent: "center", marginTop: 30, gap: 8 }}>
       <View style={styles.subTopHeading}>
-        <CusText style={{ fontWeight: 500, fontSize: 20 }}>Top News</CusText>
+        <Text style={{ fontWeight: 500, fontSize: 20, color: "black" }}>Top News</Text>
         {/* <TouchableOpacity>
           <CusText>View More </CusText>
         </TouchableOpacity> */}
@@ -79,7 +79,7 @@ const NewsComp = ({ item }) => (
       />
     </View>
 
-    <View style={{ paddingVertical: 0, gap: 10, paddingVertical: 10 }}>
+    <View style={{ paddingVertical: 0, gap: 10, paddingVertical: 10, borderRadius: 8 }}>
       <CusText
         style={{
           fontWeight: 500,
@@ -102,16 +102,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     paddingHorizontal: 8,
+    borderRadius: 14,
     paddingVertical: 2,
   },
   titles: {
-    paddingHorizontal: 5,
-    backgroundColor: "#3c3c3c",
+    paddingHorizontal: 10,
+    backgroundColor: "#c3c3c3",
+    marginVertical: 5,
     color: "#FFFFFF",
     minHeight: 30,
     justifyContent: "center",
     borderRadius: 6,
-
+    borderRadius: 4,
     alignContent: "center",
     marginHorizontal: 8,
 

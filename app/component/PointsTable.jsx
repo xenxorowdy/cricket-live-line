@@ -44,7 +44,7 @@ const PointsTable = ({ matchPointsTable = [] }) => {
             <View
               style={[
                 styles.rowBox,
-                { paddingVertical: 13, paddingHorizontal: 8 },
+                { paddingVertical: 18, paddingHorizontal: 8 },
               ]}
             >
               <View style={{ flexDirection: "row", alignItems: "center" }}>

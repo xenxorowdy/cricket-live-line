@@ -27,15 +27,15 @@ export default function HomeLayout() {
           name="index"
           options={{
             // headerTitle: "Home",
-            title: "index",
+            title: "Home",
             tabBarActiveTintColor: '#11BA8C',
             tabBarIcon: ({ color }) => <FontAwesome size={22} name="home" color={color} />,
-            headerStyle: { backgroundColor: '#a393eb' },
-          headerTintColor: '#a393eb',
+            headerStyle: { backgroundColor: '#800000' },
+          headerTintColor: '#800000',
           headerTitleStyle: {
             fontWeight: 'bold',
-            color: '#a393eb',
-            backgroundColor:'#a393eb',
+            color: '#800000',
+            backgroundColor:'#800000',
           },
 headerTitle: props => <LogoTitle {...props} />,
           }}

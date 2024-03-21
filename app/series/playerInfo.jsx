@@ -70,7 +70,7 @@ const PlayersModal = ({ visible, onClose, playerInfo, teamInfo }) => {
                             <CusText style={{ fontSize: 26, marginLeft: 10, width: "80%" }} numberOfLines={2} ellipsizeMode="tail" >{teamInfo.name}</CusText>
                         </View>
                         <TouchableOpacity onPress={onClose}  >
-                            <AntDesign name="close" size={24} color="white" />
+                            <AntDesign name="close" size={24} color="#111111" />
                         </TouchableOpacity>
                     </View>
                     <CusText style={{ fontSize: 26, marginTop: 10, margin: 10 }}>Players</CusText>
@@ -81,9 +81,9 @@ const PlayersModal = ({ visible, onClose, playerInfo, teamInfo }) => {
                         renderItem={renderPlayerItem}
                         keyExtractor={(item, index) => index.toString()}
                     />
-                    <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+                    {/* <TouchableOpacity onPress={onClose} style={styles.closeButton}>
                         <Text style={{ color: 'white', fontSize: 18 }}>Close</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </View>
         </Modal>
@@ -120,9 +120,9 @@ const renderTeamItem = ({ item, setModalVisible, setPlayerInfo, setTeamInfo }) =
         style={{ marginBottom: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 10 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, textAlign: "center" }}>
             <Image source={{ uri: item.team.flag }} style={{ width: 40, height: 40, borderRadius: 50 }} />
-            <CusText style={{ fontSize: 20, marginLeft: 10, width: "80%" }} numberOfLines={1} ellipsizeMode="tail" >{item.team.name}</CusText>
+            <Text style={{ fontSize: 20, marginLeft: 10, width: "80%" }} numberOfLines={1} ellipsizeMode="tail" >{item.team.name}</Text>
         </View>
-        <AntDesign name="right" size={24} color="white" />
+        <AntDesign name="right" size={24} color="black" />
     </TouchableOpacity>
 );
 
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalContent: {
-        backgroundColor: '#030304',
+        backgroundColor: '#f3f3f3',
         padding: 20,
         borderRadius: 10,
         width: '95%',
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
         borderColor: "#fff",
         borderRadius: 10,
         padding: 10,
-        backgroundColor: "#141414",
+        backgroundColor: "#ccc",
     },
     playerImage: {
         width: 50,
@@ -203,12 +203,12 @@ const styles = StyleSheet.create({
     },
     playerName: {
         fontSize: 16,
-
-        color: '#ffffff',
+        fontWeight: "600",
+        color: '#1A1716',
     },
     playerRole: {
         fontSize: 14,
-        color: '#cccccc',
+        color: '#000',
     },
 
 });

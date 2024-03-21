@@ -18,20 +18,21 @@ import NewsComponent from "../news/[id]";
 import HomeNew from "../component/HomeNew";
 import Venue from "../component/Venue";
 import PlayerTeam from "./playerInfo";
+import Loading from "../Loading";
 const SeriesInfo = () => {
   const option = [
-    "Overview",
+
     "Fixtures",
     "Points Table",
     "Team Squad",
-    "stats",
+
     "Venues",
     "News",
-    "Videos",
+
   ];
   const { id } = useLocalSearchParams();
 
-  const [index, setIndex] = useState();
+  const [index, setIndex] = useState(0);
   const [news, setNews] = useState();
   const [fixtures, setFixtures] = useState();
   const [stats, setStats] = useState();
@@ -40,12 +41,14 @@ const SeriesInfo = () => {
   const [venues, setVenues] = useState();
   const [newsData, setNewsData] = useState();
   const [fixturesData, setFixturesData] = useState();
-  const handleChangeTab = (data, index) => {
+  const [loading, setLoading] = useState(true);
+  const handleChangeTab = (data, index = 0) => {
     setIndex(index);
   };
   const getseriesFixture = async () => {
     const data = await getseriesFixtures(id);
     setFixtures(data);
+
   };
   const getponitres = async () => {
     const data = await groupPointsTable(id);
@@ -73,6 +76,7 @@ const SeriesInfo = () => {
     setSquad(data);
   };
   useEffect(() => {
+    setLoading(true)
     getseriesFixture();
     getponitres();
     getNewsDetails();
@@ -80,8 +84,13 @@ const SeriesInfo = () => {
     getSquadSeriesId();
     getVenues();
     teamSquad();
-  }, []);
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000);
+  }, [index]);
 
+
+  if (loading) return <Loading />
   return (
     <ScrollView style={styles.scrollView}>
       <View style={{ justifyContent: "center" }}>
@@ -91,14 +100,14 @@ const SeriesInfo = () => {
           handleChangeTab={handleChangeTab}
         />
 
-        {index == 0 && <Text>Overview</Text>}
-        {index == 1 && <SeriesFixtures data={fixtures} />}
-        {index == 2 && <PointsTable matchPointsTable={point} />}
-        {index == 3 && <PlayerTeam teamStats={squad} />}
-        {index == 4 && <Text>stats</Text>}
-        {index == 5 && <Venue item={venues} />}
-        {index == 6 && <HomeNew id={news} />}
-        {index == 7 && <Venue data={news} />}
+        {/* {index == 0 && <Text>Overview</Text>} */}
+        {index == 0 && <SeriesFixtures data={fixtures} />}
+        {index == 1 && <PointsTable matchPointsTable={point} />}
+        {index == 2 && <PlayerTeam teamStats={squad} />}
+        {/* {index == 4 && <Text>stats</Text>} */}
+        {index == 3 && <Venue item={venues} />}
+        {index == 4 && <HomeNew id={news} />}
+        {/* {index == 5 && <Venue data={news} />} */}
       </View>
     </ScrollView>
   );
@@ -132,7 +141,7 @@ const styles = StyleSheet.create({
     // width: Dimensions.get("screen").width - 20,
   },
   scrollView: {
-    backgroundColor: "#141414",
+    backgroundColor: "#ccc",
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
     gap: 20,

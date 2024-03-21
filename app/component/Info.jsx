@@ -20,8 +20,6 @@ import CusText from "./CusText";
 const red = "#d32f2f";
 const green = "#21DA8C";
 const Info = ({ matchInfo, matchId }) => {
-  console.log(matchId, "calling matchId");
-  console.log(matchInfo);
   const {
     match_date = "",
     match_time,
@@ -66,19 +64,19 @@ const Info = ({ matchInfo, matchId }) => {
       <Text style={styles.TextHeading}> Umpire </Text>
       <View style={[styles.box]}>
         <View style={{ margin: 5, flexDirection: "row" }}>
-          <Text style={[{ width: "35%", color: "#ccc" }]}>umpires</Text>
+          <Text style={[{ width: "35%", color: "#171717" }]}>umpires</Text>
           <Text style={[styles.TextColor, { width: "65%", fontWeight: 700 }]}>
             {umpire ?? "-"}
           </Text>
         </View>
         <View style={{ margin: 5, flexDirection: "row" }}>
-          <Text style={[{ width: "35%", color: "#ccc" }]}>Third Umpire</Text>
+          <Text style={[{ width: "35%", color: "#171717" }]}>Third Umpire</Text>
           <Text style={[styles.TextColor, { width: "65%", fontWeight: 700 }]}>
             {third_umpire ?? "-"}
           </Text>
         </View>
         <View style={{ margin: 5, flexDirection: "row" }}>
-          <Text style={[{ width: "35%", color: "#ccc" }]}>Referee</Text>
+          <Text style={[{ width: "35%", color: "#171717" }]}>Referee</Text>
           <Text style={[styles.TextColor, { width: "65%", fontWeight: 700 }]}>
             {referee ?? "-"}
           </Text>
@@ -96,7 +94,7 @@ const Info = ({ matchInfo, matchId }) => {
         // onPress={() => navig÷ation.navigate("/setting")}
         >
           <Text style={styles.TextColor}> {team_a} </Text>
-          <Entypo color="white" name="chevron-right" />
+          <Entypo color="black" name="chevron-right" />
         </Link>
         <Link
           href={"/modal/" + matchId}
@@ -107,7 +105,7 @@ const Info = ({ matchInfo, matchId }) => {
           }}
         >
           <Text style={styles.TextColor}> {team_b} </Text>
-          <Entypo color="white" name="chevron-right" />
+          <Entypo color="black" name="chevron-right" />
         </Link>
       </View>
       <Text style={styles.TextHeading}>
@@ -141,7 +139,7 @@ const Info = ({ matchInfo, matchId }) => {
                 }}
               >
                 <CusText
-                  style={{ fontWeight: 800, color: "#fff", fontSize: 15 }}
+                  style={{ fontWeight: 800, color: "#171717", fontSize: 15 }}
                 >
                   {" "}
                   {text}{" "}
@@ -176,7 +174,7 @@ const Info = ({ matchInfo, matchId }) => {
                 }}
               >
                 <CusText
-                  style={{ fontWeight: 800, color: "#fff", fontSize: 15 }}
+                  style={{ fontWeight: 800, color: "#171717", fontSize: 15 }}
                 >
                   {" "}
                   {text}{" "}
@@ -213,19 +211,19 @@ const Info = ({ matchInfo, matchId }) => {
       <Text style={styles.TextHeading}> Venue Guide </Text>
       <View style={[styles.box]}>
         <View style={{ margin: 5, flexDirection: "row" }}>
-          <Text style={[{ width: "35%", color: "#ccc" }]}>Stadium</Text>
+          <Text style={[{ width: "35%", color: "#171717" }]}>Stadium</Text>
           <Text style={[styles.TextColor, { width: "65%", fontWeight: 700 }]}>
             {venue}
           </Text>
         </View>
         <View style={{ margin: 5, flexDirection: "row" }}>
-          <Text style={[{ width: "35%", color: "#ccc" }]}>City</Text>
+          <Text style={[{ width: "35%", color: "#171717" }]}>City</Text>
           <Text style={[styles.TextColor, { width: "65%", fontWeight: 700 }]}>
             {place}
           </Text>
         </View>
         {/* <View style={{ margin: 5, flexDirection: "row" }}>
-          <Text style={[{ width: "35%", color: "#ccc" }]}>Capacity</Text>
+          <Text style={[{ width: "35%", color: "#171717" }]}>Capacity</Text>
           <Text style={[styles.TextColor, { width: "65%", fontWeight: 700 }]}>
             SL
           </Text>
@@ -244,7 +242,7 @@ const Info = ({ matchInfo, matchId }) => {
                 style={{ width: 50, height: 50 }}
                 source={{ uri: venue_weather?.weather_icon }}
               />
-              <Text style={{ fontSize: 33, color: "#fff" }}>
+              <Text style={{ fontSize: 33, color: "#171717" }}>
                 {venue_weather?.temp_c || ""}°C
               </Text>
             </View>
@@ -371,17 +369,18 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   TextColor: {
-    color: "#fff",
+    color: "#171717",
     fontSize: 13,
     flexWrap: "wrap",
   },
   TextHeading: {
-    color: "#fff",
-    fontSize: 15,
+    color: "#171717",
+    fontSize: 17,
+    fontWeight: "600",
   },
   matchDetailsStyle: {},
   container: {
-    backgroundColor: "#141414",
+    backgroundColor: "#fff",
     flex: 1,
     minHeight: Dimensions.get("window").height,
     flexDirection: "column",
@@ -394,7 +393,7 @@ const styles = StyleSheet.create({
     gap: 7,
   },
   box: {
-    backgroundColor: "#292A2D",
+    backgroundColor: "#F9F6EE",
     paddingVertical: 8,
     paddingHorizontal: 5,
     flexDirection: "column",

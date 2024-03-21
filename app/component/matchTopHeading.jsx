@@ -5,12 +5,15 @@ import { AntDesign } from "@expo/vector-icons";
 const MatchTopHeading = ({ team_a_img, team_b_img, team_a, team_b }) => {
   console.log(team_a_img, team_b_img, team_a, team_b);
   return (
+
     <View
       style={{
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: 10,
         alignItems: "center",
+
+        backgroundColor: "#800000", paddingVertical: 14,
       }}
     >
       <View style={styles.infoTeam}>

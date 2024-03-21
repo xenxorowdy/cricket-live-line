@@ -15,7 +15,7 @@ export default function BlockBox({ liveMatch }) {
 const styles = StyleSheet.create({
   blockLiveContainer: {
     gap: 20,
-    width: "97%",
+    width: "100%",
     alignItems: "center",
     paddingBottom: 20,
   },

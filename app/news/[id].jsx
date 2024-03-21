@@ -6,7 +6,7 @@ import RenderHtml from "react-native-render-html";
 import { fetchNewsDetailsById } from "../api";
 import CusText from "../component/CusText";
 
-const NewsComponent = ({}) => {
+const NewsComponent = ({ }) => {
   const [news, setNews] = useState({});
   const { id } = useLocalSearchParams();
   // "news_id": 79,
@@ -33,7 +33,7 @@ const NewsComponent = ({}) => {
         style={{ width: "100%", height: 250 }}
       />
       <CusText
-        style={{ color: "#fff", fontSize: 19, fontWeight: 700, marginTop: 10 }}
+        style={{ color: "#171717", fontSize: 19, fontWeight: 700, marginTop: 10 }}
       >
         {news?.title || ""}
       </CusText>
@@ -42,7 +42,7 @@ const NewsComponent = ({}) => {
         {news?.pub_date ?? ""}{" "}
       </CusText>
       <RenderHtml
-        style={{ color: "White" }}
+        style={{ color: "black" }}
         contentWidth={Dimensions.get("window").width}
         source={{
           html: news?.content?.[0] || "",
@@ -53,7 +53,7 @@ const NewsComponent = ({}) => {
             fontSize: 24,
           },
           p: {
-            color: "#fff",
+            color: "#171717",
             fontSize: 16,
           },
         }}
@@ -66,7 +66,7 @@ export default NewsComponent;
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: "#141414",
+    backgroundColor: "#ccc",
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
     gap: 20,

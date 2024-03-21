@@ -91,7 +91,8 @@ const styles = StyleSheet.create({
   },
   titles: {
     paddingHorizontal: 5,
-    backgroundColor: "#3c3c3c",
+    backgroundColor: "#c3c3c3",
+    marginVertical: 5,
     color: "#FFFFFF",
     minHeight: 45,
     justifyContent: "center",
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     // width: Dimensions.get("screen").width - 20,
   },
   scrollView: {
-    backgroundColor: "#141414",
+    backgroundColor: "#ccc",
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
     gap: 20,
