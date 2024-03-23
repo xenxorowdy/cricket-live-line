@@ -139,7 +139,7 @@ const ListCommentry = ({ data }) => {
           <CusText>
             {value?.data?.overs} {value?.data?.title}{" "}
           </CusText>
-          <View style={{ flexDirection: "row", gap: 10 }}>
+          <View style={{ flexDirection: "row", gap: 10, width: "98%" }}>
             <View
               style={{
                 backgroundColor: checkBGColor(value?.data?.runs),
@@ -153,7 +153,7 @@ const ListCommentry = ({ data }) => {
             >
               <CusText style={{ color: "#171717" }} >{value?.data?.runs}</CusText>
             </View>
-            <CusText>{value?.data?.description}</CusText>
+            <CusText textWrap={true}  style={{ textWrap: 'true' }} >{value?.data?.description}</CusText>
           </View>
         </View >
 

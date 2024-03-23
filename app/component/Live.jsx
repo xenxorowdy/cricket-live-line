@@ -22,6 +22,20 @@ const option =
   "ball": "Ball Start",
   "wicket": "Wicket",
 };
+import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
+import RenderHTML from "react-native-render-html";
+import App from "./table123";
+
+const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
+
+const rewarded = RewardedAd.createForAdRequest(adUnitId, {
+  keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping', 'food', 'fantasy'],
+});
+
+const adUnit = __DEV__
+  ? TestIds.ADAPTIVE_BANNER
+  : "ca-app-pub-1715488426615455/2952778381";
+
 
 const Live = ({ matchDetail = [] }) => {
   const getValue = async (keyToRetrieve) => {
@@ -34,6 +48,29 @@ const Live = ({ matchDetail = [] }) => {
     }
   };
   const [mute, SetMute] = useState("false");
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+      setLoaded(true);
+      rewarded.show();
+    });
+    const unsubscribeEarned = rewarded.addAdEventListener(
+      RewardedAdEventType.EARNED_REWARD,
+      reward => {
+        console.log('User earned reward of ', reward);
+      },
+    );
+
+    // Start loading the rewarded ad straight away
+    rewarded.load();
+
+    // Unsubscribe from events on unmount
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeEarned();
+    };
+  }, [loaded]);
 
 
   const handleMute = () => {
@@ -72,6 +109,29 @@ const Live = ({ matchDetail = [] }) => {
         console.error("Error saving value:", error);
       });
   };
+
+  function parseSessionData(sessionString) {
+    try {
+
+      const sessionPattern = /(\d+) Over \((\d+-\d+)\) (\d+) Runs\/(\d+)wk \((\d+-\d+) ([A-Z]+)\)/g;
+      const sessions = [];
+      let match;
+      while ((match = sessionPattern.exec(sessionString)) !== null) {
+        const sessionData = {
+          over: parseInt(match[1], 10),
+          session: match[2],
+          current: `${match[3]}/${match[4]}`,
+          other: `${match[5]} ${match[6]}`
+        };
+        sessions.push(sessionData);
+      }
+      console.log(sessions);
+      return sessions;
+
+    } catch (error) {
+      console.error("Error parsing session data:", error);
+    }
+  }
   // useEffect(() => {
   //   if (matchDetail.length) {
   //     getScore();
@@ -87,7 +147,7 @@ const Live = ({ matchDetail = [] }) => {
                 onPress={handleMute}
                 name="volume-mute-outline"
                 size={24}
-                color="white"
+                color="black"
                 style={{ position: "absolute", top: 5, left: 5 }}
               />
             ) : (
@@ -95,7 +155,7 @@ const Live = ({ matchDetail = [] }) => {
                 onPress={handleMute}
                 name="volume-high-outline"
                 size={24}
-                color="white"
+                color="black"
                 style={{ position: "absolute", top: 5, left: 5 }}
               />
             )}
@@ -186,23 +246,24 @@ const Live = ({ matchDetail = [] }) => {
       </View>
       <View style={[styles.box, { flexDirection: "column", gap: 20, borderRadius: 2, width: "100%", paddingVertical: 10 }]}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.TextColor}>Run Rate: {matchDetail?.curr_rate}</Text>
-          {matchDetail?.rr_rate &&
-            <Text style={styles.TextColor}>RRR: {matchDetail?.rr_rate}</Text>}
-          {matchDetail?.ball_rem &&
-            <Text style={styles.TextColor}>Ball Remaning: {matchDetail?.ball_rem}</Text>
-          }
+          <Text style={styles.TextColor}>Run Rate: {`${matchDetail?.curr_rate?.toString() ?? '-'}`}</Text>
+          {matchDetail?.rr_rate?.toString() &&
+            <Text style={styles.TextColor}>RRR: {matchDetail?.rr_rate?.toString()}</Text>}
+
         </View>
-        {matchDetail?.target &&
-          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-            <Text style={styles.TextColor}>Run Needed: {matchDetail?.run_need}</Text>
-            <Text style={styles.TextColor}>Target: {matchDetail?.target}</Text>
-          </View>
-        }
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text style={styles.TextColor}>Run Needed: {matchDetail?.run_need?.toString() || '-'}</Text>
+
+          <Text style={styles.TextColor}>Ball Remaning: {matchDetail?.ball_rem?.toString()}</Text>
+
+
+          <Text style={styles.TextColor}>Target: {matchDetail?.target?.toString() || '-'}</Text>
+
+        </View>
       </View>
       <View>
         <View style={styles.box}>
-          <Text style={[styles.TextColor, { fontWeight: "600", fontSize: 16 }]}>Winning Probability</Text>
+          <Text style={[styles.TextColor, { fontWeight: "600", fontSize: 16 }]}>Winning Chances</Text>
           <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
             <Text style={styles.TextColor}> {matchDetail?.fav_team}</Text>
             <Text style={[styles.TextColor, { backgroundColor: "red", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700" }]}>{ratefetch(matchDetail?.min_rate)} </Text>
@@ -225,6 +286,7 @@ const Live = ({ matchDetail = [] }) => {
                 width: "60%",
                 justifyContent: "flex-end",
                 gap: 10,
+                paddingHorizontal: 30,
                 alignItems: "center",
               }}
             >
@@ -234,12 +296,17 @@ const Live = ({ matchDetail = [] }) => {
             </View>
           </View>
         }
-        {null &&
-          <View style={styles.box}>
-            <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center" }}>
+        {matchDetail?.lambi_min &&
+          <View style={[styles.box, { flexDirection: "row", gap: 10, justifyContent: "space-between" }]}>
+            <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center", width: "60%" }}>
+
               <Text style={styles.TextColor}>
                 {matchDetail?.current_inning}{inningsuffix(matchDetail?.current_inning)}  Inning's Total Runs:
               </Text>
+            </View>
+            <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center", width: "35%", justifyContent: "flex-end" }} >
+              <Text style={styles.minStyle}> {matchDetail?.lambi_min} </Text>
+              <Text style={styles.maxStyle}> {matchDetail?.lambi_max} </Text>
             </View>
             <View
               style={{
@@ -315,6 +382,10 @@ const Live = ({ matchDetail = [] }) => {
             <CusText>Last Wkt: {matchDetail?.lastwicket?.player?.toString() + " " + matchDetail?.lastwicket?.run?.toString() + "(" + matchDetail?.lastwicket?.ball?.toString() + ")"}   </CusText>
           }
         </View>
+        <BannerAd
+          unitId={adUnit}
+          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+        />
       </View>
       <View style={{ flexDirection: "column", padding: 0, flex: 1 }}>
         <View
@@ -322,7 +393,7 @@ const Live = ({ matchDetail = [] }) => {
             styles.box,
           ]}
         >
-          <Text style={styles.TextColor}>bowler</Text>
+          <Text style={styles.TextColor}>Bowler</Text>
           <View
             style={{
               flexDirection: "row",
@@ -377,6 +448,7 @@ const Live = ({ matchDetail = [] }) => {
         <Text style={[styles.TextColor, styles.rowBox]}>
           {matchDetail?.yet_to_bet?.join(", ")}
         </Text>
+        <App cricketData={parseSessionData(matchDetail?.session)} />
       </View>
     </View >
   );
@@ -394,8 +466,8 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   powerplay: { backgroundColor: "#000", textAlign: "center", paddingVertical: 1, paddingHorizontal: 2, color: "#FFC700", border: 1, borderColor: "#FFC700", fontSize: 16, fontWeight: "700", alignItems: "center" },
-  minStyle: { backgroundColor: "red", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700" },
-  maxStyle: { backgroundColor: "green", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700" },
+  minStyle: { backgroundColor: "red", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700", borderRadius: 6, elevation: 10 },
+  maxStyle: { backgroundColor: "green", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700", borderRadius: 6, elevation: 10 },
   box: {
     backgroundColor: "#F9F6EE",
     padding: 10,
@@ -407,7 +479,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   boxtv: {
-    backgroundColor: "#F9F6EE",
+    backgroundColor: "#fff",
     paddingVertical: 8,
     width: "97%",
     borderRadius: 10,
@@ -435,13 +507,14 @@ const styles = StyleSheet.create({
     width: "98%",
     height: 120,
     flexDirection: "row",
-    borderWidth: 3, // Border width
-    borderColor: "white", // Border color
-    borderRadius: 6, // Border radius (optional, for rounded corners)
-    backgroundColor: "#000",
+    borderWidth: 2, // Border width
+    borderColor: "black", // Border color
+    borderRadius: 8, // Border radius (optional, for rounded corners)
+    backgroundColor: "#fff",
+    elevation: 30,
   },
   TextColor: {
-    color: "#171717",
+    color: "#000",
     minWidth: 25,
   },
   divider: {

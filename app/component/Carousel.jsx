@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppRegistry,
   Dimensions,
@@ -13,7 +13,7 @@ import { AntDesign } from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
 
 import CusText from "./CusText";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { formatDateAndTime, ratefetch } from "../utils";
 import { commonStyle } from "./styleSheet";
 
@@ -34,18 +34,22 @@ export default function Carousel({ liveMatch = [] }) {
    *
    * @param {type} ele - the element representing the changed index
    * @return {type} undefined
-   */
+  */
+  const [match, setMatch] = useState(liveMatch)
+  useEffect(() => {
+    setMatch(liveMatch)
+  }, [liveMatch])
   const handleIndexChanged = (ele) => {
     console.log("handleIndexChange", ele);
   };
   const dividerStyles = [styles.divider && styles.dividerInset];
-  if (liveMatch?.length === 0) {
+  if (match?.length === 0) {
     return <CusText>No live match</CusText>;
   }
 
   return (
-    <Swiper style={styles.wrapper} showsButtons={true}>
-      {liveMatch?.map((match, index) => (
+    <Swiper style={styles.wrapper} showsButtons={false} autoplayTimeout={5} autoplay={true}  >
+      {match?.map((match, index) => (
         <Boxes match={match} key={index} />
       ))}
     </Swiper>
@@ -55,7 +59,8 @@ export default function Carousel({ liveMatch = [] }) {
 export const Boxes = ({ e, match }) => {
   const [handlePress, setHandlePress] = useState();
   const handleBoxPress = () => {
-    console.log("hello");
+    router.push(`match/${match?.match_id}/`);
+
   };
   const matchStatusDisplay = () => {
     return (
@@ -67,136 +72,135 @@ export const Boxes = ({ e, match }) => {
     );
   };
   return (
-    <Link href={"/match/" + match?.match_id + "/"} style={{ borderRadius: 12 }}>
-      <View onPress={handleBoxPress} style={styles.slide1}>
-        <View style={styles.displayFlex}>
-          <View style={{ width: "75%", gap: 5 }}>
-            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>
-              {match?.series}
+    <TouchableOpacity onPress={handleBoxPress} style={styles.slide1}>
+      <View style={styles.displayFlex}>
+        <View style={{ width: "75%", gap: 5 }}>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>
+            {match?.series}
+          </Text>
+          <View style={{ flexDirection: "row", gap: 5 }}>
+            <Text style={{ ...styles.text, ...styles.textSmallText }}>
+              {match?.match_date + " " + match?.match_time + " "}
             </Text>
-            <View style={{ flexDirection: "row", gap: 5 }}>
-              <Text style={{ ...styles.text, ...styles.textSmallText }}>
-                {match?.match_date + " " + match?.match_time + " "}
-              </Text>
-              <CusText style={styles.textSmallText}>
-                {match?.match_type}
-              </CusText>
-            </View>
+            <CusText style={styles.textSmallText}>
+              {match?.match_type}
+            </CusText>
           </View>
-          {match?.match_status && (
-            <View
-              style={[commonStyle({ status: match?.match_status }).liveIcon]}
-            >
-              <Text style={[styles.text, { fontWeight: 600 }]}>
-                •{match?.match_status}
-              </Text>
+        </View>
+        {match?.match_status && (
+          <View
+            style={[commonStyle({ status: match?.match_status }).liveIcon]}
+          >
+            <Text style={[styles.text, { fontWeight: 600 }]}>
+              •{match?.match_status}
+            </Text>
+          </View>
+        )}
+      </View>
+      <View style={styles.divider} />
+      {/* <Text style={styles.text}>Hello Swiper</Text> */}
+      <View
+        style={{
+          ...styles.displayFlex,
+          height: 100,
+          padding: 20,
+        }}
+      >
+        <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+          <View style={{ gap: 5, alignItems: "center" }}>
+            <Image
+              source={{
+                uri: match?.team_a_img || "",
+              }}
+              style={{ width: 30, height: 30, borderRadius: 18 }}
+            />
+            <CusText>{match?.team_a_short}</CusText>
+          </View>
+          {match?.team_a_scores ? (
+            <View>
+              <CusText>{match?.team_a_scores}</CusText>
+              <CusText>{match?.team_a_over} over</CusText>
+            </View>
+          ) : (
+            <View>
+              <CusText>Yet to Bat</CusText>
             </View>
           )}
         </View>
-        <View style={styles.divider} />
-        {/* <Text style={styles.text}>Hello Swiper</Text> */}
+        <AntDesign color="black" name="swap" size={20} />
         <View
           style={{
-            ...styles.displayFlex,
-            height: 100,
-            padding: 20,
+            flexDirection: "row-reverse",
+            gap: 10,
+            alignItems: "center",
           }}
         >
-          <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
-            <View style={{ gap: 5, alignItems: "center" }}>
-              <Image
-                source={{
-                  uri: match?.team_a_img || "",
-                }}
-                style={{ width: 30, height: 30, borderRadius: 18 }}
-              />
-              <CusText>{match?.team_a_short}</CusText>
-            </View>
-            {match?.team_a_scores ? (
-              <View>
-                <CusText>{match?.team_a_scores}</CusText>
-                <CusText>{match?.team_a_over} over</CusText>
-              </View>
-            ) : (
-              <View>
-                <CusText>Yet to Bat</CusText>
-              </View>
-            )}
+          <View style={{ gap: 5, alignItems: "center" }}>
+            <Image
+              source={{
+                uri: match?.team_b_img || "",
+              }}
+              style={{ width: 30, height: 30, borderRadius: 18 }}
+            />
+            <CusText>{match?.team_b_short}</CusText>
           </View>
-          <AntDesign color="white" name="swap" size={20} />
+          {match?.team_b_scores ? (
+            <View>
+              <CusText>{match?.team_b_scores}</CusText>
+              <CusText>{match?.team_b_over} over</CusText>
+            </View>
+          ) : (
+            <View>
+              <CusText>Yet to Bat</CusText>
+            </View>
+          )}
+        </View>
+      </View>
+      <View style={styles.divider} />
+      <View style={styles.displayFlexBottom}>
+        <View>
+          <CusText
+            numberOfLines={2}
+            ellipsizeMode="tail"
+            style={[styles.text, { width: 260, textAlign: "center" }]}
+          >
+            {matchStatusDisplay() || ""}
+          </CusText>
+        </View>
+        <View style={{ flexDirection: "row", gap: 5 }}>
+          <Text style={styles.text}> {match?.fav_team || ""} </Text>
           <View
             style={{
-              flexDirection: "row-reverse",
-              gap: 10,
+              backgroundColor: "green",
+              minWidth: 30,
+              height: 18,
+              borderRadius: 4,
               alignItems: "center",
             }}
           >
-            <View style={{ gap: 5, alignItems: "center" }}>
-              <Image
-                source={{
-                  uri: match?.team_b_img || "",
-                }}
-                style={{ width: 30, height: 30, borderRadius: 18 }}
-              />
-              <CusText>{match?.team_b_short}</CusText>
-            </View>
-            {match?.team_b_scores ? (
-              <View>
-                <CusText>{match?.team_b_scores}</CusText>
-                <CusText>{match?.team_b_over} over</CusText>
-              </View>
-            ) : (
-              <View>
-                <CusText>Yet to Bat</CusText>
-              </View>
-            )}
+            <Text>{ratefetch(match?.min_rate)}</Text>
           </View>
-        </View>
-        <View style={styles.divider} />
-        <View style={styles.displayFlexBottom}>
-          <View>
-            <CusText
-              numberOfLines={2}
-              ellipsizeMode="tail"
-              style={[styles.text, { width: width - 150 }]}
-            >
-              {matchStatusDisplay() || ""}
-            </CusText>
-          </View>
-          <View style={{ flexDirection: "row", gap: 5 }}>
-            <Text style={styles.text}> {match?.fav_team || ""} </Text>
-            <View
-              style={{
-                backgroundColor: "green",
-                minWidth: 30,
-                height: 18,
-                borderRadius: 4,
-                alignItems: "center",
-              }}
-            >
-              <Text>{ratefetch(match?.min_rate)}</Text>
-            </View>
-            <View
-              style={{
-                backgroundColor: "yellow",
-                minWidth: 30,
-                height: 18,
-                borderRadius: 4,
-                alignItems: "center",
-              }}
-            >
-              <Text>{ratefetch(match?.max_rate)}</Text>
-            </View>
+          <View
+            style={{
+              backgroundColor: "yellow",
+              minWidth: 30,
+              height: 18,
+              borderRadius: 4,
+              alignItems: "center",
+            }}
+          >
+            <Text>{ratefetch(match?.max_rate)}</Text>
           </View>
         </View>
       </View>
-    </Link>
+    </TouchableOpacity>
+
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
-    height: 222,
+    height: 242,
     alignItems: "center",
     justifyContent: "center",
     margin: 5,
@@ -211,8 +215,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignContent: "center",
     justifyContent: "center",
-    width: Dimensions.get("screen").width - 10,
+    width: "99%",
     paddingVertical: 5,
+    marginTop: 10,
   },
   slide2: {
     flex: 1,

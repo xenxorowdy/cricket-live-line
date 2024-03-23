@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginVertical: 10,
     flexDirection: "row",
-
+    height: 40,
     gap: 20,
   },
   CategoryScrollViewContainer: {

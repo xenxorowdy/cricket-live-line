@@ -5,10 +5,10 @@
     "scheme": "cricket-live-line",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/assets/Designer.png",
+    "icon": "./assets/assets/wallpaper.jpg",
     "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./assets/Designer.png",
+      "image": "./assets/wall.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +17,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.xenxo.cricketliveline"
+      "bundleIdentifier": "com.xenxo.cricketliveline",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/wallpaper.jpg",
+        "backgroundColor": "#ffffff"
+      }
     },
     "android": {
       "hermesEnabled": true,
@@ -25,13 +29,13 @@
         "usesCleartextTraffic": true
       },
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Designer.png",
+        "foregroundImage": "./assets/wallpaper.jpg",
         "backgroundColor": "#ffffff"
       },
       "package": "com.xenxo.cricketliveline"
     },
     "web": {
-      "favicon": "./assets/Designer.png"
+      "favicon": "./assets/wallpaper.jpg"
     },
     "plugins": [
       [

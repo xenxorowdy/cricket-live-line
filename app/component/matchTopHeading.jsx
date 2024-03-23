@@ -12,7 +12,7 @@ const MatchTopHeading = ({ team_a_img, team_b_img, team_a, team_b }) => {
         justifyContent: "space-between",
         paddingHorizontal: 10,
         alignItems: "center",
-
+        
         backgroundColor: "#800000", paddingVertical: 14,
       }}
     >

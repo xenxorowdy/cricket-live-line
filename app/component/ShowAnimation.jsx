@@ -36,9 +36,9 @@ const ShowAnimation = ({ style, value, runs = 0, mute }) => {
     case "out":
       return <ShowAnimationValue mute={mute} display="Out" />;
     case "four":
-      return <ShowAnimationValue mute={mute} display="4" />;
+      return <ShowAnimationValue mute={mute} display="4" fontSize={80} />;
     case "six":
-      return <ShowAnimationValue mute={mute} display="6" />;
+      return <ShowAnimationValue mute={mute} display="6" fontSize={80} />;
     default:
       return <ShowAnimationValue mute={mute} display={value > 0 ? value + " Run" : value} />;
   }
@@ -46,7 +46,7 @@ const ShowAnimation = ({ style, value, runs = 0, mute }) => {
 
 
 
-const ShowAnimationValue = ({ display = "", mute = false }) => {
+const ShowAnimationValue = ({ display = "", mute = false, fontSize = 24 }) => {
   const speak = (display) => {
     Speech.speak(display);
   };
@@ -86,7 +86,7 @@ const ShowAnimationValue = ({ display = "", mute = false }) => {
           source={require("../../assets/spinning_ball.gif")}
           style={{ width: 60, height: 60 }}
         />}
-      <Text style={{ color: "#fff", fontSize: 24, fontWeight: 700 }}>
+      <Text style={{ color: "#000", fontSize: fontSize, fontWeight: 700 }}>
         {display}
       </Text>
     </View>

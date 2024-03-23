@@ -27,13 +27,8 @@ const HomePage = () => {
     : "ca-app-pub-1715488426615455/2952778381";
   const pullme = () => {
     setRefresh(true)
-
-    setTimeout(() => {
-      setRefresh(false)
-    }, 2000)
-    
   }
- 
+    
   return (
     <ScrollView
       refreshControl={<RefreshControl
@@ -42,12 +37,11 @@ const HomePage = () => {
       />
       }
       style={styles.scrollView}>
+      <Home refresh={refresh} setRefresh={setRefresh} />
       <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       />
-      <Home refresh={refresh} setRefresh={setRefresh} />
-      {/* <BackgroundFetchScreen /> */}
     </ScrollView>
   );
 };

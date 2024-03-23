@@ -14,7 +14,6 @@ import CusText from "./CusText";
 import { Link } from "expo-router";
 
 const HomeNew = ({ id }) => {
-  console.log("news", id);
   const [newList, setNewList] = useState(id);
   const getSeriesList = async () => {
     const res = await newsList();

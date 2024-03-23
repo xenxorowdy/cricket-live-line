@@ -4,8 +4,8 @@ import { useLocalSearchParams } from "expo-router";
 import MatchDetail from "../component/MatchDetail";
 
 const Match = () => {
-  const { id } = useLocalSearchParams();
 
+  const { id } = useLocalSearchParams();
   return (
     <ScrollView style={styles.scrollView}>
       <MatchDetail matchId={id} />

@@ -14,6 +14,7 @@ import { Entypo } from "@expo/vector-icons";
 import { matchPlayerSquadsInfo } from "../api";
 import { useLocalSearchParams } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 
 const Modal = () => {
   const [matchPlayerInfo, setmatchPlayerInfo] = useState([]);
@@ -28,7 +29,9 @@ const Modal = () => {
     callMatchPlayerInfo();
   }, []);
   const { team_a, team_b } = matchPlayerInfo;
-
+  const adUnit = __DEV__
+    ? TestIds.ADAPTIVE_BANNER
+    : "ca-app-pub-1715488426615455/2952778381";
   return (
     <ScrollView style={styles.scrollView}>
       <SafeAreaProvider style={{ marginVertical: 10 }}>
@@ -38,6 +41,7 @@ const Modal = () => {
           team_a={team_a?.short_name}
           team_b={team_b?.short_name}
         />
+
         <Pressable
           style={{
             margin: 10,
@@ -110,6 +114,10 @@ const Modal = () => {
             ))}
           </View>
           <View>
+            <BannerAd
+              unitId={adUnit}
+              size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+            />
             <Text></Text>
           </View>
         </View>
