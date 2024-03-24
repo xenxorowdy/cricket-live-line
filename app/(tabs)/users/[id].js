@@ -14,16 +14,16 @@ import CusText from "../../component/CusText";
 import { Boxes } from "../../component/Carousel";
 import { RecentMatches } from "../../api";
 import { LinearGradient } from "expo-linear-gradient";
-// import { RewardedAd, RewardedAdEventType, TestIds,BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
+import { RewardedAd, RewardedAdEventType, TestIds,BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
-// const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
+const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
 
-// const rewarded = RewardedAd.createForAdRequest(adUnitId, {
-//   keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping','food','fantasy'],
-// });
-//   const adUnit = __DEV__
-//     ? TestIds.ADAPTIVE_BANNER
-//     : "ca-app-pub-1715488426615455/2952778381";
+const rewarded = RewardedAd.createForAdRequest(adUnitId, {
+  keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping','food','fantasy'],
+});
+  const adUnit = __DEV__
+    ? TestIds.ADAPTIVE_BANNER
+    : "ca-app-pub-1715488426615455/8998912600";
 
 
 const getCurrentDate = () => {
@@ -104,10 +104,7 @@ const UserPage = () => {
           handleChangeTab={handleChange}
           currentIndex={index}
       />
-         {/* <BannerAd
-        unitId={adUnit}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      /> */}
+
         {/* {[0, 1, 2, 3, 4, 5, 6].map((ele, index) => (
         <List key={index} />
       ))} */}
@@ -121,7 +118,10 @@ const UserPage = () => {
           // onEndReachedThreshold={0.5} // Load data when 50% near the bottom
           // ListFooterComponent={() => loading && <CusText>Loading...</CusText>}
         />
-    
+        <BannerAd
+        unitId={adUnit}
+        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      />
     </View>
     </LinearGradient>
   );
@@ -131,27 +131,27 @@ const UserPage = () => {
 
 const List = ({ item }) => {
   const [loaded, setLoaded] = useState(false);
-  // useEffect(() => {
-  //   const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-  //     setLoaded(true);
-  //     rewarded.show();
-  //   });
-  //   const unsubscribeEarned = rewarded.addAdEventListener(
-  //     RewardedAdEventType.EARNED_REWARD,
-  //     reward => {
-  //       console.log('User earned reward of ', reward);
-  //     },
-  //   );
+  useEffect(() => {
+    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+      setLoaded(true);
+      rewarded.show();
+    });
+    const unsubscribeEarned = rewarded.addAdEventListener(
+      RewardedAdEventType.EARNED_REWARD,
+      reward => {
+        console.log('User earned reward of ', reward);
+      },
+    );
 
-  //   // Start loading the rewarded ad straight away
-  //   rewarded.load();
+    // Start loading the rewarded ad straight away
+    rewarded.load();
 
-  //   // Unsubscribe from events on unmount
-  //   return () => {
-  //     unsubscribeLoaded();
-  //     unsubscribeEarned();
-  //   };
-  // }, [loaded]);
+    // Unsubscribe from events on unmount
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeEarned();
+    };
+  }, [loaded]);
   return (
     <View>
       <View style={{ marginVertical: 7,marginHorizontal:5 }}>

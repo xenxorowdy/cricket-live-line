@@ -22,19 +22,19 @@ const option =
   "ball": "Ball Start",
   "wicket": "Wicket",
 };
-// import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
+import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 import App from "./table123";
 import LinearGradient from "expo-linear-gradient";
 
-// const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
+const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
 
-// const rewarded = RewardedAd.createForAdRequest(adUnitId, {
-//   keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping', 'food', 'fantasy'],
-// });
+const rewarded = RewardedAd.createForAdRequest(adUnitId, {
+  keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping', 'food', 'fantasy'],
+});
 
-// const adUnit = __DEV__
-//   ? TestIds.ADAPTIVE_BANNER
-//   : "ca-app-pub-1715488426615455/2952778381";
+const adUnit = __DEV__
+  ? TestIds.ADAPTIVE_BANNER
+  : "ca-app-pub-1715488426615455/8998912600";
 
 
 const Live = ({ matchDetail = [] }) => {
@@ -49,27 +49,27 @@ const Live = ({ matchDetail = [] }) => {
   const [mute, SetMute] = useState("false");
   const [loaded, setLoaded] = useState(false);
 
-  // useEffect(() => {
-  //   const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-  //     setLoaded(true);
-  //     // rewarded.show();
-  //   });
-  //   const unsubscribeEarned = rewarded.addAdEventListener(
-  //     RewardedAdEventType.EARNED_REWARD,
-  //     reward => {
-  //       console.log('User earned reward of ', reward);
-  //     },
-  //   );
+  useEffect(() => {
+    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+      setLoaded(true);
+      rewarded.show();
+    });
+    const unsubscribeEarned = rewarded.addAdEventListener(
+      RewardedAdEventType.EARNED_REWARD,
+      reward => {
+        console.log('User earned reward of ', reward);
+      },
+    );
 
-  //   // Start loading the rewarded ad straight away
-  //   rewarded.load();
+    // Start loading the rewarded ad straight away
+    rewarded.load();
 
-  //   // Unsubscribe from events on unmount
-  //   return () => {
-  //     unsubscribeLoaded();
-  //     unsubscribeEarned();
-  //   };
-  // }, [loaded]);
+    // Unsubscribe from events on unmount
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeEarned();
+    };
+  }, [loaded]);
 
 
   const handleMute = () => {
@@ -380,10 +380,7 @@ const Live = ({ matchDetail = [] }) => {
             <CusText>Last Wkt: {matchDetail?.lastwicket?.player?.toString() + " " + matchDetail?.lastwicket?.run?.toString() + "(" + matchDetail?.lastwicket?.ball?.toString() + ")"}   </CusText>
           }
         </View>
-        {/* <BannerAd
-          unitId={adUnit}
-          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        /> */}
+
       </View>
       <View style={{ flexDirection: "column", padding: 10, flex: 1, borderRadius: 10, backgroundColor: "#fff", width: "100%", }}>
         <View
@@ -445,7 +442,10 @@ const Live = ({ matchDetail = [] }) => {
           {matchDetail?.yet_to_bet?.join(", ")}
         </Text>
       </View>
-
+      <BannerAd
+        unitId={adUnit}
+        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      />
       <App cricketData={parseSessionData((matchDetail?.session?.split("Sessions<br />")?.[1]))} cur="1st Inning" />
       <App cricketData={parseSessionData((matchDetail?.session?.split("Sessions<br />")?.[2]))} cur="2nd Inning" />
 
