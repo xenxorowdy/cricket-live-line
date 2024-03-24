@@ -19,6 +19,7 @@ import HomeNew from "../component/HomeNew";
 import Venue from "../component/Venue";
 import PlayerTeam from "./playerInfo";
 import Loading from "../Loading";
+import { LinearGradient } from "expo-linear-gradient";
 import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 const adUnit = __DEV__
   ? TestIds.ADAPTIVE_BANNER
@@ -92,34 +93,37 @@ const SeriesInfo = () => {
     teamSquad();
     setTimeout(() => {
       setLoading(false)
-    }, 2000);
+    }, 1000);
   }, [index]);
 
 
   if (loading) return <Loading />
   return (
-    <ScrollView style={styles.scrollView}>
-      <View style={{ justifyContent: "center" }}>
-        <TopTab
-          option={option}
-          currentIndex={index}
-          handleChangeTab={handleChangeTab}
-        />
+    <LinearGradient colors={['#722F37', '#333333', '#333433']}  >
 
-        {/* {index == 0 && <Text>Overview</Text>} */}
-        {index == 0 && <SeriesFixtures data={fixtures} />}
-        {index == 1 && <PointsTable matchPointsTable={point} />}
-        {index == 2 && <PlayerTeam teamStats={squad} />}
-        {/* {index == 4 && <Text>stats</Text>} */}
-        {index == 3 && <Venue item={venues} />}
-        {index == 4 && <HomeNew id={news} />}
-        <BannerAd
-          unitId={adUnit}
-          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        />
-        {/* {index == 5 && <Venue data={news} />} */}
-      </View>
-    </ScrollView>
+      <ScrollView style={styles.scrollView}>
+        <View style={{ justifyContent: "center" }}>
+          <TopTab
+            option={option}
+            currentIndex={index}
+            handleChangeTab={handleChangeTab}
+          />
+
+          {/* {index == 0 && <Text>Overview</Text>} */}
+          {index == 0 && <SeriesFixtures data={fixtures} />}
+          {index == 1 && <PointsTable matchPointsTable={point} />}
+          {index == 2 && <PlayerTeam teamStats={squad} />}
+          {/* {index == 4 && <Text>stats</Text>} */}
+          {index == 3 && <Venue item={venues} />}
+          {index == 4 && <HomeNew id={news} />}
+          <BannerAd
+            unitId={adUnit}
+            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+          />
+          {/* {index == 5 && <Venue data={news} />} */}
+        </View>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
@@ -151,7 +155,6 @@ const styles = StyleSheet.create({
     // width: Dimensions.get("screen").width - 20,
   },
   scrollView: {
-    backgroundColor: "#ccc",
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
     gap: 20,

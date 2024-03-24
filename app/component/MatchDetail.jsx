@@ -140,12 +140,13 @@ const MatchDetail = ({ matchId }) => {
   useEffect(() => {
     const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
       setLoaded(true);
+      interstitial.show()
     });
 
-    // Start loading the interstitial straight away
+    //  Start loading the interstitial straight away
     interstitial.load();
 
-    // Unsubscribe from events on unmount
+    //  Unsubscribe from events on unmount
     return unsubscribe;
   }, []);
   useEffect(() => {

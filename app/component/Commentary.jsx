@@ -15,7 +15,7 @@ const width = Dimensions.get("window").width;
 const MatchComGuide = ({ data }) => (<View
   style={[
     styles.rowBox,
-    { paddingVertical: 10, paddingHorizontal: 10 },
+    { paddingVertical: 10, paddingHorizontal: 10, borderRadius: 10 },
   ]}
 >
   <CusText style={{ paddingHorizontal: 8 }}>
@@ -29,17 +29,18 @@ const MatchComGuide = ({ data }) => (<View
     <View
       style={{
         backgroundColor: "#FF3939",
-        width: 120,
-        height: 90,
+        width: 90,
+        height: 80,
         borderRadius: 8,
         alignItems: "center",
         justifyContent: "center",
+        borderRadius: 10,
       }}
     >
-      <CusText style={{ fontSize: 20, fontWeight: 700 }}>
+      <CusText style={{ fontSize: 20, fontWeight: 700, color: "white" }}>
         {data?.team_score}-{data?.team_wicket}
       </CusText>
-      <CusText style={{ fontSize: 14, fontWeight: 700 }}>{data?.team}</CusText>
+      <CusText style={{ fontSize: 14, fontWeight: 700, color: "white" }}>{data?.team}</CusText>
     </View>
     <View style={{ gap: 10 }}>
       <View
@@ -110,7 +111,7 @@ const Commentary = (props) => {
       {/* //Commentary */}
       {!overyByInning?.length &&
         <View style={{ alignItems: "center", height: 600, justifyContent: "center" }}>
-          <Text style={{ fontSize: 30, fontWeight: 700, textAlign: "center" }} >Commentary Not Available</Text>
+          <Text style={{ fontSize: 30, fontWeight: 700, textAlign: "center", color: "#c3c3c3" }} >Commentary Not Available</Text>
         </View>
       }
       <View style={{ gap: 15 }}>
@@ -135,8 +136,8 @@ const ListCommentry = ({ data }) => {
         <MatchComGuide data={value.data} />
         :
 
-        <View style={{ margin: 10, gap: 5 }}>
-          <CusText>
+        <View style={{ marginVertical: 20, gap: 10 }}>
+          <CusText style={{ fontSize: 16, fontWeight: 600, color: "#fff" }} >
             {value?.data?.overs} {value?.data?.title}{" "}
           </CusText>
           <View style={{ flexDirection: "row", gap: 10, width: "98%" }}>
@@ -144,7 +145,6 @@ const ListCommentry = ({ data }) => {
               style={{
                 backgroundColor: checkBGColor(value?.data?.runs),
                 width: 22,
-
                 height: 22,
                 alignItems: "center",
                 justifyContent: "center",
@@ -153,7 +153,7 @@ const ListCommentry = ({ data }) => {
             >
               <CusText style={{ color: "#171717" }} >{value?.data?.runs}</CusText>
             </View>
-            <CusText textWrap={true}  style={{ textWrap: 'true' }} >{value?.data?.description}</CusText>
+            <CusText style={{ textWrap: 'true', fontSize: 14, fontWeight: "500", color: "#fff" }} >{value?.data?.description}</CusText>
           </View>
         </View >
 
@@ -165,13 +165,12 @@ const ListCommentry = ({ data }) => {
 export default Commentary;
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: "#ccc",
-    height: Dimensions.get("window").height,
+
 
     // marginHorizontal: 20,
   },
   box: {
-    backgroundColor: "#F9F6EE",
+    backgroundColor: "#fff",
     paddingVertical: 8,
     paddingHorizontal: 5,
     marginVertical: 3,
@@ -180,17 +179,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   rowBox: {
-    backgroundColor: "#F9F6EE",
+    backgroundColor: "#fff",
     paddingHorizontal: 5,
     paddingVertical: 4,
     width: width,
     gap: 14,
+    borderRadius: 10,
+
     flexDirection: "column",
   },
   container: {
-    backgroundColor: "#F5F5F5",
+
     color: "#EAEAEA",
-    width: width,
+    width: "100%",
 
     gap: 8,
   },

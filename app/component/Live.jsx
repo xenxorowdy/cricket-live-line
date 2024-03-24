@@ -23,8 +23,8 @@ const option =
   "wicket": "Wicket",
 };
 import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
-import RenderHTML from "react-native-render-html";
 import App from "./table123";
+import LinearGradient from "expo-linear-gradient";
 
 const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
 
@@ -41,7 +41,6 @@ const Live = ({ matchDetail = [] }) => {
   const getValue = async (keyToRetrieve) => {
     try {
       const value = await AsyncStorage.getItem(keyToRetrieve);
-      console.log("retrival value", value, value, mute);
       return SetMute(value ?? 'false');
     } catch (error) {
       return SetMute('false');
@@ -53,7 +52,7 @@ const Live = ({ matchDetail = [] }) => {
   useEffect(() => {
     const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
       setLoaded(true);
-      rewarded.show();
+      // rewarded.show();
     });
     const unsubscribeEarned = rewarded.addAdEventListener(
       RewardedAdEventType.EARNED_REWARD,
@@ -125,7 +124,6 @@ const Live = ({ matchDetail = [] }) => {
         };
         sessions.push(sessionData);
       }
-      console.log(sessions);
       return sessions;
 
     } catch (error) {
@@ -140,7 +138,7 @@ const Live = ({ matchDetail = [] }) => {
   return (
     <View style={styles.container}>
       <View style={[{ alignContent: "center", alignItems: "center", width: "100%" }]} >
-        <View style={{ flexDirection: "column", width: "100%", alignItems: "center" }} >
+        <View style={{ flexDirection: "column", width: "100%", alignItems: "center", backgroundColor: "#fff", borderRadius: 10, padding: 10 }} >
           <View style={styles.tvStyle}>
             {mute == 'false' ? (
               <Ionicons
@@ -202,49 +200,49 @@ const Live = ({ matchDetail = [] }) => {
         style={[
           styles.box,
           { borderBottomWidth: 0.5 },
-          { borderColor: "#fff" },
+          { borderColor: "#fff", flexDirection: "column", gap: 10, borderRadius: 10 },
         ]}
       >
-        <Text style={styles.TextColor}>Last 4 Overs</Text>
+        <Text style={[styles.TextColor, { fontSize: 16, fontWeight: "600" }]}>Last 4 Overs</Text>
+        <View style={{ flexDirection: "row", gap: 10, marginHorizontal: 10 }}>
+          <ScrollView
+            horizontal
+            ref={scrollViewRef}
+            contentContainerStyle={{ alignItems: 'flex-end' }}
+            showsHorizontalScrollIndicator={false}
+          >
+            <View style={{ flexDirection: "row", gap: 10, marginHorizontal: 10 }}>
+              {(matchDetail?.last4overs)?.map((item, index) => (
+                <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+                  <CusText style={{ fontWeight: "700", fontSize: 16, color: "#2D2B2A" }} >Over {item.over}</CusText>
+                  {
+                    item.balls.map((ele, idx) =>
+                      <View
+                        style={{
+                          height: 25,
+                          backgroundColor: checkBGColor(ele?.toLowerCase()),
+                          width: 25,
+                          borderRadius: 25,
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Text key={idx} style={{ color: (ele == 0 || ele > 3) ? "white" : "white", fontWeight: "bold", fontSize: 13, textAlign: "center", width: 28 }}  >
+                          {ele}
+                        </Text>
+                      </View>
+                    )
+                  }
+                  < CusText style={{ fontWeight: "600", fontSize: 16, color: "#2D2B2A" }} >= {" "} {item.runs}</CusText>
+                  <Divider style={{ width: 1, height: '100%' }} />
+                  <View style={styles} />
+                </View>
+              ))}
+            </View>
+          </ScrollView >
+        </View>
       </View>
-      <View style={{ flexDirection: "row", gap: 10, marginHorizontal: 10 }}>
-        <ScrollView
-          horizontal
-          ref={scrollViewRef}
-          contentContainerStyle={{ alignItems: 'flex-end' }}
-          showsHorizontalScrollIndicator={false}
-        >
-          <View style={{ flexDirection: "row", gap: 10, marginHorizontal: 10 }}>
-            {(matchDetail?.last4overs)?.map((item, index) => (
-              <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
-                <CusText style={{ fontWeight: "700", fontSize: 16, color: "#2D2B2A" }} >Over {item.over}</CusText>
-                {
-                  item.balls.map((ele, idx) =>
-                    <View
-                      style={{
-                        height: 25,
-                        backgroundColor: checkBGColor(ele?.toLowerCase()),
-                        width: 25,
-                        borderRadius: 25,
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Text key={idx} style={{ color: (ele == 0 || ele > 3) ? "white" : "black", fontWeight: "bold", fontSize: 12, textAlign: "center", width: 28 }}  >
-                        {ele}
-                      </Text>
-                    </View>
-                  )
-                }
-                < CusText style={{ fontWeight: "600", fontSize: 16, color: "#2D2B2A" }} >= {" "} {item.runs}</CusText>
-                <Divider style={{ width: 1, height: '100%' }} />
-                <View style={styles} />
-              </View>
-            ))}
-          </View>
-        </ScrollView >
-      </View>
-      <View style={[styles.box, { flexDirection: "column", gap: 20, borderRadius: 2, width: "100%", paddingVertical: 10 }]}>
+      <View style={[styles.box, { flexDirection: "column", gap: 20, borderRadius: 2, width: "100%", paddingVertical: 10, borderRadius: 10, elevation: 10 }]}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.TextColor}>Run Rate: {`${matchDetail?.curr_rate?.toString() ?? '-'}`}</Text>
           {matchDetail?.rr_rate?.toString() &&
@@ -261,18 +259,18 @@ const Live = ({ matchDetail = [] }) => {
 
         </View>
       </View>
-      <View>
-        <View style={styles.box}>
-          <Text style={[styles.TextColor, { fontWeight: "600", fontSize: 16 }]}>Winning Chances</Text>
+      <View style={{ flexDirection: "column", gap: 10, borderRadius: 1, width: "100%", paddingVertical: 10, borderRadius: 10, elevation: 10 }} >
+        <View style={[styles.box, { borderRadius: 10 }]}>
+          <Text style={[styles.TextColor, { fontWeight: "600", fontSize: 16 }]}>Winning Chances:</Text>
           <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
             <Text style={styles.TextColor}> {matchDetail?.fav_team}</Text>
             <Text style={[styles.TextColor, { backgroundColor: "red", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700" }]}>{ratefetch(matchDetail?.min_rate)} </Text>
             <Text style={[styles.TextColor, { backgroundColor: "green", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700" }]}>{ratefetch(matchDetail?.max_rate)}</Text>
           </View>
         </View>
-        <View style={styles.divider} />
+
         {matchDetail?.s_ovr &&
-          <View style={styles.box}>
+          <View style={[styles.box, { borderRadius: 10 }]}>
             <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center" }}>
               <Text style={styles.TextColor}>
                 {matchDetail?.s_ovr} Over Runs:
@@ -321,13 +319,12 @@ const Live = ({ matchDetail = [] }) => {
             </View>
           </View>
         }
+        <View style={styles.divider} />
       </View>
-      <View style={{ flexDirection: "column", padding: 0, flex: 1 }}>
+      <View style={{ flexDirection: "column", padding: 10, flex: 1, borderRadius: 10, backgroundColor: "#fff", width: "100%", }}>
         <View
           style={[
-            styles.box,
-            { borderBottomWidth: 0.5, marginBottom: 0 },
-            { borderColor: "#fff" },
+            styles.boxback,
           ]}
         >
           <Text style={styles.TextColor}>Batter</Text>
@@ -348,7 +345,7 @@ const Live = ({ matchDetail = [] }) => {
           data={matchDetail?.batsman}
           keyExtractor={(item, index) => `${item}_${index}`}
           renderItem={({ item }) => (
-            <View style={[styles.rowBox]}>
+            <View style={[styles.rowBoxback]}>
               <Text
                 style={[
                   styles.TextColor,
@@ -374,7 +371,7 @@ const Live = ({ matchDetail = [] }) => {
             </View>
           )}
         />
-        <View style={styles.rowBox} >
+        <View style={styles.rowBoxback} >
 
           <CusText>Partnership: {matchDetail?.partnership?.run?.toString() ?? '-'} ({matchDetail?.partnership?.ball?.toString() ?? '-'})</CusText>
 
@@ -387,10 +384,10 @@ const Live = ({ matchDetail = [] }) => {
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         />
       </View>
-      <View style={{ flexDirection: "column", padding: 0, flex: 1 }}>
+      <View style={{ flexDirection: "column", padding: 10, flex: 1, borderRadius: 10, backgroundColor: "#fff", width: "100%", }}>
         <View
           style={[
-            styles.box,
+            styles.boxback,
           ]}
         >
           <Text style={styles.TextColor}>Bowler</Text>
@@ -413,7 +410,7 @@ const Live = ({ matchDetail = [] }) => {
           data={[matchDetail?.bolwer]}
           keyExtractor={(item, index) => `${item}_${index}`}
           renderItem={({ item }) => (
-            <View style={[styles.rowBox]}>
+            <View style={[styles.rowBoxback]}>
               <View style={{ flexDirection: "row", gap: 2 }}>
                 <Text style={[styles.TextColor]}>{item?.name}</Text>
               </View>
@@ -434,34 +431,39 @@ const Live = ({ matchDetail = [] }) => {
       </View>
       <View style={{ flexDirection: "column", padding: 0, flex: 1 }}>
       </View>
-      <View style={{ flexDirection: "column", padding: 0, flex: 1 }}>
+      <View style={{ flexDirection: "column", padding: 10, flex: 1, borderRadius: 10, backgroundColor: "#fff", width: "100%", }}>
         <View
           style={[
-            styles.box,
-            { borderBottomWidth: 0.5 },
-            { borderColor: "#fff" },
+            styles.boxback
           ]}
         >
           <Text style={styles.TextColor}>Yet to bat</Text>
         </View>
 
-        <Text style={[styles.TextColor, styles.rowBox]}>
+        <Text style={[{ fontSize: 18 }]}>
           {matchDetail?.yet_to_bet?.join(", ")}
         </Text>
-        <App cricketData={parseSessionData(matchDetail?.session)} />
       </View>
+      <App cricketData={parseSessionData(matchDetail?.session)} />
     </View >
+
   );
 };
 
 export default Live;
 
 const styles = StyleSheet.create({
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5
+  },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+
     color: "#EAEAEA",
     gap: 8,
   },
@@ -469,48 +471,56 @@ const styles = StyleSheet.create({
   minStyle: { backgroundColor: "red", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700", borderRadius: 6, elevation: 10 },
   maxStyle: { backgroundColor: "green", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700", borderRadius: 6, elevation: 10 },
   box: {
-    backgroundColor: "#F9F6EE",
+    backgroundColor: "#fff",
+    borderWidth: 0.5,
+    elevation: 10,
     padding: 10,
-    width: Dimensions.get("window").width,
+    width: Dimensions.get("window").width - 30,
     flexDirection: "row",
     borderRadiusTopLeft: 10,
-
     justifyContent: "space-between",
     paddingVertical: 15,
   },
-  boxtv: {
-    backgroundColor: "#fff",
-    paddingVertical: 8,
-    width: "97%",
-    borderRadius: 10,
-    paddingVertical: 12,
+  boxback: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 10,
+    paddingVertical: 10
+  },
+  boxtv: {
+    width: "100%",
+    borderRadius: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   rowBox: {
     alignContent: "center",
     alignItems: "center",
-
-    backgroundColor: "#F9F6EE",
+    borderWidth: 0.1,
+    elevation: 10,
+    backgroundColor: "#fff",
     paddingHorizontal: 12,
     paddingVertical: 4,
-    width: Dimensions.get("window").width,
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 10,
+
+  },
+  rowBoxback: {
+    alignContent: "center",
+    alignItems: "center",
+    elevation: 10,
+    paddingVertical: 8,
+    flexDirection: "row",
+    justifyContent: "space-between",
 
   },
   tvStyle: {
     justifyContent: "center",
     alignItems: "center",
-    width: "98%",
+    width: "100%",
     height: 120,
     flexDirection: "row",
-    borderWidth: 2, // Border width
     borderColor: "black", // Border color
-    borderRadius: 8, // Border radius (optional, for rounded corners)
-    backgroundColor: "#fff",
     elevation: 30,
   },
   TextColor: {

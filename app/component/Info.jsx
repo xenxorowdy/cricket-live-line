@@ -374,13 +374,13 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   TextHeading: {
-    color: "#171717",
+    color: "#fff",
     fontSize: 17,
     fontWeight: "600",
   },
   matchDetailsStyle: {},
   container: {
-    backgroundColor: "#fff",
+
     flex: 1,
     minHeight: Dimensions.get("window").height,
     flexDirection: "column",
@@ -393,13 +393,13 @@ const styles = StyleSheet.create({
     gap: 7,
   },
   box: {
-    backgroundColor: "#F9F6EE",
+    backgroundColor: "#fff",
     paddingVertical: 8,
     paddingHorizontal: 5,
+    borderRadius: 10,
     flexDirection: "column",
     gap: 10,
     borderWidth: 1,
-    borderRadius: 4,
   },
   divider: {
     borderWidth: 0.4,

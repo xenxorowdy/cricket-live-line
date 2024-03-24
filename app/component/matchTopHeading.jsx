@@ -12,8 +12,9 @@ const MatchTopHeading = ({ team_a_img, team_b_img, team_a, team_b }) => {
         justifyContent: "space-between",
         paddingHorizontal: 10,
         alignItems: "center",
-        
-        backgroundColor: "#800000", paddingVertical: 14,
+        borderRadius: 10,
+        width: "100%",
+        backgroundColor: "#fff", paddingVertical: 14,
       }}
     >
       <View style={styles.infoTeam}>
@@ -32,7 +33,7 @@ const MatchTopHeading = ({ team_a_img, team_b_img, team_a, team_b }) => {
         <Text style={styles.TextColor}>{team_a}</Text>
       </View>
 
-      <AntDesign color="white" name="swap" size={20} />
+      <AntDesign color="black" name="swap" size={20} />
       <View style={styles.infoTeam}>
         <Text style={styles.TextColor}>{team_b}</Text>
         <Image
@@ -62,12 +63,12 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   TextColor: {
-    color: "#fff",
+    color: "#000",
     fontSize: 13,
     flexWrap: "wrap",
   },
   TextHeading: {
-    color: "#fff",
+    color: "#000",
     fontSize: 15,
   },
 });

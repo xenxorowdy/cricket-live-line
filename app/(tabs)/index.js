@@ -18,6 +18,7 @@ import {
   TestIds,
 } from "react-native-google-mobile-ads";
 import "expo-dev-client";
+import { LinearGradient } from "expo-linear-gradient";
 const HomePage = () => {
   const [refresh,setRefresh] = useState(true)
   const apiUrl = process.env.EXPO_PUBLIC_API_URL;
@@ -30,6 +31,7 @@ const HomePage = () => {
   }
     
   return (
+    <LinearGradient colors={['#722F37', '#333d33', '#333333']}  style={styles.linearGradient}>
     <ScrollView
       refreshControl={<RefreshControl
         refreshing={refresh}
@@ -41,16 +43,23 @@ const HomePage = () => {
       <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      />
+        />
     </ScrollView>
+        </LinearGradient>
   );
 };
 
 export default HomePage;
 
 const styles = StyleSheet.create({
+   linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+
+  },
   scrollView: {
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     // height: Dimensions.get("window").height,
 
     // marginHorizontal: 20,

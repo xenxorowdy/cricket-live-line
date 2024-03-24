@@ -59,8 +59,8 @@ export default function Carousel({ liveMatch = [] }) {
 export const Boxes = ({ e, match }) => {
   const [handlePress, setHandlePress] = useState();
   const handleBoxPress = () => {
-    router.push(`match/${match?.match_id}/`);
-
+    let match1 = match?.match_id + `-${match?.team_a_short + 'vs' + match?.team_b_short}`;
+    router.push(`match/${match1}`);
   };
   const matchStatusDisplay = () => {
     return (
@@ -158,11 +158,11 @@ export const Boxes = ({ e, match }) => {
       </View>
       <View style={styles.divider} />
       <View style={styles.displayFlexBottom}>
-        <View>
+        <View style={{ width: "70%" }}>
           <CusText
             numberOfLines={2}
             ellipsizeMode="tail"
-            style={[styles.text, { width: 260, textAlign: "center" }]}
+            style={[styles.text, { width: "100%", textAlign: "center" }]}
           >
             {matchStatusDisplay() || ""}
           </CusText>
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   divider: {
-    backgroundColor: "#eeeee4",
+    backgroundColor: "#d3d3d3",
     height: 0.5,
     marginVertical: 2,
   },

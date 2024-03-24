@@ -5,6 +5,7 @@ import { View, StyleSheet, Text, Dimensions, Image } from "react-native";
 import RenderHtml from "react-native-render-html";
 import { fetchNewsDetailsById } from "../api";
 import CusText from "../component/CusText";
+import { LinearGradient } from "expo-linear-gradient";
 
 const NewsComponent = ({ }) => {
   const [news, setNews] = useState({});
@@ -27,37 +28,39 @@ const NewsComponent = ({ }) => {
 
   // return <CusText>Loading</CusText>;
   return (
-    <ScrollView style={styles.scrollView}>
-      <Image
-        source={{ uri: news?.image || "" }}
-        style={{ width: "100%", height: 250 }}
-      />
-      <CusText
-        style={{ color: "#171717", fontSize: 19, fontWeight: 700, marginTop: 10 }}
-      >
-        {news?.title || ""}
-      </CusText>
-      <CusText style={{ color: "gray", fontSize: 11 }}>
-        {" "}
-        {news?.pub_date ?? ""}{" "}
-      </CusText>
-      <RenderHtml
-        style={{ color: "black" }}
-        contentWidth={Dimensions.get("window").width}
-        source={{
-          html: news?.content?.[0] || "",
-        }}
-        tagsStyles={{
-          h1: {
-            color: "blue",
-            fontSize: 24,
-          },
-          p: {
-            color: "#171717",
-            fontSize: 16,
-          },
-        }}
-      />
+    <ScrollView style={{ backgroundColor: "#722F37" }} >
+      <LinearGradient colors={['#722F37', '#333333', '#333433']} style={styles.scrollView} >
+        <Image
+          source={{ uri: news?.image || "" }}
+          style={{ width: "100%", height: 250 }}
+        />
+        <CusText
+          style={{ color: "#fff", fontSize: 19, fontWeight: 700, marginTop: 10 }}
+        >
+          {news?.title || ""}
+        </CusText>
+        <CusText style={{ color: "gray", fontSize: 11 }}>
+          {" "}
+          {news?.pub_date ?? ""}{" "}
+        </CusText>
+        <RenderHtml
+          style={{ color: "black" }}
+          contentWidth={Dimensions.get("window").width}
+          source={{
+            html: news?.content?.[0] || "",
+          }}
+          tagsStyles={{
+            h1: {
+              color: "blue",
+              fontSize: 24,
+            },
+            p: {
+              color: "#fff",
+              fontSize: 16,
+            },
+          }}
+        />
+      </LinearGradient>
     </ScrollView>
   );
 };
@@ -66,7 +69,6 @@ export default NewsComponent;
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: "#ccc",
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
     gap: 20,

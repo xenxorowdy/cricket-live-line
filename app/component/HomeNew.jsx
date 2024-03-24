@@ -29,7 +29,7 @@ const HomeNew = ({ id }) => {
   return (
     <View style={{ justifyContent: "center", marginTop: 30, gap: 8 }}>
       <View style={styles.subTopHeading}>
-        <Text style={{ fontWeight: 500, fontSize: 20, color: "black" }}>Top News</Text>
+        <Text style={{ fontWeight: 500, fontSize: 20, color: "#fff" }}>Top News</Text>
         {/* <TouchableOpacity>
           <CusText>View More </CusText>
         </TouchableOpacity> */}
@@ -71,19 +71,19 @@ const NewsComp = ({ item }) => (
           uri: item?.image || "",
         }}
         style={{
-          width: Dimensions.get("window").width - 20,
+          width: Dimensions.get("window").width - 46,
           height: 200,
-          borderRadius: 4,
+          borderRadius: 8,
         }}
       />
     </View>
 
-    <View style={{ paddingVertical: 0, gap: 10, paddingVertical: 10, borderRadius: 8 }}>
+    <View style={{ paddingVertical: 0, gap: 10, paddingVertical: 10, borderRadius: 8, borderColor: 10 }}>
       <CusText
         style={{
           fontWeight: 500,
           fontSize: 14,
-          width: Dimensions.get("window").width - 20,
+          width: Dimensions.get("window").width - 40,
         }}
       >
         {item.title}
@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     paddingHorizontal: 8,
-    borderRadius: 14,
     paddingVertical: 2,
+
   },
   titles: {
     paddingHorizontal: 10,
@@ -111,8 +111,7 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     minHeight: 30,
     justifyContent: "center",
-    borderRadius: 6,
-    borderRadius: 4,
+    borderRadius: 10,
     alignContent: "center",
     marginHorizontal: 8,
 

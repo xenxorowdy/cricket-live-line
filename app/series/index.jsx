@@ -14,6 +14,7 @@ import { seriesList } from "../api";
 import { AntDesign } from "@expo/vector-icons";
 import { Link, router } from "expo-router";
 import CusText from "../component/CusText";
+import { LinearGradient } from "expo-linear-gradient";
 const SeriesInfo = () => {
   const [seriesData, setSeriesData] = useState();
   const getSeriesList = async () => {
@@ -25,17 +26,20 @@ const SeriesInfo = () => {
   }, []);
 
   return (
-    <ScrollView style={styles.scrollView}>
-      <View style={{ justifyContent: "center" }}>
-        <FlatList
-          data={seriesData}
-          keyExtractor={(item, index) => `${item}_${index}`}
-          renderItem={({ item, index }) => (
-            <SeriesComp key={index} item={item} />
-          )}
-        />
-      </View>
-    </ScrollView>
+    <LinearGradient colors={['#722F37', '#333333', '#333433']}  >
+
+      <ScrollView style={styles.scrollView}>
+        <View style={{ justifyContent: "center" }}>
+          <FlatList
+            data={seriesData}
+            keyExtractor={(item, index) => `${item}_${index}`}
+            renderItem={({ item, index }) => (
+              <SeriesComp key={index} item={item} />
+            )}
+          />
+        </View>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
@@ -91,7 +95,7 @@ const styles = StyleSheet.create({
   },
   titles: {
     paddingHorizontal: 5,
-    backgroundColor: "#c3c3c3",
+    backgroundColor: "#fff",
     marginVertical: 5,
     color: "#FFFFFF",
     minHeight: 45,
@@ -104,7 +108,7 @@ const styles = StyleSheet.create({
     // width: Dimensions.get("screen").width - 20,
   },
   scrollView: {
-    backgroundColor: "#ccc",
+
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
     gap: 20,

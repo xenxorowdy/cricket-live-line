@@ -3,12 +3,12 @@ import { View, StyleSheet } from "react-native";
 import { DataTable } from "react-native-paper";
 
 export default function Table({
-  header = ["batter", "R", "B", "4s", "6s", "SR"],
+  header = ["Batter", "R", "B", "4s", "6s", "SR"],
 }) {
   return (
     <View style={styles.container}>
       <DataTable>
-        <DataTable.Header>
+        <DataTable.Header  >
           <DataTable.Title style={{ width: 31000 }}> ele </DataTable.Title>
           {header.map((ele, index) => (
             <DataTable.Title key={index}> {ele} </DataTable.Title>

@@ -64,7 +64,7 @@ const ScoreBoard = ({ matchScoreBoard, matchInfo }) => {
           />
         </View>
       </View> */}
-      <Text style={styles.TextColor}> {result}</Text>
+      <Text style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}> {result}</Text>
       <CollapseCustom team={team1} >
         <ScoreBoradTable
           team={team1}
@@ -93,7 +93,7 @@ export const ScoreBoradTable = ({
   team,
 }) => {
   return (
-    <ScrollView>
+    <View>
       <View
         style={[
           styles.box,
@@ -327,7 +327,7 @@ export const ScoreBoradTable = ({
           </View>
         )}
       />
-    </ScrollView >
+    </View >
   );
 };
 
@@ -340,11 +340,11 @@ export const styles = StyleSheet.create({
     gap: 5,
   },
   box: {
-    backgroundColor: "#F5F5F5",
-    paddingVertical: 8,
-    paddingHorizontal: 0,
+    backgroundColor: "#fff",
+    paddingVertical: 10,
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingHorizontal: 8
   },
   textHeader: {
     fontWeight: "800",
@@ -353,12 +353,13 @@ export const styles = StyleSheet.create({
   rowBox: {
     alignContent: "center",
     alignItems: "center",
-    backgroundColor: "#F5F5F5",
-    paddingHorizontal: 0,
-    paddingVertical: 5,
+    backgroundColor: "#fff",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
     borderColor: "#171717",
     flexDirection: "row",
     justifyContent: "space-between",
+
   },
   tvStyle: {
     justifyContent: "center",

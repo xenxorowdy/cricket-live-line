@@ -13,12 +13,12 @@ function LogoTitle() {
     <View style={{ flexDirection: 'row', alignItems: 'center', gap:20 ,width:340,justifyContent:"flex-start"}} >
     <Image
       style={{ width: 35, height: 35, borderRadius: 20 }}
-      source={ require('../../assets/Designer.png') }
+      source={ require('../../assets/wallpaper.jpg') }
       />
-      <CusText style={{fontSize:20,fontWeight:600}}>Home</CusText>
+      <CusText style={{fontSize:16,fontWeight:500,color:"#fff"}}>Ball by Ball Cricket Line</CusText>
       </View>
   );
-}
+}   
 export default function HomeLayout() {
   return (
     <>
@@ -30,12 +30,12 @@ export default function HomeLayout() {
             title: "Home",
             tabBarActiveTintColor: '#11BA8C',
             tabBarIcon: ({ color }) => <FontAwesome size={22} name="home" color={color} />,
-            headerStyle: { backgroundColor: '#800000' },
-          headerTintColor: '#800000',
+            headerStyle: { backgroundColor: '#722F37' },
+          headerTintColor: '#722F37',
           headerTitleStyle: {
             fontWeight: 'bold',
-            color: '#800000',
-            backgroundColor:'#800000',
+            color: '#722F37',
+            backgroundColor:'#722F37',
           },
 headerTitle: props => <LogoTitle {...props} />,
           }}

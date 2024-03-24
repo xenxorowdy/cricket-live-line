@@ -13,6 +13,7 @@ import TopTab from "../../component/TopTab";
 import CusText from "../../component/CusText";
 import { Boxes } from "../../component/Carousel";
 import { RecentMatches } from "../../api";
+import { LinearGradient } from "expo-linear-gradient";
 import { RewardedAd, RewardedAdEventType, TestIds,BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
 const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
@@ -91,8 +92,10 @@ const UserPage = () => {
   //   }
   // };
 
+  // <ScrollView >
   return (
-    // <ScrollView >
+      <LinearGradient colors={['#722F37', '#333333', '#333433']} style={styles.scrollView} >
+
     <View style={styles.scrollView}>
       <SafeAreaView style={{ backgroundColor: "#800000",height:40 }}/>
        
@@ -120,38 +123,39 @@ const UserPage = () => {
         />
     
     </View>
-    // </ScrollView>
+    </LinearGradient>
   );
+  // </ScrollView>
 };
 
 
 const List = ({ item }) => {
   const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-      setLoaded(true);
-      rewarded.show();
-    });
-    const unsubscribeEarned = rewarded.addAdEventListener(
-      RewardedAdEventType.EARNED_REWARD,
-      reward => {
-        console.log('User earned reward of ', reward);
-      },
-    );
+  // useEffect(() => {
+  //   const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+  //     setLoaded(true);
+  //     rewarded.show();
+  //   });
+  //   const unsubscribeEarned = rewarded.addAdEventListener(
+  //     RewardedAdEventType.EARNED_REWARD,
+  //     reward => {
+  //       console.log('User earned reward of ', reward);
+  //     },
+  //   );
 
-    // Start loading the rewarded ad straight away
-    rewarded.load();
+  //   // Start loading the rewarded ad straight away
+  //   rewarded.load();
 
-    // Unsubscribe from events on unmount
-    return () => {
-      unsubscribeLoaded();
-      unsubscribeEarned();
-    };
-  }, [loaded]);
+  //   // Unsubscribe from events on unmount
+  //   return () => {
+  //     unsubscribeLoaded();
+  //     unsubscribeEarned();
+  //   };
+  // }, [loaded]);
   return (
     <View>
       <View style={{ marginVertical: 7,marginHorizontal:5 }}>
-        <Text style={{ fontWeight: "700",fontSize:16 }}>{item?.date_wise}</Text>
+        <Text style={{ fontWeight: "700",fontSize:16,color:"white" }}>{item?.date_wise}</Text>
       </View>
       <View style={styles.blockLiveContainer}>
         <Boxes match={item} />
@@ -164,7 +168,6 @@ export default UserPage;
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: "#ccc",
     height: Dimensions.get("window").height,
     gap: 5,
     // marginHorizontal: 20,

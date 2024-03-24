@@ -8,7 +8,7 @@ const RootLayout = () => {
         options={{
           headerShown: false,
           headerTitle: "",
-          headerStyle: { backgroundColor: '#800000' },
+          headerStyle: { backgroundColor: '#722F37' },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
@@ -21,7 +21,7 @@ const RootLayout = () => {
         options={{
           headerTitle: "Team Information",
           presentation: "modal",
-          headerStyle: { backgroundColor: '#800000' },
+          headerStyle: { backgroundColor: '#722F37' },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
@@ -31,23 +31,23 @@ const RootLayout = () => {
       />
       <Stack.Screen
         name="match/[id]"
-        options={{
-          headerTitle: "Match Summary",
-          headerStyle: { backgroundColor: '#800000' },
+        options={({ route, params }) => ({
+          headerTitle: getHeaderTitle(route, params),
+          headerStyle: { backgroundColor: '#722F37' },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: "700",
-            backgroundColor: '#800000',
+            backgroundColor: '#722F37',
           },
 
-        }}
+        })}
       />
       <Stack.Screen
         name="news/[id]"
         options={{
           headerTitle: "News",
           presentation: "modal",
-          headerStyle: { backgroundColor: '#800000' },
+          headerStyle: { backgroundColor: '#722F37' },
 
         }}
 
@@ -57,7 +57,7 @@ const RootLayout = () => {
         options={{
           headerTitle: "Series Information",
           presentation: "modal",
-          headerStyle: { backgroundColor: '#800000' },
+          headerStyle: { backgroundColor: '#722F37' },
 
         }}
       />
@@ -65,7 +65,7 @@ const RootLayout = () => {
         name="series/[id]"
         options={{
           headerTitle: "series Information",
-          headerStyle: { backgroundColor: '#800000' },
+          headerStyle: { backgroundColor: '#722F37' },
 
         }}
       />
@@ -73,5 +73,16 @@ const RootLayout = () => {
   );
 };
 
+const getHeaderTitle = (route, param) => {
+  try {
+    // Extract the query parameter from the route
+
+    // Return a dynamic header title based on the query
+    return (route.params?.id).split("-")[1] ?? 'Match Summary';
+
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export default RootLayout;

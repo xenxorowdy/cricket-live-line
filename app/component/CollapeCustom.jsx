@@ -22,15 +22,15 @@ export default function CollapseCustom({ team, children }) {
             <CusText style={{ fontWeight: 600 }}> {team?.score}-{team?.wicket} </CusText>
             <CusText style={{ fontWeight: 600 }}>({team?.over})</CusText>
             {isCollapsed ? (
-              <AntDesign name="down" size={16} color="white" />
+              <AntDesign name="down" size={16} color="black" />
             ) : (
-              <AntDesign name="up" size={16} color="white" />
+              <AntDesign name="up" size={16} color="black" />
             )}
           </View>
         </View>
       </TouchableOpacity>
       <Collapsible collapsed={isCollapsed}>
-        <View style={{ paddingHorizontal: 15 }}>
+        <View style={{}}>
           {/* Your expandable content here */}
           {children}
         </View>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   collapseContainer: {
     paddingVertical: 10,
     alignItems: "center",
-    backgroundColor: "#800000",
+    backgroundColor: "#fff",
     justifyContent: "space-between",
     paddingHorizontal: 15,
     borderRadius: 5,

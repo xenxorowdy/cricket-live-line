@@ -14,6 +14,7 @@ import { Entypo } from "@expo/vector-icons";
 import { matchPlayerSquadsInfo } from "../api";
 import { useLocalSearchParams } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
 import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 
 const Modal = () => {
@@ -33,96 +34,100 @@ const Modal = () => {
     ? TestIds.ADAPTIVE_BANNER
     : "ca-app-pub-1715488426615455/2952778381";
   return (
-    <ScrollView style={styles.scrollView}>
-      <SafeAreaProvider style={{ marginVertical: 10 }}>
-        <MatchTopHeading
-          team_a_img={team_a?.flag}
-          team_b_img={team_b?.flag}
-          team_a={team_a?.short_name}
-          team_b={team_b?.short_name}
-        />
 
-        <Pressable
-          style={{
-            margin: 10,
-            padding: 10,
-            marginHorizontal: 20,
-            borderRadius: 4,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#21DA8C",
-          }}
-        >
-          <Text style={{ fontSize: 16, fontWeight: 600 }}>Players</Text>
-        </Pressable>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            paddingVertical: 10,
-            paddingLeft: 10,
-            width: "100%",
-          }}
-        >
-          <View style={{ marginHorizontal: 10, gap: 10 }}>
-            {team_a?.player.map((ele) => (
-              <View
-                style={{ flexDirection: "row", gap: 20, alignItems: "center" }}
-              >
-                <Image
-                  source={{
-                    uri: ele?.image || "",
-                  }}
-                  style={{ width: 30, height: 30, borderRadius: 18 }}
-                />
-                {/* <Entypo name="user" size={24} color="grey" /> */}
-                <View>
-                  <Text style={{ fontSize: 13, fontWeight: 600 }}>
-                    {" "}
-                    {ele.name}
-                  </Text>
-                  <Text>{ele.play_role}</Text>
+    <LinearGradient colors={['#722F37', '#333333', '#333433']}  >
+
+      <ScrollView style={styles.scrollView}>
+        <SafeAreaProvider style={{ marginVertical: 10 }}>
+          <MatchTopHeading
+            team_a_img={team_a?.flag}
+            team_b_img={team_b?.flag}
+            team_a={team_a?.short_name}
+            team_b={team_b?.short_name}
+          />
+
+          <Pressable
+            style={{
+              margin: 10,
+              padding: 10,
+              marginHorizontal: 20,
+              borderRadius: 4,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#21DA8C",
+            }}
+          >
+            <Text style={{ fontSize: 16, fontWeight: 600 }}>Players</Text>
+          </Pressable>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingVertical: 10,
+              paddingLeft: 10,
+              width: "100%",
+            }}
+          >
+            <View style={{ marginHorizontal: 10, gap: 10 }}>
+              {team_a?.player.map((ele) => (
+                <View
+                  style={{ flexDirection: "row", gap: 20, alignItems: "center" }}
+                >
+                  <Image
+                    source={{
+                      uri: ele?.image || "",
+                    }}
+                    style={{ width: 30, height: 30, borderRadius: 18 }}
+                  />
+                  {/* <Entypo name="user" size={24} color="grey" /> */}
+                  <View>
+                    <Text style={{ fontSize: 13, fontWeight: 600 }}>
+                      {" "}
+                      {ele.name}
+                    </Text>
+                    <Text>{ele.play_role}</Text>
+                  </View>
                 </View>
-              </View>
-            ))}
-          </View>
-          <View style={styles.divider}></View>
-          <View style={{ gap: 10 }}>
-            {team_b?.player.map((ele) => (
-              <View
-                style={{
-                  flexDirection: "row-reverse",
-                  gap: 20,
-                  alignItems: "center",
-                }}
-              >
-                {/* <Entypo name="user" size={24} color="grey" /> */}
-                <Image
-                  source={{
-                    uri: ele?.image || "",
+              ))}
+            </View>
+            <View style={styles.divider}></View>
+            <View style={{ gap: 10 }}>
+              {team_b?.player.map((ele) => (
+                <View
+                  style={{
+                    flexDirection: "row-reverse",
+                    gap: 20,
+                    alignItems: "center",
                   }}
-                  style={{ width: 30, height: 30, borderRadius: 18 }}
-                />
-                <View style={{ alignItems: "flex-end" }}>
-                  <Text style={{ fontSize: 13, fontWeight: 600 }}>
-                    {" "}
-                    {ele?.name}
-                  </Text>
-                  <Text>{ele?.play_role}</Text>
+                >
+                  {/* <Entypo name="user" size={24} color="grey" /> */}
+                  <Image
+                    source={{
+                      uri: ele?.image || "",
+                    }}
+                    style={{ width: 30, height: 30, borderRadius: 18 }}
+                  />
+                  <View style={{ alignItems: "flex-end" }}>
+                    <Text style={{ fontSize: 13, fontWeight: 600 }}>
+                      {" "}
+                      {ele?.name}
+                    </Text>
+                    <Text>{ele?.play_role}</Text>
+                  </View>
                 </View>
-              </View>
-            ))}
-          </View>
-          <View>
-            <BannerAd
+              ))}
+            </View>
+            <View>
+              <BannerAd
               unitId={adUnit}
               size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
             />
-            <Text></Text>
+              <Text></Text>
+            </View>
           </View>
-        </View>
-      </SafeAreaProvider>
-    </ScrollView>
+        </SafeAreaProvider>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
@@ -130,7 +135,6 @@ export default Modal;
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: "#ccc",
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
 

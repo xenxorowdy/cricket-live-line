@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   titles: {
     paddingHorizontal: 5,
-    backgroundColor: "#3c3c3c",
+    backgroundColor: "#fff",
     color: "#FFFFFF",
     minHeight: 30,
     justifyContent: "center",

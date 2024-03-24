@@ -27,11 +27,11 @@ const SeriesInfo = () => {
   return (
     <View style={{ justifyContent: "center", gap: 10 }}>
       <View style={styles.subTopHeading}>
-        <Text style={{ fontSize: 18, fontWeight: "700" }} >Series</Text>
+        <Text style={{ fontSize: 18, fontWeight: "700", color: "#fff" }} >Series</Text>
 
         <TouchableOpacity activeOpacity={0.75} onPress={() => { router.push("/series") }} >
 
-          <Text style={{ fontSize: 15, fontWeight: "700" }} >View More </Text>
+          <Text style={{ fontSize: 15, fontWeight: "700", color: "#fff" }} >View More </Text>
 
         </TouchableOpacity>
       </View>
