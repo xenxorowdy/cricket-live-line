@@ -123,7 +123,7 @@ export const ScoreBoradTable = ({
         renderItem={({ item }) => (
           <View style={[styles.rowBox]}>
             <View
-              style={{ textAlign: "left", alignItems: "flex-start", gap: 3 }}
+              style={{ textAlign: "left", alignItems: "flex-start", gap: 3, width: "33%" }}
             >
               <Text
                 style={[
@@ -138,7 +138,7 @@ export const ScoreBoradTable = ({
               <Text
                 style={[
                   styles.TextColor,
-                  { color: "orange", fontSize: 10, width: 140 },
+                  { color: "orange", fontSize: 10 },
                 ]}
               >
                 {item?.out_by}
@@ -359,7 +359,7 @@ export const styles = StyleSheet.create({
     borderColor: "#171717",
     flexDirection: "row",
     justifyContent: "space-between",
-
+    width: "100%"
   },
   tvStyle: {
     justifyContent: "center",

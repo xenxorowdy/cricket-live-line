@@ -15,7 +15,7 @@ import { matchPlayerSquadsInfo } from "../api";
 import { useLocalSearchParams } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
+// import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 
 const Modal = () => {
   const [matchPlayerInfo, setmatchPlayerInfo] = useState([]);
@@ -30,9 +30,9 @@ const Modal = () => {
     callMatchPlayerInfo();
   }, []);
   const { team_a, team_b } = matchPlayerInfo;
-  const adUnit = __DEV__
-    ? TestIds.ADAPTIVE_BANNER
-    : "ca-app-pub-1715488426615455/2952778381";
+  // const adUnit = __DEV__
+  //   ? TestIds.ADAPTIVE_BANNER
+  //   : "ca-app-pub-1715488426615455/2952778381";
   return (
 
     <LinearGradient colors={['#722F37', '#333333', '#333433']}  >
@@ -118,10 +118,10 @@ const Modal = () => {
               ))}
             </View>
             <View>
-              <BannerAd
+              {/* <BannerAd
               unitId={adUnit}
               size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-            />
+            /> */}
               <Text></Text>
             </View>
           </View>

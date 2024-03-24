@@ -51,7 +51,7 @@ const SeriesComp = ({ item }) => (
     style={[
       styles.subTopHeading,
       styles.titles,
-      { justifyContent: "space-between", paddingHorizontal: 10, marginVertical: 2 },
+      { justifyContent: "space-between", },
     ]}
     onPress={() => { router.push("/series/" + item.series_id) }}
   >
@@ -61,15 +61,15 @@ const SeriesComp = ({ item }) => (
       }}
       style={{ width: 50, height: 50, borderRadius: 18, backgroundColor: "#fff" }}
     />
-    <View style={{ gap: 5 }}>
-      <CusText>{item.series}</CusText>
+    <View style={{ gap: 5, width: "58%" }}>
+      <CusText>{item.series}  </CusText>
       <View style={{ flexDirection: "row", gap: 5 }}>
         <CusText>{String(item?.total_matches) ?? "-"} Matches </CusText>
         <CusText>{"*" + item.series_date + ""} </CusText>
       </View>
     </View>
 
-    <AntDesign name="right" size={24} color="white" />
+    <AntDesign name="right" size={24} color="black" />
 
   </TouchableOpacity>
 );
@@ -87,14 +87,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     gap: 10,
-    paddingHorizontal: 8,
     paddingVertical: 5,
   },
   titles: {
     paddingHorizontal: 5,
-    backgroundColor: "#c3c3c3",
+    backgroundColor: "#ffffff",
     color: "#FFFFFF",
-    minHeight: 45,
+    minHeight: 50,
+    width: "100%",
     justifyContent: "center",
     borderRadius: 6,
     borderWidth: 1,

@@ -7,11 +7,11 @@ import { HomeMatch, LiveMatches } from "../api";
 import SeriesInfo from "./seriesInfo.jsx";
 import HomeNew from "./HomeNew.jsx";
 import _ from "lodash";
-import {
-  BannerAd,
-  BannerAdSize,
-  TestIds,
-} from "react-native-google-mobile-ads";
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
 
 export default function Home({refresh,setRefresh}) {
   const [currentIndex, setCurrentIndex] = useState(0);

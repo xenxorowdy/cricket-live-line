@@ -10,6 +10,7 @@ const RootLayout = () => {
           headerTitle: "",
           headerStyle: { backgroundColor: '#722F37' },
           headerTintColor: '#fff',
+          headerTitleAlign: 'center',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
@@ -35,6 +36,7 @@ const RootLayout = () => {
           headerTitle: getHeaderTitle(route, params),
           headerStyle: { backgroundColor: '#722F37' },
           headerTintColor: '#fff',
+          headerTitleAlign: 'center',
           headerTitleStyle: {
             fontWeight: "700",
             backgroundColor: '#722F37',
@@ -47,6 +49,7 @@ const RootLayout = () => {
         options={{
           headerTitle: "News",
           presentation: "modal",
+          headerTitleAlign: 'center',
           headerStyle: { backgroundColor: '#722F37' },
 
         }}
@@ -65,20 +68,23 @@ const RootLayout = () => {
         name="series/[id]"
         options={{
           headerTitle: "series Information",
+          headerTitleAlign: 'center',
           headerStyle: { backgroundColor: '#722F37' },
 
         }}
       />
     </Stack>
-  );
+  );  
 };
+
+
 
 const getHeaderTitle = (route, param) => {
   try {
     // Extract the query parameter from the route
-
+    const query = decodeURIComponent(route.params?.id);
     // Return a dynamic header title based on the query
-    return (route.params?.id).split("-")[1] ?? 'Match Summary';
+    return (query).split("sep1s@-")[1] ?? 'Match Summary';
 
   } catch (error) {
     console.log(error);

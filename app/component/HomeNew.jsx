@@ -50,6 +50,7 @@ function removeHtmlTags(text = "") {
     return "";
   }
 }
+const width1 = Dimensions.get("window").width - 40;
 const NewsComp = ({ item }) => (
   <Link
     href={"/news/" + item.news_id}
@@ -61,7 +62,7 @@ const NewsComp = ({ item }) => (
         marginVertical: 10,
         rowGap: 5,
         gap: 5,
-        padding: 5,
+        alignItems: "center"
       },
     ]}
   >
@@ -71,9 +72,9 @@ const NewsComp = ({ item }) => (
           uri: item?.image || "",
         }}
         style={{
-          width: Dimensions.get("window").width - 46,
+          width: width1,
           height: 200,
-          borderRadius: 8,
+
         }}
       />
     </View>
@@ -83,7 +84,7 @@ const NewsComp = ({ item }) => (
         style={{
           fontWeight: 500,
           fontSize: 14,
-          width: Dimensions.get("window").width - 40,
+          width: width1,
         }}
       >
         {item.title}
@@ -100,16 +101,15 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    paddingHorizontal: 8,
-    paddingVertical: 2,
+
 
   },
   titles: {
-    paddingHorizontal: 10,
     backgroundColor: "#c3c3c3",
     marginVertical: 5,
     color: "#FFFFFF",
     minHeight: 30,
+    width: width1,
     justifyContent: "center",
     borderRadius: 10,
     alignContent: "center",

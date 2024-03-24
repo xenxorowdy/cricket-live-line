@@ -26,13 +26,13 @@ const matchDetail = [
   "Points Table",
 ];
 
-import { InterstitialAd, AdEventType, TestIds, BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, } from 'react-native-google-mobile-ads';
+// import { InterstitialAd, AdEventType, TestIds, BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, } from 'react-native-google-mobile-ads';
 
-const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-1715488426615455/4262888413';
+// const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-1715488426615455/4262888413';
 
-const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-  keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping']
-});
+// const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+//   keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping']
+// });
 const MatchDetail = ({ matchId }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const handleChangeTab = (data, index) => {
@@ -107,8 +107,10 @@ const MatchDetail = ({ matchId }) => {
     setMatchHistory(data ?? {});
   };
   const fetchPointsTable = async (id) => {
+    setLoading(true);
     const data = await pointsTableBySeriesId(id);
     setMatchPointsTable(data ?? {});
+    setLoaded(false);
   };
 
   const debouncedRender = _.debounce(async () => {
@@ -133,22 +135,22 @@ const MatchDetail = ({ matchId }) => {
   // if (!loaded) {
   //   return null;
   // }
-  const adUnit = __DEV__
-    ? TestIds.ADAPTIVE_BANNER
-    : "ca-app-pub-1715488426615455/2952778381";
+  // const adUnit = __DEV__
+  //   ? TestIds.ADAPTIVE_BANNER
+  //   : "ca-app-pub-1715488426615455/2952778381";
 
-  useEffect(() => {
-    const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
-      setLoaded(true);
-      interstitial.show()
-    });
+  // useEffect(() => {
+  //   const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+  //     setLoaded(true);
+  //     interstitial.show()
+  //   });
 
-    //  Start loading the interstitial straight away
-    interstitial.load();
+  //   //  Start loading the interstitial straight away
+  //   interstitial.load();
 
-    //  Unsubscribe from events on unmount
-    return unsubscribe;
-  }, []);
+  //   //  Unsubscribe from events on unmount
+  //   return unsubscribe;
+  // }, []);
   useEffect(() => {
     setLoading(true)
     fetchResult();
@@ -156,8 +158,9 @@ const MatchDetail = ({ matchId }) => {
     fetchInfo();
     fetchScoreBoard();
     fetchHistory();
+    if (currentIndex == 4) fetchPointsTable(matchInfo?.series_id);
   }, [currentIndex]);
-  if (loading && matchResult?.length) return <Loading />;
+  if (loading || matchResult?.length) return <Loading />;
   return (
     <View style={{}}>
       <TopTab
@@ -173,10 +176,10 @@ const MatchDetail = ({ matchId }) => {
       {currentIndex === 4 && (
         <PointsTable matchPointsTable={matchPointsTable} />
       )}
-      <BannerAd
+      {/* <BannerAd
         unitId={adUnit}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      />
+      /> */}
 
     </View>
   );

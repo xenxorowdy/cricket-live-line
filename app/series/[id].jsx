@@ -20,10 +20,10 @@ import Venue from "../component/Venue";
 import PlayerTeam from "./playerInfo";
 import Loading from "../Loading";
 import { LinearGradient } from "expo-linear-gradient";
-import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
-const adUnit = __DEV__
-  ? TestIds.ADAPTIVE_BANNER
-  : "ca-app-pub-1715488426615455/2952778381";
+// import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
+// const adUnit = __DEV__
+//   ? TestIds.ADAPTIVE_BANNER
+//   : "ca-app-pub-1715488426615455/2952778381";
 
 
 const SeriesInfo = () => {
@@ -116,10 +116,10 @@ const SeriesInfo = () => {
           {/* {index == 4 && <Text>stats</Text>} */}
           {index == 3 && <Venue item={venues} />}
           {index == 4 && <HomeNew id={news} />}
-          <BannerAd
+          {/* <BannerAd
             unitId={adUnit}
             size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-          />
+          /> */}
           {/* {index == 5 && <Venue data={news} />} */}
         </View>
       </ScrollView>

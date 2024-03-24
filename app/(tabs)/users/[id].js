@@ -14,16 +14,16 @@ import CusText from "../../component/CusText";
 import { Boxes } from "../../component/Carousel";
 import { RecentMatches } from "../../api";
 import { LinearGradient } from "expo-linear-gradient";
-import { RewardedAd, RewardedAdEventType, TestIds,BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
+// import { RewardedAd, RewardedAdEventType, TestIds,BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
-const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
+// const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
 
-const rewarded = RewardedAd.createForAdRequest(adUnitId, {
-  keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping','food','fantasy'],
-});
-  const adUnit = __DEV__
-    ? TestIds.ADAPTIVE_BANNER
-    : "ca-app-pub-1715488426615455/2952778381";
+// const rewarded = RewardedAd.createForAdRequest(adUnitId, {
+//   keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping','food','fantasy'],
+// });
+//   const adUnit = __DEV__
+//     ? TestIds.ADAPTIVE_BANNER
+//     : "ca-app-pub-1715488426615455/2952778381";
 
 
 const getCurrentDate = () => {
@@ -97,17 +97,17 @@ const UserPage = () => {
       <LinearGradient colors={['#722F37', '#333333', '#333433']} style={styles.scrollView} >
 
     <View style={styles.scrollView}>
-      <SafeAreaView style={{ backgroundColor: "#800000",height:40 }}/>
+      <SafeAreaView style={{ }}/>
        
         <TopTab
           option={option}
           handleChangeTab={handleChange}
           currentIndex={index}
       />
-         <BannerAd
+         {/* <BannerAd
         unitId={adUnit}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      />
+      /> */}
         {/* {[0, 1, 2, 3, 4, 5, 6].map((ele, index) => (
         <List key={index} />
       ))} */}
@@ -168,7 +168,7 @@ export default UserPage;
 
 const styles = StyleSheet.create({
   scrollView: {
-    height: Dimensions.get("window").height,
+
     gap: 5,
     // marginHorizontal: 20,
   },

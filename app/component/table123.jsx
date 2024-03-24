@@ -11,10 +11,18 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 //     { over: 15, session: '132-134', current: '128/4', other: '22-24 CSK' }
 // ];
 
-const App = ({ cricketData }) => {
+const App = ({ cricketData, cur }) => {
+    if (!cricketData?.length) return null;
     return (
         <ScrollView style={styles.container}>
+            <Text style={{ color: "#000", fontSize: 16, marginLeft: 20, fontWeight: "700" }} >{cur}</Text>
             <View style={styles.table}>
+                <View style={styles.row}>
+                    <Text style={styles.cell}>Over</Text>
+                    <Text style={styles.cell}>Session</Text>
+                    <Text style={styles.cell}>Score </Text>
+                    <Text style={styles.cell}>Rate</Text>
+                </View>
                 {cricketData?.map((item, index) => (
                     <View key={index} style={styles.row}>
                         <Text style={styles.cell}>{item.over}</Text>
@@ -32,6 +40,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 20,
+        width: "100%",
+        backgroundColor: "#fff",
+        paddingVertical: 5,
+        borderRadius: 10,
+        marginBottom: 20
     },
     table: {
         flexDirection: 'column',
@@ -43,6 +56,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
+
     },
     cell: {
         flex: 1,

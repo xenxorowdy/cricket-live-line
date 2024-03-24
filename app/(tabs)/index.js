@@ -12,20 +12,20 @@ import { Link, router } from "expo-router";
 import Home from "../component/Home.js";
 import TopTab from "../component/TopTab.jsx";
 import BackgroundFetchScreen from "../component/prevantScreen.jsx";
-import {
-  BannerAd,
-  BannerAdSize,
-  TestIds,
-} from "react-native-google-mobile-ads";
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
 import "expo-dev-client";
 import { LinearGradient } from "expo-linear-gradient";
 const HomePage = () => {
   const [refresh,setRefresh] = useState(true)
   const apiUrl = process.env.EXPO_PUBLIC_API_URL;
   console.log("hello", apiUrl);
-  const adUnitId = __DEV__
-    ? TestIds.ADAPTIVE_BANNER
-    : "ca-app-pub-1715488426615455/2952778381";
+  // const adUnitId = __DEV__
+  //   ? TestIds.ADAPTIVE_BANNER
+  //   : "ca-app-pub-1715488426615455/2952778381";
   const pullme = () => {
     setRefresh(true)
   }
@@ -40,10 +40,10 @@ const HomePage = () => {
       }
       style={styles.scrollView}>
       <Home refresh={refresh} setRefresh={setRefresh} />
-      <BannerAd
+      {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        />
+        /> */}
     </ScrollView>
         </LinearGradient>
   );

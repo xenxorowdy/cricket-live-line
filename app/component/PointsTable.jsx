@@ -19,14 +19,14 @@ const PointsTable = ({ matchPointsTable = [] }) => {
           <View
             style={{
               flexDirection: "row",
-              gap: 17,
+              gap: 15,
             }}
           >
             <Text style={styles.TextColor}>P</Text>
             <Text style={styles.TextColor}>W</Text>
             <Text style={styles.TextColor}>L</Text>
             <Text style={styles.TextColor}>T</Text>
-            <Text style={styles.TextColor}>PTS</Text>
+            <Text style={[styles.TextColor, { width: 45, justifyContent: "center", textAlign: "center" }]}>PTS</Text>
             <Text
               style={[
                 styles.TextColor,
@@ -74,16 +74,16 @@ const PointsTable = ({ matchPointsTable = [] }) => {
               <View
                 style={{
                   flexDirection: "row",
-                  gap: 19,
-                  marginHorizontal: 6,
+                  gap: 15,
+
                 }}
               >
                 <Text style={styles.TextColor}>{item.P}</Text>
                 <Text style={styles.TextColor}>{item.W}</Text>
                 <Text style={styles.TextColor}>{item.L}</Text>
                 <Text style={styles.TextColor}>{item.NR}</Text>
-                <Text style={styles.TextColor}>{item.Pts}</Text>
-                <Text style={styles.TextColor}>{item.NRR}</Text>
+                <Text style={[styles.TextColor, { width: 45, justifyContent: "center", textAlign: "center" }]}>{item.Pts}</Text>
+                <Text style={[styles.TextColor, { width: 48, justifyContent: "center", textAlign: "center" }]}>{item.NRR}</Text>
               </View>
             </View>
           )}

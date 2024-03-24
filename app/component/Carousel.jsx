@@ -46,10 +46,10 @@ export default function Carousel({ liveMatch = [] }) {
   if (match?.length === 0) {
     return <CusText>No live match</CusText>;
   }
-
+  let thrhold = 3;
   return (
-    <Swiper style={styles.wrapper} showsButtons={false} autoplayTimeout={5} autoplay={true}  >
-      {match?.map((match, index) => (
+    <Swiper style={styles.wrapper} showsButtons={false}   >
+      {match?.filter(ele => { if (ele.match_status === 'Upcoming') { if (thrhold > 0) { thrhold = thrhold - 1; return ele } } else return ele })?.map((match, index) => (
         <Boxes match={match} key={index} />
       ))}
     </Swiper>
@@ -59,7 +59,7 @@ export default function Carousel({ liveMatch = [] }) {
 export const Boxes = ({ e, match }) => {
   const [handlePress, setHandlePress] = useState();
   const handleBoxPress = () => {
-    let match1 = match?.match_id + `-${match?.team_a_short + 'vs' + match?.team_b_short}`;
+    let match1 = match?.match_id + `sep1s@-${match?.team_a_short + ' vs ' + match?.team_b_short}`;
     router.push(`match/${match1}`);
   };
   const matchStatusDisplay = () => {
