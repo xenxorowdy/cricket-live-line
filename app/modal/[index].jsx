@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import MatchTopHeading from "../component/matchTopHeading";
-import { CusLargeText } from "../utils";
 import { Entypo } from "@expo/vector-icons";
 import { matchPlayerSquadsInfo } from "../api";
 import { useLocalSearchParams } from "expo-router";
