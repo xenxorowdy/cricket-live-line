@@ -64,10 +64,11 @@ const styles = StyleSheet.create({
   },
   CategoryScrollViewItem: {
     alignItems: "center",
+    height: "auto",
   },
   CategoryText: {
     fontSize: 18,
-    height: 20,
+    height: 'auto',
     fontWeight: "bold",
     color: "#ccc",
     marginBottom: 4,

@@ -26,7 +26,7 @@ import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from
 import App from "./table123";
 import LinearGradient from "expo-linear-gradient";
 
-const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
+const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-2940991674659781/7941600350';
 
 const rewarded = RewardedAd.createForAdRequest(adUnitId, {
   keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping', 'food', 'fantasy'],
@@ -34,7 +34,7 @@ const rewarded = RewardedAd.createForAdRequest(adUnitId, {
 
 const adUnit = __DEV__
   ? TestIds.ADAPTIVE_BANNER
-  : "ca-app-pub-1715488426615455/8998912600";
+  : "ca-app-pub-2940991674659781/1317316404";
 
 
 const Live = ({ matchDetail = [] }) => {
@@ -172,23 +172,26 @@ const Live = ({ matchDetail = [] }) => {
               LIVE
             </Text>
           </View>
+          <Divider style={{ width: "100%", height: 0.5, borderColor: "#c3c3c3", marginVertical: 10 }} />
           <View style={[styles.boxtv]} >
             <View style={{ flexDirection: "row", gap: 4, alignItems: "center", padding: 5, width: "45%" }}>
-              <CusText>{matchDetail?.battingTeam}:</CusText>
-              <CusText style={{ fontWeight: "600" }} >{matchDetail?.battingScore}
+              <CusText style={{ fontWeight: "700" }} >{matchDetail?.battingTeam}:</CusText>
+              <CusText style={{ fontWeight: "800" }} >{matchDetail?.battingScore}
                 {/* {matchDetail?.team_a} */}
                 {/* {team_a_score} */}
               </CusText>
               {matchDetail?.powerplay == 1 &&
                 <View style={styles.powerplay}>
 
-                  <Text style={{ fontWeight: "600", color: "#FFC700", fontSize: 15 }} > P </Text>
+                  <Text style={{ fontWeight: "800", color: "#FFC700", fontSize: 15 }} > P </Text>
                 </View>
               }
             </View>
-            <View style={{ flexDirection: "row", gap: 2, alignItems: "center", padding: 5, width: "43%" }}>
-              <CusText>{matchDetail?.secbattingTeam}:</CusText>
-              <CusText style={{ fontWeight: "600", textWrap: "wrap", flexWrap: "wrap" }} >{matchDetail?.secbattingScore}
+            <View style={{ flexDirection: "row", gap: 2, alignItems: "center", padding: 5, width: "43%", justifyContent: "flex-end" }}>
+              {matchDetail?.secbattingScore?.toString() &&
+                <CusText style={{ fontWeight: "800" }} >{matchDetail?.secbattingTeam}:</CusText>
+              }
+              <CusText style={{ fontWeight: "800", textWrap: "wrap", flexWrap: "wrap" }} >{matchDetail?.secbattingScore}
                 {/* {matchDetail?.team_a} */}
                 {/* {team_a_score} */}
               </CusText>
@@ -282,9 +285,9 @@ const Live = ({ matchDetail = [] }) => {
             <View
               style={{
                 flexDirection: "row",
-                width: "60%",
+                width: "55%",
                 justifyContent: "flex-end",
-                gap: 10,
+                gap: 9,
                 paddingHorizontal: 30,
                 alignItems: "center",
               }}
@@ -492,7 +495,6 @@ const styles = StyleSheet.create({
   },
   boxtv: {
     width: "100%",
-    borderRadius: 10,
     flexDirection: "row",
     justifyContent: "space-between",
   },

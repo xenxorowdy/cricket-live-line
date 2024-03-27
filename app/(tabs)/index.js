@@ -23,7 +23,7 @@ const HomePage = () => {
   const [refresh,setRefresh] = useState(true)
   const adUnitId = __DEV__
     ? TestIds.ADAPTIVE_BANNER
-    : "ca-app-pub-1715488426615455/8998912600";
+    : "ca-app-pub-2940991674659781/1317316404";
   const pullme = () => {
     setRefresh(true)
   }

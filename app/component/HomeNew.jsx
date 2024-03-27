@@ -79,17 +79,18 @@ const NewsComp = ({ item }) => (
       />
     </View>
 
-    <View style={{ paddingVertical: 0, gap: 10, paddingVertical: 10, borderRadius: 8, borderColor: 10 }}>
+    <View style={{ paddingVertical: 0, gap: 1, paddingVertical: 10, borderRadius: 8, borderColor: 10 }}>
       <CusText
         style={{
           fontWeight: 500,
           fontSize: 14,
           width: width1,
+          paddingHorizontal: 7,
         }}
       >
         {item.title}
       </CusText>
-      <CusText style={{ fontSize: 9 }}>{item?.pub_date}</CusText>
+      <CusText style={{ fontSize: 10, paddingHorizontal: 3, color: "#111111" }}>{item?.pub_date}</CusText>
     </View>
   </Link>
 );

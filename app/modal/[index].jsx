@@ -32,7 +32,7 @@ const Modal = () => {
   const { team_a, team_b } = matchPlayerInfo;
   const adUnit = __DEV__
     ? TestIds.ADAPTIVE_BANNER
-    : "ca-app-pub-1715488426615455/8998912600";
+    : "ca-app-pub-2940991674659781/1317316404";
   return (
 
     <LinearGradient colors={['#722F37', '#333333', '#333433']}  >

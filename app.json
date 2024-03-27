@@ -5,8 +5,8 @@
     "scheme": "cricket-live-line",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/assets/wallpaper.jpg",
-    "userInterfaceStyle": "dark",
+    "icon": "./assets/wallpaper.jpg",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash1.png",
       "resizeMode": "cover",
@@ -57,7 +57,7 @@
     }
   },
   "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-1715488426615455~2553620885",
+    "android_app_id": "ca-app-pub-2940991674659781~5673663693",
     "ios_app_id": "ca-app-pub-1715488426615455~2553620885"
   }
 }

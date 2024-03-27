@@ -28,7 +28,7 @@ const matchDetail = [
 
 import { InterstitialAd, AdEventType, TestIds, BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, } from 'react-native-google-mobile-ads';
 
-const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-1715488426615455/3802426243';
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-2940991674659781/7188590189';
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping']
@@ -137,7 +137,7 @@ const MatchDetail = ({ matchId }) => {
   // }
   const adUnit = __DEV__
     ? TestIds.ADAPTIVE_BANNER
-    : "ca-app-pub-1715488426615455/8998912600";
+    : "ca-app-pub-2940991674659781/1317316404";
 
   useEffect(() => {
     const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {

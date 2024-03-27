@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     cell: {
         flex: 1,
         textAlign: 'center',
+        fontWeight: "800"
     },
 });
 

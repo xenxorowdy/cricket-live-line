@@ -16,14 +16,14 @@ import { RecentMatches } from "../../api";
 import { LinearGradient } from "expo-linear-gradient";
 import { RewardedAd, RewardedAdEventType, TestIds,BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
-const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
+const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-2940991674659781/7941600350';
 
 const rewarded = RewardedAd.createForAdRequest(adUnitId, {
   keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping','food','fantasy'],
 });
   const adUnit = __DEV__
     ? TestIds.ADAPTIVE_BANNER
-    : "ca-app-pub-1715488426615455/8998912600";
+    : "ca-app-pub-2940991674659781/1317316404";
 
 
 const getCurrentDate = () => {
@@ -97,7 +97,7 @@ const UserPage = () => {
       <LinearGradient colors={['#722F37', '#333333', '#333433']} style={styles.scrollView} >
 
     <View style={styles.scrollView}>
-      <SafeAreaView style={{ }}/>
+      <SafeAreaView style={{ height:50}}/>
        
         <TopTab
           option={option}

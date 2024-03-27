@@ -12,7 +12,7 @@ const PointsTable = ({ matchPointsTable = [] }) => {
           style={[
             styles.box,
             { borderBottomWidth: 0.5, marginBottom: 0, paddingHorizontal: 10 },
-            { borderColor: "#fff" },
+            { borderColor: "#fff", opacity: 0.9 },
           ]}
         >
           <Text style={styles.TextColor}>Team</Text>
@@ -44,7 +44,7 @@ const PointsTable = ({ matchPointsTable = [] }) => {
             <View
               style={[
                 styles.rowBox,
-                { paddingVertical: 18, paddingHorizontal: 8 },
+                { paddingVertical: 18, paddingHorizontal: 8, opacity: 0.9 },
               ]}
             >
               <View style={{ flexDirection: "row", alignItems: "center" }}>

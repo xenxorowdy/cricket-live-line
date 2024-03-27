@@ -68,7 +68,7 @@ export default function Home({refresh,setRefresh}) {
   }, [refresh]);
     const adUnitId = __DEV__
     ? TestIds.ADAPTIVE_BANNER
-    : "ca-app-pub-1715488426615455/4262888413";
+    : "ca-app-pub-2940991674659781/7941600350";
   return (
     <View style={{ flex: 1, height: "100%" }}>
       <TopTab currentIndex={currentIndex} handleChangeTab={handleChangeTab} />

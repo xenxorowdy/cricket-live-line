@@ -46,7 +46,7 @@ export default function Carousel({ liveMatch = [] }) {
   if (match?.length === 0) {
     return <CusText>No live match</CusText>;
   }
-  let thrhold = 3;
+  let thrhold = 5;
   return (
     <Swiper style={styles.wrapper} showsButtons={false}   >
       {match?.filter(ele => { if (ele.match_status === 'Upcoming') { if (thrhold > 0) { thrhold = thrhold - 1; return ele } } else return ele })?.map((match, index) => (
@@ -158,7 +158,7 @@ export const Boxes = ({ e, match }) => {
       </View>
       <View style={styles.divider} />
       <View style={styles.displayFlexBottom}>
-        <View style={{ width: "70%" }}>
+        <View style={{ width: "60%" }}>
           <CusText
             numberOfLines={2}
             ellipsizeMode="tail"
@@ -167,14 +167,14 @@ export const Boxes = ({ e, match }) => {
             {matchStatusDisplay() || ""}
           </CusText>
         </View>
-        <View style={{ flexDirection: "row", gap: 5 }}>
+        <View style={{ flexDirection: "row", gap: 5, maxWidth: "35%" }}>
           <Text style={styles.text}> {match?.fav_team || ""} </Text>
           <View
             style={{
               backgroundColor: "green",
-              minWidth: 30,
+              minWidth: 20,
               height: 18,
-              borderRadius: 4,
+              borderRadius: 5,
               alignItems: "center",
             }}
           >
@@ -183,9 +183,9 @@ export const Boxes = ({ e, match }) => {
           <View
             style={{
               backgroundColor: "yellow",
-              minWidth: 30,
-              height: 18,
-              borderRadius: 4,
+              minWidth: 25,
+              height: 20,
+              borderRadius: 5,
               alignItems: "center",
             }}
           >
@@ -266,5 +266,7 @@ const styles = StyleSheet.create({
   dividerInset: {
     marginHorizontal: 20,
   },
+  minStyle: { backgroundColor: "red", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700", borderRadius: 6, elevation: 10 },
+  maxStyle: { backgroundColor: "green", textAlign: "center", paddingVertical: 3, paddingHorizontal: 5, color: "#fff", fontSize: 16, fontWeight: "700", borderRadius: 6, elevation: 10 },
 });
 AppRegistry.registerComponent("myproject", () => SwiperComponent);
