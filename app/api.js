@@ -8,7 +8,6 @@ export const LiveMatches = async () => {
   return await fetch(apiUrl + "liveMatchList/" + apiToken)
     .then((response) => response.json())
     .then((json) => json)
-    .catch((error) => console.error(apiUrl + "liveMatchList/" + apiToken," ",error));
 };
 
 /**
@@ -20,7 +19,7 @@ export const RecentMatches = async () => {
   return await fetch(apiUrl + "upcomingMatches/" + apiToken)
     .then((response) => response.json())
     .then((json) => json.data)
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };
 
 export const matchPlayerSquadsInfo = async (id) => {
@@ -66,7 +65,6 @@ export const HomeMatch = async () => {
   return await fetch(apiUrl + "homeList/" + apiToken)
     .then((response) => response.json())
     .then((json) => json)
-    .catch((error) => console.error(error));
 };
 
 // export const liveMatchById = async (id) => {
@@ -86,28 +84,27 @@ export const HomeMatch = async () => {
 //   return await fetch(apiUrl + "liveMatch/" + apiToken, requestOptions)
 //     .then((response) => response.json())
 //     .then((result) => result.data)
-//     .catch((error) => console.error(error));
+//     .catch((error) => console.log(error));
 // };
 export const liveMatchById = async (id) => {
   try {
     const data = new FormData();
     const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "multipart/form-data");
+    myHeaders.append("Content-Type", "multipart/form-data");
     data.append("match_id", id);
- const requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: data,
-    redirect: "follow",
-  };
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: data,
+      redirect: "follow",
+    };
     let url = `${apiUrl}liveMatch/${apiToken}`;
-return await fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((result) => result.data)
-    .catch((error) => console.error(error));
-   
+    return await fetch(url, requestOptions)
+      .then((response) => response.json())
+      .then((result) => result.data)
+
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw error; // Optionally rethrow the error for handling further up the call stack
   }
 };
@@ -127,7 +124,7 @@ export const commentaryMatchById = async (id) => {
   return await fetch(apiUrl + "commentary/" + apiToken, requestOptions)
     .then((response) => response.json())
     .then((result) => result.data)
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };
 
 export const scorecardByMatchId = async (id) => {
@@ -146,7 +143,7 @@ export const scorecardByMatchId = async (id) => {
   return await fetch(apiUrl + "scorecardByMatchId/" + apiToken, requestOptions)
     .then((response) => response.json())
     .then((result) => result.data)
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };
 
 export const matchOddHistory = async (id) => {
@@ -165,7 +162,7 @@ export const matchOddHistory = async (id) => {
   return await fetch(apiUrl + "matchOddHistory/" + apiToken, requestOptions)
     .then((response) => response.json())
     .then((result) => result.data)
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };
 
 export const fetchmatchInfo = async (id) => {
@@ -184,7 +181,7 @@ export const fetchmatchInfo = async (id) => {
   return await fetch(apiUrl + "matchInfo/" + apiToken, requestOptions)
     .then((response) => response.json())
     .then((result) => result.data)
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };
 
 export const pointsTableBySeriesId = async (id) => {
@@ -203,7 +200,7 @@ export const pointsTableBySeriesId = async (id) => {
   return await fetch(apiUrl + "pointsTable/" + apiToken, requestOptions)
     .then((response) => response.json())
     .then((result) => result.data)
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };
 export const groupPointsTable = async (id) => {
   const myHeaders = new Headers();
@@ -221,20 +218,20 @@ export const groupPointsTable = async (id) => {
   return await fetch(apiUrl + "pointsTable/" + apiToken, requestOptions)
     .then((response) => response.json())
     .then((result) => result.data)
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };
 
 export const seriesList = async () => {
   return await fetch(apiUrl + "seriesList/" + apiToken)
     .then((response) => response.json())
     .then((json) => json.data)
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };
 export const newsList = async () => {
   return await fetch(apiUrl + "news/" + apiToken)
     .then((response) => response.json())
     .then((json) => json.data)
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };
 
 export const fetchNewsDetailsById = async (id) => {
@@ -253,7 +250,7 @@ export const fetchNewsDetailsById = async (id) => {
   return await fetch(apiUrl + "newsDetail/" + apiToken, requestOptions)
     .then((response) => response.json())
     .then((result) => result.data)
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };
 
 export const getVenueResult = async (id) => {
@@ -272,12 +269,12 @@ export const getVenueResult = async (id) => {
   return await fetch(apiUrl + "venuesBySeriesId/" + apiToken, requestOptions)
     .then((response) => response.json())
     .then((result) => result.data)
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };
- 
+
 export const getseriesFixtures = async (id) => {
 
-   const myHeaders = new Headers();
+  const myHeaders = new Headers();
   myHeaders.append("Content-Type", "multipart/form-data");
 
   const formdata = new FormData();
@@ -291,6 +288,6 @@ export const getseriesFixtures = async (id) => {
 
   return await fetch(apiUrl + "upcomingMatchesBySeriesId/" + apiToken, requestOptions)
     .then((response) => response.json())
-    .then((result) => {  console.log("result", result); return result.data })
-    .catch((error) => console.error(error));
+    .then((result) => { console.log("result", result); return result.data })
+    .catch((error) => console.log(error));
 }

@@ -114,7 +114,7 @@ const Commentary = (props) => {
           <Text style={{ fontSize: 30, fontWeight: 700, textAlign: "center", color: "#c3c3c3" }} >Commentary Not Available</Text>
         </View>
       }
-      <View style={{ gap: 15 }}>
+      <View style={{ gap: 15, width: "100%" }}>
 
         <FlatList
           data={overyByInning}
@@ -140,7 +140,7 @@ const ListCommentry = ({ data }) => {
           <CusText style={{ fontSize: 16, fontWeight: 600, color: "#fff" }} >
             {value?.data?.overs} {value?.data?.title}{" "}
           </CusText>
-          <View style={{ flexDirection: "row", gap: 10, width: "98%" }}>
+          <View style={{ flexDirection: "row", gap: 10, width: "91%" }}>
             <View
               style={{
                 backgroundColor: checkBGColor(value?.data?.runs),
@@ -153,7 +153,7 @@ const ListCommentry = ({ data }) => {
             >
               <CusText style={{ color: "#171717" }} >{value?.data?.runs}</CusText>
             </View>
-            <CusText style={{ textWrap: 'true', fontSize: 14, fontWeight: "500", color: "#fff" }} >{value?.data?.description}</CusText>
+            <CusText style={{ textWrap: "wrap", fontSize: 14, fontWeight: "500", color: "#fff" }} >{value?.data?.description}</CusText>
           </View>
         </View >
 

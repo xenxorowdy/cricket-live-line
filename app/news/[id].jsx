@@ -6,6 +6,7 @@ import RenderHtml from "react-native-render-html";
 import { fetchNewsDetailsById } from "../api";
 import CusText from "../component/CusText";
 import { LinearGradient } from "expo-linear-gradient";
+import StickyFooter from "../component/StickyFooter";
 
 const NewsComponent = ({ }) => {
   const [news, setNews] = useState({});
@@ -30,6 +31,7 @@ const NewsComponent = ({ }) => {
   return (
     <ScrollView style={{ backgroundColor: "#722F37" }} >
       <LinearGradient colors={['#722F37', '#333333', '#333433']} style={styles.scrollView} >
+        {/* <StickyFooter /> */}
         <Image
           source={{ uri: news?.image || "" }}
           style={{ width: "100%", height: 250 }}
@@ -69,7 +71,7 @@ export default NewsComponent;
 
 const styles = StyleSheet.create({
   scrollView: {
-    height: Dimensions.get("window").height,
+    minHeight: '100%',
     width: Dimensions.get("window").width,
     gap: 20,
     flexDirection: "column",

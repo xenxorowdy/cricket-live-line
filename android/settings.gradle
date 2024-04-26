@@ -1,4 +1,4 @@
-rootProject.name = 'cricket-live-line'
+rootProject.name = 'Ball by Ball Cricket Live Line'
 
 dependencyResolutionManagement {
   versionCatalogs {

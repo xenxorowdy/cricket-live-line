@@ -4,17 +4,17 @@ import * as Speech from "expo-speech";
 import { Audio } from 'expo-av';
 
 const ShowAnimation = ({ style, value, runs = 0, mute }) => {
-  async function requestPermission() {
-    if (Platform.OS === 'ios') {
-      const { status } = await Audio.requestPermissionsAsync();
-      if (status !== 'granted') {
-        alert('Sorry, we need permission to access your microphone.');
-      }
-    }
-  }
-  useEffect(() => {
-    requestPermission();
-  }, [])
+  // async function requestPermission() {
+  //   if (Platform.OS === 'ios') {
+  //     const { status } = await Audio.requestPermissionsAsync();
+  //     if (status !== 'granted') {
+  //       alert('Sorry, we need permission to access your microphone.');
+  //     }
+  //   }
+  // }
+  // useEffect(() => {
+  //   requestPermission();
+  // }, [])
 
   switch (value?.toLowerCase()) {
     case "wicket":
@@ -47,17 +47,24 @@ const ShowAnimation = ({ style, value, runs = 0, mute }) => {
 
 
 const ShowAnimationValue = ({ display = "", mute = false, fontSize = 24 }) => {
-  const speak = (display) => {
-    Speech.speak(display);
+
+  const speak = async () => {
+
+    Speech.speak(display, {
+      language: "en-IN",
+      pitch: 0.95,
+      rate: 1.05,
+    });
   };
   useEffect(() => {
-
-    if (mute == 'false') return;
-    speak(display);
+    if (mute != 'false') speak();
   }, [display]);
+  if (display === "undefined") return <view>
+    <Text> _ </Text>
+  </view>;
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
-      {display.toLowerCase().includes('out') && !display.toLowerCase().includes('time') && !display.toLowerCase().includes('not') &&
+      {display.toLowerCase().includes('out') && !display.toLowerCase().includes('time') && !display.toLowerCase().includes('not') && !display.toLowerCase().includes('player') &&
         <Image
           source={require("../../assets/out.png")}
           style={{ width: 60, height: 60 }}
@@ -86,7 +93,7 @@ const ShowAnimationValue = ({ display = "", mute = false, fontSize = 24 }) => {
           source={require("../../assets/spinning_ball.gif")}
           style={{ width: 60, height: 60 }}
         />}
-      <Text style={{ color: "#000", fontSize: fontSize, fontWeight: 700 }}>
+      <Text style={{ textWrap: 'wrap', color: "#000", fontSize: fontSize, fontWeight: 700 }}>
         {display}
       </Text>
     </View>

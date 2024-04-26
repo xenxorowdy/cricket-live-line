@@ -6,6 +6,7 @@ import {
   Dimensions,
   FlatList,
   SafeAreaView,
+  Platform,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
@@ -14,7 +15,8 @@ import CusText from "../../component/CusText";
 import { Boxes } from "../../component/Carousel";
 import { RecentMatches } from "../../api";
 import { LinearGradient } from "expo-linear-gradient";
-// import { RewardedAd, RewardedAdEventType, TestIds,BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
+import StickyFooter from "../../component/StickyFooter";
+import { RewardedAd, RewardedAdEventType, TestIds,BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
 // const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
 
@@ -24,6 +26,11 @@ import { LinearGradient } from "expo-linear-gradient";
 //   const adUnit = __DEV__
 //     ? TestIds.ADAPTIVE_BANNER
 //     : "ca-app-pub-1715488426615455/2952778381";
+
+const adUnit = __DEV__
+  ? TestIds.ADAPTIVE_BANNER :
+  Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
+    : "ca-app-pub-1715488426615455/2952778381";
 
 
 const getCurrentDate = () => {
@@ -94,35 +101,40 @@ const UserPage = () => {
 
   // <ScrollView >
   return (
-      <LinearGradient colors={['#722F37', '#333333', '#333433']} style={styles.scrollView} >
+    <LinearGradient colors={['#722F37', '#333333', '#333433']} style={styles.scrollView} >
 
-    <View style={styles.scrollView}>
-      <SafeAreaView style={{ }}/>
-       
+      <View style={styles.scrollView}>
+        <SafeAreaView style={{}} />
+
         <TopTab
           option={option}
           handleChangeTab={handleChange}
           currentIndex={index}
-      />
-         {/* <BannerAd
-        unitId={adUnit}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      /> */}
+        />
+
+
         {/* {[0, 1, 2, 3, 4, 5, 6].map((ele, index) => (
         <List key={index} />
       ))} */}
+        <View>
+          <BannerAd
+            unitId={adUnit}
+            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+          />
+          {/* <CusText>hello</CusText> */}
+        </View>
         <FlatList
           style={styles.scrollView}
           data={filtered}
           // renderItem={renderItem}
           renderItem={({ item, index }) => <List key={index} item={item} />}
           keyExtractor={(item, index) => `${item}_${index}`}
-          // onEndReached={onEndReached}
-          // onEndReachedThreshold={0.5} // Load data when 50% near the bottom
-          // ListFooterComponent={() => loading && <CusText>Loading...</CusText>}
+        // onEndReached={onEndReached}
+        // onEndReachedThreshold={0.5} // Load data when 50% near the bottom
+        // ListFooterComponent={() => loading && <CusText>Loading...</CusText>}
         />
-    
-    </View>
+
+      </View>
     </LinearGradient>
   );
   // </ScrollView>
@@ -154,8 +166,8 @@ const List = ({ item }) => {
   // }, [loaded]);
   return (
     <View>
-      <View style={{ marginVertical: 7,marginHorizontal:5 }}>
-        <Text style={{ fontWeight: "700",fontSize:16,color:"white" }}>{item?.date_wise}</Text>
+      <View style={{ marginVertical: 7, marginHorizontal: 5 }}>
+        <Text style={{ fontWeight: "700", fontSize: 16, color: "white" }}>{item?.date_wise}</Text>
       </View>
       <View style={styles.blockLiveContainer}>
         <Boxes match={item} />
@@ -170,6 +182,7 @@ const styles = StyleSheet.create({
   scrollView: {
 
     gap: 5,
+    marginBottom: 50
     // marginHorizontal: 20,
   },
   blockLiveContainer: {

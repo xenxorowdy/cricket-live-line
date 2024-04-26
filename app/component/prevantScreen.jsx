@@ -12,7 +12,7 @@ const BackgroundFetchScreen = () => {
   //     )
   //       .then((response) => response.json())
   //       .then((json) => setData(json))
-  //       .catch((error) => console.error(error));
+  //       .catch((error) => console.log(error));
   //   }, 5000); // Fetches data every 5 seconds
 
   //   return () => clearInterval(interval); // Clears the interval on component unmount

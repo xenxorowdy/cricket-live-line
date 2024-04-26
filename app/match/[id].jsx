@@ -3,6 +3,7 @@ import React from "react";
 import { useLocalSearchParams } from "expo-router";
 import MatchDetail from "../component/MatchDetail";
 import { LinearGradient } from "expo-linear-gradient";
+import StickyFooter from "../component/StickyFooter";
 
 const Match = () => {
 
@@ -10,7 +11,8 @@ const Match = () => {
   const idx = id.split("sep1s@-")[0];
   return (
     <LinearGradient colors={['#722F37', '#333333', '#333333']} style={styles.linearGradient}>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
+      {/* <StickyFooter /> */}
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false} style={styles.scrollView}>
         <MatchDetail matchId={idx} />
       </ScrollView>
     </LinearGradient>

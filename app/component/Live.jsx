@@ -2,6 +2,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -22,19 +23,23 @@ const option =
   "ball": "Ball Start",
   "wicket": "Wicket",
 };
-// import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
+import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 import App from "./table123";
 import LinearGradient from "expo-linear-gradient";
 
 // const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
 
-// const rewarded = RewardedAd.createForAdRequest(adUnitId, {
-//   keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping', 'food', 'fantasy'],
-// });
+const rewarded = RewardedAd.createForAdRequest(adUnitId, {
+  keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping', 'food', 'fantasy'],
+});
 
 // const adUnit = __DEV__
 //   ? TestIds.ADAPTIVE_BANNER
 //   : "ca-app-pub-1715488426615455/2952778381";
+const adUnit = __DEV__
+  ? TestIds.ADAPTIVE_BANNER :
+  Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
+    : "ca-app-pub-1715488426615455/2952778381";
 
 
 const Live = ({ matchDetail = [] }) => {
@@ -105,7 +110,7 @@ const Live = ({ matchDetail = [] }) => {
         console.log("Value saved successfully!");
       })
       .catch((error) => {
-        console.error("Error saving value:", error);
+        console.log("Error saving value:", error);
       });
   };
 
@@ -127,7 +132,7 @@ const Live = ({ matchDetail = [] }) => {
       return sessions;
 
     } catch (error) {
-      console.error("Error parsing session data:", error);
+      console.log("Error parsing session data:", error);
     }
   }
   // useEffect(() => {
@@ -158,7 +163,7 @@ const Live = ({ matchDetail = [] }) => {
               />
             )}
 
-            <ShowAnimation mute={mute} style={styles.tvStyle} value={matchDetail?.first_circle} />
+            <ShowAnimation mute={mute} style={styles.tvStyle} value={matchDetail?.first_circle ?? ''} />
             <Text
               style={{
                 position: "absolute",
@@ -186,7 +191,7 @@ const Live = ({ matchDetail = [] }) => {
                 </View>
               }
             </View>
-            <View style={{ flexDirection: "row", gap: 2, alignItems: "center", padding: 5, width: "43%" }}>
+            <View style={{ flexDirection: "row", gap: 2, alignItems: "center", padding: 5 }}>
               <CusText>{matchDetail?.secbattingTeam}:</CusText>
               <CusText style={{ fontWeight: "600", textWrap: "wrap", flexWrap: "wrap" }} >{matchDetail?.secbattingScore}
                 {/* {matchDetail?.team_a} */}
@@ -213,11 +218,12 @@ const Live = ({ matchDetail = [] }) => {
           >
             <View style={{ flexDirection: "row", gap: 10, marginHorizontal: 10 }}>
               {(matchDetail?.last4overs)?.map((item, index) => (
-                <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+                <View key={index} style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
                   <CusText style={{ fontWeight: "700", fontSize: 16, color: "#2D2B2A" }} >Over {item.over}</CusText>
                   {
-                    item.balls.map((ele, idx) =>
+                    item?.balls?.map((ele, idx) =>
                       <View
+                        key={idx}
                         style={{
                           height: 25,
                           backgroundColor: checkBGColor(ele?.toLowerCase()),
@@ -270,7 +276,7 @@ const Live = ({ matchDetail = [] }) => {
           </View>
         </View>
 
-        {matchDetail?.s_ovr &&
+        {matchDetail.s_ovr && matchDetail.s_ovr !== '0' &&
           <View style={[styles.box, { borderRadius: 10 }]}>
             <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center" }}>
               <Text style={styles.TextColor}>
@@ -282,10 +288,8 @@ const Live = ({ matchDetail = [] }) => {
             <View
               style={{
                 flexDirection: "row",
-                width: "60%",
                 justifyContent: "flex-end",
                 gap: 10,
-                paddingHorizontal: 30,
                 alignItems: "center",
               }}
             >
@@ -322,6 +326,10 @@ const Live = ({ matchDetail = [] }) => {
         }
         <View style={styles.divider} />
       </View>
+      <BannerAd
+        unitId={adUnit}
+        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      />
       <View style={{ flexDirection: "column", padding: 10, flex: 1, borderRadius: 10, backgroundColor: "#fff", width: "100%", }}>
         <View
           style={[
@@ -342,6 +350,7 @@ const Live = ({ matchDetail = [] }) => {
             <Text style={[styles.TextColor, { width: 35 }]}>SR</Text>
           </View>
         </View>
+
         <FlatList
           data={matchDetail?.batsman}
           keyExtractor={(item, index) => `${item}_${index}`}
@@ -380,10 +389,7 @@ const Live = ({ matchDetail = [] }) => {
             <CusText>Last Wkt: {matchDetail?.lastwicket?.player?.toString() + " " + matchDetail?.lastwicket?.run?.toString() + "(" + matchDetail?.lastwicket?.ball?.toString() + ")"}   </CusText>
           }
         </View>
-        {/* <BannerAd
-          unitId={adUnit}
-          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        /> */}
+
       </View>
       <View style={{ flexDirection: "column", padding: 10, flex: 1, borderRadius: 10, backgroundColor: "#fff", width: "100%", }}>
         <View
@@ -448,7 +454,6 @@ const Live = ({ matchDetail = [] }) => {
 
       <App cricketData={parseSessionData((matchDetail?.session?.split("Sessions<br />")?.[1]))} cur="1st Inning" />
       <App cricketData={parseSessionData((matchDetail?.session?.split("Sessions<br />")?.[2]))} cur="2nd Inning" />
-
     </View >
 
   );
@@ -521,7 +526,7 @@ const styles = StyleSheet.create({
   tvStyle: {
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
+    width: '98%',
     height: 120,
     flexDirection: "row",
     // Border color
