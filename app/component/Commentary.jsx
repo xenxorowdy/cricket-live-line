@@ -153,7 +153,7 @@ const ListCommentry = ({ data }) => {
             >
               <CusText style={{ color: "#171717" }} >{value?.data?.runs}</CusText>
             </View>
-            <CusText style={{ textWrap: "wrap", fontSize: 14, fontWeight: "500", color: "#fff" }} >{value?.data?.description}</CusText>
+            <CusText style={{ fontSize: 14, fontWeight: "500", color: "#fff" }} >{value?.data?.description}</CusText>
           </View>
         </View >
 

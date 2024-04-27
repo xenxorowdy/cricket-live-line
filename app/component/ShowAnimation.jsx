@@ -93,7 +93,7 @@ const ShowAnimationValue = ({ display = "", mute = false, fontSize = 24 }) => {
           source={require("../../assets/spinning_ball.gif")}
           style={{ width: 60, height: 60 }}
         />}
-      <Text style={{ textWrap: 'wrap', color: "#000", fontSize: fontSize, fontWeight: 700 }}>
+      <Text style={{ color: "#000", fontSize: fontSize, fontWeight: 700 }}>
         {display}
       </Text>
     </View>

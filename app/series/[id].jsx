@@ -25,7 +25,7 @@ import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from
 const adUnit = __DEV__
   ? TestIds.ADAPTIVE_BANNER :
   Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
-    : "ca-app-pub-1715488426615455/2952778381";
+    : "ca-app-pub-2940991674659781/5869704858";
 
 
 const SeriesInfo = () => {
@@ -51,6 +51,10 @@ const SeriesInfo = () => {
   const [newsData, setNewsData] = useState();
   const [fixturesData, setFixturesData] = useState();
   const [loading, setLoading] = useState(true);
+  const adUnitId = __DEV__
+    ? TestIds.ADAPTIVE_BANNER :
+    Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
+      : "ca-app-pub-2940991674659781/5869704858";
   const handleChangeTab = (data, index = 0) => {
     setIndex(index);
   };
@@ -105,6 +109,10 @@ const SeriesInfo = () => {
 
       <ScrollView style={styles.scrollView}>
         <View style={{ justifyContent: "center" }}>
+          <BannerAd
+            unitId={adUnit}
+            size={BannerAdSize.LEADERBOARD}
+          />
           <TopTab
             option={option}
             currentIndex={index}

@@ -34,7 +34,7 @@ const Modal = () => {
   const adUnit = __DEV__
     ? TestIds.ADAPTIVE_BANNER :
     Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
-      : "ca-app-pub-1715488426615455/2952778381";
+      : "ca-app-pub-2940991674659781/5869704858";
 
   return (
 

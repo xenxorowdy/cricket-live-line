@@ -29,17 +29,17 @@ import LinearGradient from "expo-linear-gradient";
 
 // const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
 
-const rewarded = RewardedAd.createForAdRequest(adUnitId, {
-  keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping', 'food', 'fantasy'],
-});
+// const rewarded = RewardedAd.createForAdRequest(adUnitId, {
+//   keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping', 'food', 'fantasy'],
+// });
 
 // const adUnit = __DEV__
 //   ? TestIds.ADAPTIVE_BANNER
-//   : "ca-app-pub-1715488426615455/2952778381";
+//   : "ca-app-pub-2940991674659781/5869704858";
 const adUnit = __DEV__
   ? TestIds.ADAPTIVE_BANNER :
   Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
-    : "ca-app-pub-1715488426615455/2952778381";
+    : "ca-app-pub-2940991674659781/5869704858";
 
 
 const Live = ({ matchDetail = [] }) => {
@@ -193,7 +193,7 @@ const Live = ({ matchDetail = [] }) => {
             </View>
             <View style={{ flexDirection: "row", gap: 2, alignItems: "center", padding: 5 }}>
               <CusText>{matchDetail?.secbattingTeam}:</CusText>
-              <CusText style={{ fontWeight: "600", textWrap: "wrap", flexWrap: "wrap" }} >{matchDetail?.secbattingScore}
+              <CusText style={{ fontWeight: "600", flexWrap: "wrap" }} >{matchDetail?.secbattingScore}
                 {/* {matchDetail?.team_a} */}
                 {/* {team_a_score} */}
               </CusText>

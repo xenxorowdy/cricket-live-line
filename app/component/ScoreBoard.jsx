@@ -65,23 +65,25 @@ const ScoreBoard = ({ matchScoreBoard, matchInfo }) => {
         </View>
       </View> */}
       <Text style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}> {result}</Text>
-      <CollapseCustom team={team1} >
-        <ScoreBoradTable
-          team={team1}
-          batsman={team1Score?.batsman}
-          bowler={team1Score?.bolwer}
-          fallwicket={team1Score?.fallwicket}
-        />
-      </CollapseCustom>
-
-      <CollapseCustom team={team2}>
-        <ScoreBoradTable
-          team={team2}
-          batsman={team2Score?.batsman}
-          bowler={team2Score?.bolwer}
-          fallwicket={team2Score?.fallwicket}
-        />
-      </CollapseCustom>
+      {team1 &&
+        <CollapseCustom team={team1} >
+          <ScoreBoradTable
+            team={team1}
+            batsman={team1Score?.batsman}
+            bowler={team1Score?.bolwer}
+            fallwicket={team1Score?.fallwicket}
+          />
+        </CollapseCustom>
+      }
+      {team2 &&
+        <CollapseCustom team={team2}>
+          <ScoreBoradTable
+            team={team2}
+            batsman={team2Score?.batsman}
+            bowler={team2Score?.bolwer}
+            fallwicket={team2Score?.fallwicket}
+          />
+        </CollapseCustom>}
     </View>
   );
 };

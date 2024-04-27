@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Platform, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import TopTab from "./TopTab";
 import Live from "./Live";
@@ -28,14 +28,14 @@ const matchDetail = [
 import { useKeepAwake } from 'expo-keep-awake';
 
 import { InterstitialAd, AdEventType, TestIds, BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, } from 'react-native-google-mobile-ads';
-
+console.log("hello", Platform.OS)
 const adUnitId = __DEV__ ? TestIds.INTERSTITIAL :
   Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/4311386656' :
     'ca-app-pub-1715488426615455/4262888413';
 const adUnit = __DEV__
   ? TestIds.ADAPTIVE_BANNER :
   Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
-    : "ca-app-pub-1715488426615455/2952778381";
+    : "ca-app-pub-2940991674659781/5869704858";
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   keywords: ['fashion', 'clothing', 'shoes', 'casual', 'outfit', 'style', 'betting', 'cricket', 'football', 'sports', 'app', 'shoping']
@@ -145,7 +145,7 @@ const MatchDetail = ({ matchId }) => {
   // }
   // const adUnit = __DEV__
   //   ? TestIds.ADAPTIVE_BANNER
-  //   : "ca-app-pub-1715488426615455/2952778381";
+  //   : "ca-app-pub-2940991674659781/5869704858";
 
   useEffect(() => {
     const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {

@@ -74,7 +74,7 @@ export default function Home({ refresh, setRefresh }) {
   const adUnitId = __DEV__
     ? TestIds.ADAPTIVE_BANNER :
     Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
-      : "ca-app-pub-1715488426615455/2952778381";
+      : "ca-app-pub-2940991674659781/5869704858";
   return (
     <View style={{ flex: 1, height: "100%" }}>
       <TopTab currentIndex={currentIndex} handleChangeTab={handleChangeTab} />
@@ -85,7 +85,7 @@ export default function Home({ refresh, setRefresh }) {
       )}
       <BannerAd
         unitId={adUnitId}
-        size={BannerAdSize.MEDIUM_RECTANGLE}
+        size={BannerAdSize.LEADERBOARD}
       />
       {currentIndex == 0 && (
         <View>
