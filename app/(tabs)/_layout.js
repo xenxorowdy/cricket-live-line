@@ -10,15 +10,15 @@ import CusText from "../component/CusText";
 const { Navigator } = createMaterialTopTabNavigator();
 function LogoTitle() {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap:20 ,width:340,justifyContent:"flex-start"}} >
-    <Image
-      style={{ width: 35, height: 35, borderRadius: 20 }}
-      source={ require('../../assets/wallpaper.jpg') }
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20, width: 340, justifyContent: "flex-start" }} >
+      <Image
+        style={{ width: 35, height: 35, borderRadius: 20 }}
+        source={require('../../assets/wallpaper.png')}
       />
-      <CusText style={{fontSize:16,fontWeight:500,color:"#fff"}}>Ball by Ball Cricket Line</CusText>
-      </View>
+      <CusText style={{ fontSize: 16, fontWeight: 500, color: "#fff" }}>Cricket Boss Live Line</CusText>
+    </View>
   );
-}   
+}
 export default function HomeLayout() {
   return (
     <>
@@ -30,21 +30,21 @@ export default function HomeLayout() {
             title: "Home",
             tabBarActiveTintColor: '#11BA8C',
             tabBarIcon: ({ color }) => <FontAwesome size={22} name="home" color={color} />,
-            headerStyle: { backgroundColor: '#722F37' },
-          headerTintColor: '#722F37',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            color: '#722F37',
-            backgroundColor:'#722F37',
-          },
-headerTitle: props => <LogoTitle {...props} />,
+            headerStyle: { backgroundColor: '#24AEFA' },
+            headerTintColor: '#24AEFA',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              color: '#24AEFA',
+              backgroundColor: '#24AEFA',
+            },
+            headerTitle: props => <LogoTitle {...props} />,
           }}
-          
+
         />
         <Tabs.Screen
           name="users/[id]"
           options={{
-            headerShown:false,
+            headerShown: false,
             headerTitle: "Upcoming Matches",
             tabBarActiveTintColor: '#11BA8C',
             title: "Upcoming Matches",

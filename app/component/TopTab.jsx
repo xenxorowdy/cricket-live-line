@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,19 +14,19 @@ const TopTab = ({
   handleChangeTab,
 }) => {
   return (
-    <ScrollView
+    <FlatList
       horizontal
-      showHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.CategoryScrollViewStyle}
-    >
-      {option?.map((data, index) => (
+      showsHorizontalScrollIndicator={false}
+      data={option}
+      gap={40}
+      style={styles?.CategoryScrollViewStyle}
+      renderItem={({ item, index }) => (
         <View
           styles={styles?.CategoryScrollViewContainer}
-          key={index.toString()}
         >
           <TouchableOpacity
             style={styles.CategoryScrollViewItem}
-            onPress={() => handleChangeTab(data, index)}
+            onPress={() => handleChangeTab(item, index)}
           >
             <Text
               style={[
@@ -33,33 +34,30 @@ const TopTab = ({
                 currentIndex == index ? { color: "#21DA8C" } : {},
               ]}
             >
-              {data}
+              {item}
             </Text>
             {currentIndex === index && (
               <View
-                style={[styles.ActiveCategory, { width: 2 + data.length * 10 }]}
+                style={[styles.ActiveCategory, { width: 2 + item.length * 10 }]}
               />
             )}
           </TouchableOpacity>
         </View>
-      ))}
-    </ScrollView>
+      )}
+    />
   );
 };
 const styles = StyleSheet.create({
   CategoryScrollViewStyle: {
-    paddingHorizontal: 10,
-    marginVertical: 10,
     flexDirection: "row",
-    height: 40,
-    gap: 20,
+    height: 50,
   },
   CategoryScrollViewContainer: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
   },
   ActiveCategory: {
-    height: 1,
-
+    height: 2,
+    bottom: 7,
     backgroundColor: "#21DA8C",
   },
   CategoryScrollViewItem: {
@@ -67,10 +65,11 @@ const styles = StyleSheet.create({
   },
   CategoryText: {
     fontSize: 18,
-    height: 20,
+    minHeight: 25,
     fontWeight: "bold",
+    margin: 10,
+
     color: "#ccc",
-    marginBottom: 4,
   },
 });
 export default TopTab;

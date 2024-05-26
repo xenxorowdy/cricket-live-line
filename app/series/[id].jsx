@@ -20,12 +20,12 @@ import Venue from "../component/Venue";
 import PlayerTeam from "./playerInfo";
 import Loading from "../Loading";
 import { LinearGradient } from "expo-linear-gradient";
-import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
+// import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 
-const adUnit = __DEV__
-  ? TestIds.ADAPTIVE_BANNER :
-  Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
-    : "ca-app-pub-2940991674659781/5869704858";
+// const adUnit = __DEV__
+//   ? TestIds.ADAPTIVE_BANNER :
+//   Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
+//     : "ca-app-pub-2940991674659781/5869704858";
 
 
 const SeriesInfo = () => {
@@ -51,10 +51,10 @@ const SeriesInfo = () => {
   const [newsData, setNewsData] = useState();
   const [fixturesData, setFixturesData] = useState();
   const [loading, setLoading] = useState(true);
-  const adUnitId = __DEV__
-    ? TestIds.ADAPTIVE_BANNER :
-    Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
-      : "ca-app-pub-2940991674659781/5869704858";
+  // const adUnitId = __DEV__
+  //   ? TestIds.ADAPTIVE_BANNER :
+  //   Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
+  //     : "ca-app-pub-2940991674659781/5869704858";
   const handleChangeTab = (data, index = 0) => {
     setIndex(index);
   };
@@ -105,14 +105,14 @@ const SeriesInfo = () => {
 
   if (loading) return <Loading />
   return (
-    <LinearGradient colors={['#722F37', '#333333', '#333433']}  >
+    <LinearGradient colors={['#24AEFA', '#FFA26B', '#333433']}  >
 
       <ScrollView style={styles.scrollView}>
         <View style={{ justifyContent: "center" }}>
-          <BannerAd
+          {/* <BannerAd
             unitId={adUnit}
             size={BannerAdSize.LEADERBOARD}
-          />
+          /> */}
           <TopTab
             option={option}
             currentIndex={index}
@@ -126,10 +126,10 @@ const SeriesInfo = () => {
           {/* {index == 4 && <Text>stats</Text>} */}
           {index == 3 && <Venue item={venues} />}
           {index == 4 && <HomeNew id={news} />}
-          <BannerAd
+          {/* <BannerAd
             unitId={adUnit}
             size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-          />
+          /> */}
           {/* {index == 5 && <Venue data={news} />} */}
         </View>
       </ScrollView>

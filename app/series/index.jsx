@@ -26,7 +26,7 @@ const SeriesInfo = () => {
   }, []);
 
   return (
-    <LinearGradient colors={['#722F37', '#333333', '#333433']}  >
+    <LinearGradient colors={['#24AEFA', '#FFA26B', '#333433']}  >
 
       <ScrollView style={styles.scrollView}>
         <View style={{ justifyContent: "center" }}>
@@ -48,7 +48,7 @@ const SeriesComp = ({ item }) => (
     style={[
       styles.subTopHeading,
       styles.titles,
-      { justifyContent: "space-between", paddingHorizontal: 10 },
+      { justifyContent: "space-between", paddingHorizontal: 1 },
     ]}
     onPress={() => {
       router.push("/series/" + item.series_id);
@@ -65,15 +65,15 @@ const SeriesComp = ({ item }) => (
         style={{ width: 50, height: 50, borderRadius: 50, objectFit: "contain" }}
       />
     </View>
-    <View style={{ gap: 5 }}>
-      <CusText style={{ fontSize: 15, fontWeight: 600 }}   >{item.series}</CusText>
+    <View style={{ gap: 5, width: "80%" }}>
+      <CusText style={{ fontSize: 13, fontWeight: 600 }}   >{item.series}</CusText>
       <View style={{ flexDirection: "row", gap: 5 }}>
         <CusText >{String(item?.total_matches) ?? "-"} Matches </CusText>
-        <CusText>{"*" + item.series_date + ""} </CusText>
+        <CusText style={{ fontSize: 12 }} >{"*" + item.series_date + ""} </CusText>
       </View>
     </View>
 
-    <AntDesign name="right" size={20} color="white" />
+    <AntDesign name="right" size={25} color="black" />
 
   </TouchableOpacity>
 );
@@ -90,8 +90,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 8,
-    paddingVertical: 5,
+    paddingVertical: 10,
   },
   titles: {
     paddingHorizontal: 5,
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 1,
     alignContent: "center",
-    marginHorizontal: 8,
+    marginHorizontal: 1,
     justifyContent: "center",
     // width: Dimensions.get("screen").width - 20,
   },

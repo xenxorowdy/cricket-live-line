@@ -10,10 +10,12 @@ const Match = () => {
   const { id } = useLocalSearchParams();
   const idx = id.split("sep1s@-")[0];
   return (
-    <LinearGradient colors={['#722F37', '#333333', '#333333']} style={styles.linearGradient}>
+    <LinearGradient colors={['#24AEFA', '#FFA26B', '#FFA26B']} style={styles.linearGradient}>
       {/* <StickyFooter /> */}
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false} style={styles.scrollView}>
-        <MatchDetail matchId={idx} />
+        <View style={styles.scrollView} >
+          <MatchDetail matchId={idx} />
+        </View>
       </ScrollView>
     </LinearGradient>
   );
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
 
-    height: Dimensions.get("window").height,
+    height: "100%",
 
     // marginHorizontal: 20,
   },

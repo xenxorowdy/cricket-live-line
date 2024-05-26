@@ -14,7 +14,7 @@ import { Link, router } from "expo-router";
 import Home from "../component/Home.js";
 import TopTab from "../component/TopTab.jsx";
 import BackgroundFetchScreen from "../component/prevantScreen.jsx";
-import { InterstitialAd, AdEventType, TestIds, BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, } from 'react-native-google-mobile-ads';
+// import { InterstitialAd, AdEventType, TestIds, BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, } from 'react-native-google-mobile-ads';
 
 
 import "expo-dev-client";
@@ -24,17 +24,17 @@ const HomePage = () => {
   const [refresh, setRefresh] = useState(true)
   const apiUrl = process.env.EXPO_PUBLIC_API_URL;
   console.log("hello", apiUrl);
-  const adUnitId = __DEV__
-    ? TestIds.ADAPTIVE_BANNER :
-    Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
-      : "ca-app-pub-2940991674659781/5869704858";
+  // const adUnitId = __DEV__
+  //   ? TestIds.ADAPTIVE_BANNER :
+  //   Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
+  //     : "ca-app-pub-2940991674659781/5869704858";
 
   const pullme = () => {
     setRefresh(true)
   }
 
   return (
-    <LinearGradient colors={['#722F37', '#333d33', '#333333']} style={styles.linearGradient}>
+    <LinearGradient colors={['#24AEFA', '#02C5A3', '#FFA26B']} style={styles.linearGradient}>
       <ScrollView
         contentContainerStyle={{ paddingBottom: 100 }}
         // scrollEventThrottle={16} // Adjust the throttle as needed
@@ -46,10 +46,10 @@ const HomePage = () => {
         }
         style={styles.scrollView}>
         <Home refresh={refresh} setRefresh={setRefresh} />
-        <BannerAd
+        {/* <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        />
+        /> */}
       </ScrollView>
 
       {/* <StickyFooter /> */}

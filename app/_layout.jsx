@@ -8,7 +8,7 @@ const RootLayout = () => {
         options={{
           headerShown: false,
           headerTitle: "",
-          headerStyle: { backgroundColor: '#722F37' },
+          headerStyle: { backgroundColor: '#24AEFA' },
           headerTintColor: '#fff',
           headerTitleAlign: 'center',
           headerTitleStyle: {
@@ -22,7 +22,7 @@ const RootLayout = () => {
         options={{
           headerTitle: "Team Information",
           presentation: "modal",
-          headerStyle: { backgroundColor: '#722F37' },
+          headerStyle: { backgroundColor: '#24AEFA' },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
@@ -34,12 +34,12 @@ const RootLayout = () => {
         name="match/[id]"
         options={({ route, params }) => ({
           headerTitle: getHeaderTitle(route, params),
-          headerStyle: { backgroundColor: '#722F37' },
+          headerStyle: { backgroundColor: '#24AEFA' },
           headerTintColor: '#fff',
           headerTitleAlign: 'center',
           headerTitleStyle: {
             fontWeight: "700",
-            backgroundColor: '#722F37',
+            backgroundColor: '#24AEFA',
           },
 
         })}
@@ -50,7 +50,7 @@ const RootLayout = () => {
           headerTitle: "News",
           presentation: "modal",
           headerTitleAlign: 'center',
-          headerStyle: { backgroundColor: '#722F37' },
+          headerStyle: { backgroundColor: '#24AEFA' },
 
         }}
 
@@ -60,7 +60,7 @@ const RootLayout = () => {
         options={{
           headerTitle: "Series Information",
           presentation: "modal",
-          headerStyle: { backgroundColor: '#722F37' },
+          headerStyle: { backgroundColor: '#24AEFA' },
 
         }}
       />
@@ -69,12 +69,12 @@ const RootLayout = () => {
         options={{
           headerTitle: "series Information",
           headerTitleAlign: 'center',
-          headerStyle: { backgroundColor: '#722F37' },
+          headerStyle: { backgroundColor: '#24AEFA' },
 
         }}
       />
     </Stack>
-  );  
+  );
 };
 
 

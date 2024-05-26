@@ -74,7 +74,7 @@ export const Boxes = ({ e, match }) => {
   return (
     <TouchableOpacity onPress={handleBoxPress} style={styles.slide1}>
       <View style={styles.displayFlex}>
-        <View style={{ width: "75%", gap: 5 }}>
+        <View style={{ width: "60%", gap: 5 }}>
           <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>
             {match?.series}
           </Text>
@@ -158,7 +158,7 @@ export const Boxes = ({ e, match }) => {
       </View>
       <View style={styles.divider} />
       <View style={styles.displayFlexBottom}>
-        <View style={{ width: "70%" }}>
+        <View style={{ width: "50%" }}>
           <CusText
             numberOfLines={2}
             ellipsizeMode="tail"

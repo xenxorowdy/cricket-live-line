@@ -23,7 +23,7 @@ const option =
   "ball": "Ball Start",
   "wicket": "Wicket",
 };
-import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
+// import { BannerAd, BannerAdSize, RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 import App from "./table123";
 import LinearGradient from "expo-linear-gradient";
 
@@ -36,10 +36,12 @@ import LinearGradient from "expo-linear-gradient";
 // const adUnit = __DEV__
 //   ? TestIds.ADAPTIVE_BANNER
 //   : "ca-app-pub-2940991674659781/5869704858";
-const adUnit = __DEV__
-  ? TestIds.ADAPTIVE_BANNER :
-  Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
-    : "ca-app-pub-2940991674659781/5869704858";
+
+//new one
+// const adUnit = __DEV__
+//   ? TestIds.ADAPTIVE_BANNER :
+//   Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
+//     : "ca-app-pub-2940991674659781/5869704858";
 
 
 const Live = ({ matchDetail = [] }) => {
@@ -141,320 +143,320 @@ const Live = ({ matchDetail = [] }) => {
   //   }
   // }, [matchDetail])
   return (
-    <View style={styles.container}>
-      <View style={[{ alignContent: "center", alignItems: "center", width: "100%" }]} >
-        <View style={{ flexDirection: "column", width: "100%", alignItems: "center", backgroundColor: "#fff", borderRadius: 10, padding: 10 }} >
-          <View style={styles.tvStyle}>
-            {mute == 'false' ? (
-              <Ionicons
-                onPress={handleMute}
-                name="volume-mute-outline"
-                size={24}
-                color="black"
-                style={{ position: "absolute", top: 5, left: 5 }}
-              />
-            ) : (
-              <Ionicons
-                onPress={handleMute}
-                name="volume-high-outline"
-                size={24}
-                color="black"
-                style={{ position: "absolute", top: 5, left: 5 }}
-              />
-            )}
+      <View style={styles.container}>
+        <View style={[{ alignContent: "center", alignItems: "center", width: "100%" }]} >
+          <View style={{ flexDirection: "column", width: "100%", alignItems: "center", backgroundColor: "#fff", borderRadius: 10, padding: 10 }} >
+            <View style={styles.tvStyle}>
+              {mute == 'false' ? (
+                <Ionicons
+                  onPress={handleMute}
+                  name="volume-mute-outline"
+                  size={24}
+                  color="black"
+                  style={{ position: "absolute", top: 5, left: 5 }}
+                />
+              ) : (
+                <Ionicons
+                  onPress={handleMute}
+                  name="volume-high-outline"
+                  size={24}
+                  color="black"
+                  style={{ position: "absolute", top: 5, left: 5 }}
+                />
+              )}
 
-            <ShowAnimation mute={mute} style={styles.tvStyle} value={matchDetail?.first_circle ?? ''} />
-            <Text
-              style={{
-                position: "absolute",
-                top: 5,
-                right: 5,
-                fontWeight: "600",
-                fontSize: 15,
-                color: checkColor('Live'),
-              }}
+              <ShowAnimation mute={mute} style={styles.tvStyle} value={matchDetail?.first_circle ?? ''} />
+              <Text
+                style={{
+                  position: "absolute",
+                  top: 5,
+                  right: 5,
+                  fontWeight: "600",
+                  fontSize: 15,
+                  color: checkColor('Live'),
+                }}
+              >
+                LIVE
+              </Text>
+            </View>
+            <View style={[styles.boxtv]} >
+              <View style={{ flexDirection: "row", gap: 4, alignItems: "center", padding: 5, width: "45%" }}>
+                <CusText>{matchDetail?.battingTeam}:</CusText>
+                <CusText style={{ fontWeight: "600" }} >{matchDetail?.battingScore}
+                  {/* {matchDetail?.team_a} */}
+                  {/* {team_a_score} */}
+                </CusText>
+                {matchDetail?.powerplay == 1 &&
+                  <View style={styles.powerplay}>
+
+                    <Text style={{ fontWeight: "600", color: "#FFC700", fontSize: 15 }} > P </Text>
+                  </View>
+                }
+              </View>
+              <View style={{ flexDirection: "row", gap: 2, alignItems: "center", padding: 5 }}>
+                <CusText>{matchDetail?.secbattingTeam}:</CusText>
+                <CusText style={{ fontWeight: "600", flexWrap: "wrap" }} >{matchDetail?.secbattingScore}
+                  {/* {matchDetail?.team_a} */}
+                  {/* {team_a_score} */}
+                </CusText>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={[
+            styles.box,
+            { borderBottomWidth: 0.5 },
+            { borderColor: "#fff", flexDirection: "column", gap: 10, borderRadius: 10 },
+          ]}
+        >
+          <Text style={[styles.TextColor, { fontSize: 16, fontWeight: "600" }]}>Last 4 Overs</Text>
+          <View style={{ flexDirection: "row", gap: 10, marginHorizontal: 10 }}>
+            <ScrollView
+              horizontal
+              ref={scrollViewRef}
+              contentContainerStyle={{ alignItems: 'flex-end' }}
+              showsHorizontalScrollIndicator={false}
             >
-              LIVE
-            </Text>
-          </View>
-          <View style={[styles.boxtv]} >
-            <View style={{ flexDirection: "row", gap: 4, alignItems: "center", padding: 5, width: "45%" }}>
-              <CusText>{matchDetail?.battingTeam}:</CusText>
-              <CusText style={{ fontWeight: "600" }} >{matchDetail?.battingScore}
-                {/* {matchDetail?.team_a} */}
-                {/* {team_a_score} */}
-              </CusText>
-              {matchDetail?.powerplay == 1 &&
-                <View style={styles.powerplay}>
-
-                  <Text style={{ fontWeight: "600", color: "#FFC700", fontSize: 15 }} > P </Text>
-                </View>
-              }
-            </View>
-            <View style={{ flexDirection: "row", gap: 2, alignItems: "center", padding: 5 }}>
-              <CusText>{matchDetail?.secbattingTeam}:</CusText>
-              <CusText style={{ fontWeight: "600", flexWrap: "wrap" }} >{matchDetail?.secbattingScore}
-                {/* {matchDetail?.team_a} */}
-                {/* {team_a_score} */}
-              </CusText>
-            </View>
-          </View>
-        </View>
-      </View>
-      <View
-        style={[
-          styles.box,
-          { borderBottomWidth: 0.5 },
-          { borderColor: "#fff", flexDirection: "column", gap: 10, borderRadius: 10 },
-        ]}
-      >
-        <Text style={[styles.TextColor, { fontSize: 16, fontWeight: "600" }]}>Last 4 Overs</Text>
-        <View style={{ flexDirection: "row", gap: 10, marginHorizontal: 10 }}>
-          <ScrollView
-            horizontal
-            ref={scrollViewRef}
-            contentContainerStyle={{ alignItems: 'flex-end' }}
-            showsHorizontalScrollIndicator={false}
-          >
-            <View style={{ flexDirection: "row", gap: 10, marginHorizontal: 10 }}>
-              {(matchDetail?.last4overs)?.map((item, index) => (
-                <View key={index} style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
-                  <CusText style={{ fontWeight: "700", fontSize: 16, color: "#2D2B2A" }} >Over {item.over}</CusText>
-                  {
-                    item?.balls?.map((ele, idx) =>
-                      <View
-                        key={idx}
-                        style={{
-                          height: 25,
-                          backgroundColor: checkBGColor(ele?.toLowerCase()),
-                          width: 25,
-                          borderRadius: 25,
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Text key={idx} style={{ color: (ele == 0 || ele > 3) ? "white" : "white", fontWeight: "bold", fontSize: 13, textAlign: "center", width: 28 }}  >
-                          {ele}
-                        </Text>
-                      </View>
-                    )
-                  }
-                  < CusText style={{ fontWeight: "600", fontSize: 16, color: "#2D2B2A" }} >= {" "} {item.runs}</CusText>
-                  <Divider style={{ width: 1, height: '100%' }} />
-                  <View style={styles} />
-                </View>
-              ))}
-            </View>
-          </ScrollView >
-        </View>
-      </View>
-      <View style={[styles.box, { flexDirection: "column", gap: 20, borderRadius: 2, width: "100%", paddingVertical: 10, borderRadius: 10, elevation: 10 }]}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.TextColor}>Run Rate: {`${matchDetail?.curr_rate?.toString() ?? '-'}`}</Text>
-          <Text style={styles.TextColor}>Target: {matchDetail?.target?.toString() || '-'}</Text>
-
-          {matchDetail?.rr_rate?.toString() &&
-            <Text style={styles.TextColor}>RRR: {matchDetail?.rr_rate?.toString()}</Text>}
-
-        </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.TextColor}>Run Needed: {matchDetail?.run_need?.toString() || '-'}</Text>
-
-          <Text style={styles.TextColor}>Ball Remaning: {matchDetail?.ball_rem?.toString()}</Text>
-
-
-
-        </View>
-      </View>
-      <View style={{ flexDirection: "column", gap: 10, borderRadius: 1, width: "100%", paddingVertical: 10, borderRadius: 10, elevation: 10 }} >
-        <View style={[styles.box, { borderRadius: 10 }]}>
-          <Text style={[styles.TextColor, { fontWeight: "600", fontSize: 16 }]}>Winning Chances:</Text>
-          <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
-            <Text style={styles.TextColor}> {matchDetail?.fav_team}</Text>
-            <Text style={[styles.TextColor, styles.minStyle]}>{ratefetch(matchDetail?.min_rate)} </Text>
-            <Text style={[styles.TextColor, styles.maxStyle]}>{ratefetch(matchDetail?.max_rate)}</Text>
+              <View style={{ flexDirection: "row", gap: 10, marginHorizontal: 10 }}>
+                {(matchDetail?.last4overs)?.map((item, index) => (
+                  <View key={index} style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+                    <CusText style={{ fontWeight: "700", fontSize: 16, color: "#2D2B2A" }} >Over {item.over}</CusText>
+                    {
+                      item?.balls?.map((ele, idx) =>
+                        <View
+                          key={idx}
+                          style={{
+                            height: 25,
+                            backgroundColor: checkBGColor(ele?.toLowerCase()),
+                            width: 25,
+                            borderRadius: 25,
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Text key={idx} style={{ color: (ele == 0 || ele > 3) ? "white" : "white", fontWeight: "bold", fontSize: 13, textAlign: "center", width: 28 }}  >
+                            {ele}
+                          </Text>
+                        </View>
+                      )
+                    }
+                    < CusText style={{ fontWeight: "600", fontSize: 16, color: "#2D2B2A" }} >= {" "} {item.runs}</CusText>
+                    <Divider style={{ width: 1, height: '100%' }} />
+                    <View style={styles} />
+                  </View>
+                ))}
+              </View>
+            </ScrollView >
           </View>
         </View>
+        <View style={[styles.box, { flexDirection: "column", gap: 20, borderRadius: 2, width: "100%", paddingVertical: 10, borderRadius: 10, elevation: 10 }]}>
+          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <Text style={styles.TextColor}>Run Rate: {`${matchDetail?.curr_rate?.toString() ?? '-'}`}</Text>
+            <Text style={styles.TextColor}>Target: {matchDetail?.target?.toString() || '-'}</Text>
 
-        {matchDetail.s_ovr && matchDetail.s_ovr !== '0' &&
+            {matchDetail?.rr_rate?.toString() &&
+              <Text style={styles.TextColor}>RRR: {matchDetail?.rr_rate?.toString()}</Text>}
+
+          </View>
+          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <Text style={styles.TextColor}>Run Needed: {matchDetail?.run_need?.toString() || '-'}</Text>
+
+            <Text style={styles.TextColor}>Ball Remaning: {matchDetail?.ball_rem?.toString()}</Text>
+
+
+
+          </View>
+        </View>
+        <View style={{ flexDirection: "column", gap: 10, borderRadius: 1, width: "100%", paddingVertical: 10, borderRadius: 10, elevation: 10 }} >
           <View style={[styles.box, { borderRadius: 10 }]}>
-            <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center" }}>
-              <Text style={styles.TextColor}>
-                {matchDetail?.s_ovr} Over Runs:
-              </Text>
-              <Text style={[styles.TextColor, styles.minStyle]}>{matchDetail?.s_min} </Text>
-              <Text style={styles.maxStyle}>{matchDetail?.s_max}</Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "flex-end",
-                gap: 10,
-                alignItems: "center",
-              }}
-            >
-              <Text style={styles.TextColor}> R X B:</Text>
-              <Text style={styles.minStyle}> {matchDetail?.s_run} </Text>
-              <Text style={styles.maxStyle}> {matchDetail?.s_ball} </Text>
+            <Text style={[styles.TextColor, { fontWeight: "600", fontSize: 16 }]}>Winning Chances:</Text>
+            <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+              <Text style={styles.TextColor}> {matchDetail?.fav_team}</Text>
+              <Text style={[styles.TextColor, styles.minStyle]}>{ratefetch(matchDetail?.min_rate)} </Text>
+              <Text style={[styles.TextColor, styles.maxStyle]}>{ratefetch(matchDetail?.max_rate)}</Text>
             </View>
           </View>
-        }
-        {matchDetail?.lambi_min &&
-          <View style={[styles.box, { flexDirection: "row", gap: 10, justifyContent: "space-between" }]}>
-            <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center", width: "60%" }}>
 
-              <Text style={styles.TextColor}>
-                {matchDetail?.current_inning}{inningsuffix(matchDetail?.current_inning)}  Inning's Total Runs:
-              </Text>
+          {matchDetail.s_ovr && matchDetail.s_ovr !== '0' &&
+            <View style={[styles.box, { borderRadius: 10 }]}>
+              <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center" }}>
+                <Text style={styles.TextColor}>
+                  {matchDetail?.s_ovr} Over Runs:
+                </Text>
+                <Text style={[styles.TextColor, styles.minStyle]}>{matchDetail?.s_min} </Text>
+                <Text style={styles.maxStyle}>{matchDetail?.s_max}</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  gap: 10,
+                  alignItems: "center",
+                }}
+              >
+                <Text style={styles.TextColor}> R X B:</Text>
+                <Text style={styles.minStyle}> {matchDetail?.s_run} </Text>
+                <Text style={styles.maxStyle}> {matchDetail?.s_ball} </Text>
+              </View>
             </View>
-            <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center", width: "35%", justifyContent: "flex-end" }} >
-              <Text style={styles.minStyle}> {matchDetail?.lambi_min} </Text>
-              <Text style={styles.maxStyle}> {matchDetail?.lambi_max} </Text>
+          }
+          {matchDetail?.lambi_min &&
+            <View style={[styles.box, { flexDirection: "row", gap: 10, justifyContent: "space-between" }]}>
+              <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center", width: "60%" }}>
+
+                <Text style={styles.TextColor}>
+                  {matchDetail?.current_inning}{inningsuffix(matchDetail?.current_inning)}  Inning's Total Runs:
+                </Text>
+              </View>
+              <View style={{ flexDirection: "row", gap: 3, textAlign: "center", alignItems: "center", width: "35%", justifyContent: "flex-end" }} >
+                <Text style={styles.minStyle}> {matchDetail?.lambi_min} </Text>
+                <Text style={styles.maxStyle}> {matchDetail?.lambi_max} </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  width: "60%",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={styles.minStyle}> {matchDetail?.s_run} </Text>
+                <Text style={styles.maxStyle}> {matchDetail?.s_ball} </Text>
+              </View>
             </View>
-            <View
-              style={{
-                flexDirection: "row",
-                width: "60%",
-                justifyContent: "flex-end",
-                alignItems: "center",
-              }}
-            >
-              <Text style={styles.minStyle}> {matchDetail?.s_run} </Text>
-              <Text style={styles.maxStyle}> {matchDetail?.s_ball} </Text>
-            </View>
-          </View>
-        }
-        <View style={styles.divider} />
-      </View>
-      <BannerAd
+          }
+          <View style={styles.divider} />
+        </View>
+        {/* <BannerAd
         unitId={adUnit}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      />
-      <View style={{ flexDirection: "column", padding: 10, flex: 1, borderRadius: 10, backgroundColor: "#fff", width: "100%", }}>
-        <View
-          style={[
-            styles.boxback,
-          ]}
-        >
-          <Text style={styles.TextColor}>Batter</Text>
+      /> */}
+        <View style={{ flexDirection: "column", padding: 10, flex: 1, borderRadius: 10, backgroundColor: "#fff", width: "100%", }}>
           <View
-            style={{
-              flexDirection: "row",
-              gap: 11,
-            }}
+            style={[
+              styles.boxback,
+            ]}
           >
-            <Text style={styles.TextColor}>R</Text>
-            <Text style={styles.TextColor}>B</Text>
-            <Text style={styles.TextColor}>4s</Text>
-            <Text style={styles.TextColor}>6s</Text>
-            <Text style={[styles.TextColor, { width: 35 }]}>SR</Text>
-          </View>
-        </View>
-
-        <FlatList
-          data={matchDetail?.batsman}
-          keyExtractor={(item, index) => `${item}_${index}`}
-          renderItem={({ item }) => (
-            <View style={[styles.rowBoxback]}>
-              <Text
-                style={[
-                  styles.TextColor,
-                  {
-                    textAlign: "center",
-                  },
-                ]}
-              >
-                {item?.name}
-              </Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  gap: 10,
-                }}
-              >
-                <Text style={styles.TextColor}>{item.run}</Text>
-                <Text style={styles.TextColor}>{item.ball}</Text>
-                <Text style={styles.TextColor}>{item.fours}</Text>
-                <Text style={styles.TextColor}>{item.sixes}</Text>
-                <Text style={[[styles.TextColor, { width: 35 }]]}>{Math.round(item.strike_rate)}</Text>
-              </View>
+            <Text style={styles.TextColor}>Batter</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                gap: 11,
+              }}
+            >
+              <Text style={styles.TextColor}>R</Text>
+              <Text style={styles.TextColor}>B</Text>
+              <Text style={styles.TextColor}>4s</Text>
+              <Text style={styles.TextColor}>6s</Text>
+              <Text style={[styles.TextColor, { width: 35 }]}>SR</Text>
             </View>
-          )}
-        />
-        <View style={styles.rowBoxback} >
+          </View>
 
-          <CusText>Partnership: {matchDetail?.partnership?.run?.toString() ?? '-'} ({matchDetail?.partnership?.ball?.toString() ?? '-'})</CusText>
+          <FlatList
+            data={matchDetail?.batsman}
+            keyExtractor={(item, index) => `${item}_${index}`}
+            renderItem={({ item }) => (
+              <View style={[styles.rowBoxback]}>
+                <Text
+                  style={[
+                    styles.TextColor,
+                    {
+                      textAlign: "center",
+                    },
+                  ]}
+                >
+                  {item?.name}
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    gap: 10,
+                  }}
+                >
+                  <Text style={styles.TextColor}>{item.run}</Text>
+                  <Text style={styles.TextColor}>{item.ball}</Text>
+                  <Text style={styles.TextColor}>{item.fours}</Text>
+                  <Text style={styles.TextColor}>{item.sixes}</Text>
+                  <Text style={[[styles.TextColor, { width: 35 }]]}>{Math.round(item.strike_rate)}</Text>
+                </View>
+              </View>
+            )}
+          />
+          <View style={styles.rowBoxback} >
 
-          {matchDetail?.lastwicket?.player &&
-            <CusText>Last Wkt: {matchDetail?.lastwicket?.player?.toString() + " " + matchDetail?.lastwicket?.run?.toString() + "(" + matchDetail?.lastwicket?.ball?.toString() + ")"}   </CusText>
-          }
-        </View>
+            <CusText>Partnership: {matchDetail?.partnership?.run?.toString() ?? '-'} ({matchDetail?.partnership?.ball?.toString() ?? '-'})</CusText>
 
-      </View>
-      <View style={{ flexDirection: "column", padding: 10, flex: 1, borderRadius: 10, backgroundColor: "#fff", width: "100%", }}>
-        <View
-          style={[
-            styles.boxback,
-          ]}
-        >
-          <Text style={styles.TextColor}>Bowler</Text>
-          <View
-            style={{
-              flexDirection: "row",
-              gap: 15,
-
-            }}
-          >
-            <Text style={styles.TextColor}>O</Text>
-            <Text style={styles.TextColor}>R</Text>
-            <Text style={styles.TextColor}>Wkt</Text>
-            <Text style={[styles.TextColor, { width: 32 }]}>Eco</Text>
+            {matchDetail?.lastwicket?.player &&
+              <CusText>Last Wkt: {matchDetail?.lastwicket?.player?.toString() + " " + matchDetail?.lastwicket?.run?.toString() + "(" + matchDetail?.lastwicket?.ball?.toString() + ")"}   </CusText>
+            }
           </View>
 
         </View>
+        <View style={{ flexDirection: "column", padding: 10, flex: 1, borderRadius: 10, backgroundColor: "#fff", width: "100%", }}>
+          <View
+            style={[
+              styles.boxback,
+            ]}
+          >
+            <Text style={styles.TextColor}>Bowler</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                gap: 15,
 
-        <FlatList
-          data={[matchDetail?.bolwer]}
-          keyExtractor={(item, index) => `${item}_${index}`}
-          renderItem={({ item }) => (
-            <View style={[styles.rowBoxback]}>
-              <View style={{ flexDirection: "row", gap: 2 }}>
-                <Text style={[styles.TextColor]}>{item?.name}</Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  gap: 14,
-                }}
-              >
-                <Text style={styles.TextColor}>{item?.over}</Text>
-                <Text style={styles.TextColor}>{item?.run}</Text>
-                <Text style={styles.TextColor}>{item?.wicket}</Text>
-                <Text style={styles.TextColor}>{item?.economy}</Text>
-              </View>
+              }}
+            >
+              <Text style={styles.TextColor}>O</Text>
+              <Text style={styles.TextColor}>R</Text>
+              <Text style={styles.TextColor}>Wkt</Text>
+              <Text style={[styles.TextColor, { width: 32 }]}>Eco</Text>
             </View>
-          )}
-        />
-      </View>
-      <View style={{ flexDirection: "column", padding: 0, flex: 1 }}>
-      </View>
-      <View style={{ flexDirection: "column", padding: 10, flex: 1, borderRadius: 10, backgroundColor: "#fff", width: "100%", }}>
-        <View
-          style={[
-            styles.boxback
-          ]}
-        >
-          <Text style={styles.TextColor}>Yet to bat</Text>
+
+          </View>
+
+          <FlatList
+            data={[matchDetail?.bolwer]}
+            keyExtractor={(item, index) => `${item}_${index}`}
+            renderItem={({ item }) => (
+              <View style={[styles.rowBoxback]}>
+                <View style={{ flexDirection: "row", gap: 2 }}>
+                  <Text style={[styles.TextColor]}>{item?.name}</Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    gap: 14,
+                  }}
+                >
+                  <Text style={styles.TextColor}>{item?.over}</Text>
+                  <Text style={styles.TextColor}>{item?.run}</Text>
+                  <Text style={styles.TextColor}>{item?.wicket}</Text>
+                  <Text style={styles.TextColor}>{item?.economy}</Text>
+                </View>
+              </View>
+            )}
+          />
+        </View>
+        <View style={{ flexDirection: "column", padding: 0, flex: 1 }}>
+        </View>
+        <View style={{ flexDirection: "column", padding: 10, flex: 1, borderRadius: 10, backgroundColor: "#fff", width: "100%", }}>
+          <View
+            style={[
+              styles.boxback
+            ]}
+          >
+            <Text style={styles.TextColor}>Yet to bat</Text>
+          </View>
+
+          <Text style={[{ fontSize: 18 }]}>
+            {matchDetail?.yet_to_bet?.join(", ")}
+          </Text>
         </View>
 
-        <Text style={[{ fontSize: 18 }]}>
-          {matchDetail?.yet_to_bet?.join(", ")}
-        </Text>
-      </View>
-
-      <App cricketData={parseSessionData((matchDetail?.session?.split("Sessions<br />")?.[1]))} cur="1st Inning" />
-      <App cricketData={parseSessionData((matchDetail?.session?.split("Sessions<br />")?.[2]))} cur="2nd Inning" />
-    </View >
+        <App cricketData={parseSessionData((matchDetail?.session?.split("Sessions<br />")?.[1]))} cur="1st Inning" />
+        <App cricketData={parseSessionData((matchDetail?.session?.split("Sessions<br />")?.[2]))} cur="2nd Inning" />
+      </View >
 
   );
 };

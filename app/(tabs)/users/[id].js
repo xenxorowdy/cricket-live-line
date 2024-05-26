@@ -16,7 +16,7 @@ import { Boxes } from "../../component/Carousel";
 import { RecentMatches } from "../../api";
 import { LinearGradient } from "expo-linear-gradient";
 import StickyFooter from "../../component/StickyFooter";
-import { RewardedAd, RewardedAdEventType, TestIds, BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
+// import { RewardedAd, RewardedAdEventType, TestIds, BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
 // const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-1715488426615455/4262888413';
 
@@ -27,10 +27,10 @@ import { RewardedAd, RewardedAdEventType, TestIds, BannerAd, BannerAdSize } from
 //     ? TestIds.ADAPTIVE_BANNER
 //     : "ca-app-pub-2940991674659781/5869704858";
 
-const adUnit = __DEV__
-  ? TestIds.ADAPTIVE_BANNER :
-  Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
-    : "ca-app-pub-2940991674659781/5869704858";
+// const adUnit = __DEV__
+//   ? TestIds.ADAPTIVE_BANNER :
+//   Platform.OS === 'ios' ? 'ca-app-pub-2940991674659781/2834653457'
+//     : "ca-app-pub-2940991674659781/5869704858";
 
 
 const getCurrentDate = () => {
@@ -101,17 +101,17 @@ const UserPage = () => {
 
   // <ScrollView >
   return (
-    <LinearGradient colors={['#722F37', '#333333', '#333433']} style={styles.scrollView} >
+    <LinearGradient colors={['#24AEFA', '#FFA26B', '#333433']} style={styles.scrollView} >
 
       <View style={styles.scrollView}>
         <SafeAreaView style={{}} />
         <View style={{ paddingTop: 50, width: "100%" }}>
 
-          <BannerAd
+          {/* <BannerAd
 
             unitId={adUnit}
             size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-          />
+          /> */}
         </View>
         <TopTab
           option={option}

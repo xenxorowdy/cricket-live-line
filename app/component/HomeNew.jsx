@@ -50,7 +50,12 @@ function removeHtmlTags(text = "") {
     return "";
   }
 }
+
+const { height, width } = Dimensions.get('window');
+const isTablet = height / width > 1.6;
 const width1 = Dimensions.get("window").width - 40;
+const componentHeight = isTablet ? 200 : 350;
+
 const NewsComp = ({ item }) => (
   <Link
     href={"/news/" + item.news_id}
@@ -73,8 +78,8 @@ const NewsComp = ({ item }) => (
         }}
         style={{
           width: width1,
-          height: 200,
-
+          minHeight: componentHeight,
+          objectFit: "fill"
         }}
       />
     </View>

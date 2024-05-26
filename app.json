@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "Ball by Ball Cricket Live Line",
+    "name": "Cricket Boss Live Line",
     "slug": "cricket-live-line",
     "scheme": "cricket-live-line",
-    "version": "1.1.6",
+    "version": "2.1.7",
     "orientation": "portrait",
-    "icon": "./assets/wallpaper.jpg",
+    "icon": "./assets/wallpaper.png",
     "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./assets/splash1.png",
+      "image": "./assets/Designer.png",
       "resizeMode": "cover",
       "backgroundColor": "#000000"
     },
@@ -22,7 +22,7 @@
         "NSMicrophoneUsageDescription": "This app requires access to convert text to speech."
       },
       "adaptiveIcon": {
-        "foregroundImage": "./assets/wallpaper.jpg",
+        "foregroundImage": "./assets/wallpaper.png",
         "backgroundColor": "#ffffff"
       }
     },
@@ -32,13 +32,13 @@
         "usesCleartextTraffic": true
       },
       "adaptiveIcon": {
-        "foregroundImage": "./assets/wallpaper.jpg",
+        "foregroundImage": "./assets/wallpaper.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.xenxo.cricketliveline"
     },
     "web": {
-      "favicon": "./assets/wallpaper.jpg"
+      "favicon": "./assets/wallpaper.png"
     },
     "plugins": [
       [
